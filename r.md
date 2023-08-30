@@ -1,17 +1,60 @@
+<!-- 
+## Rules
+All three corners (ie. vertices) of the triangle must be on the outer edge of the diagram.
+
+**Triangles**<br>
+<img height="200" src="https://raw.githubusercontent.com/daniel-citrus/Sim/main/dist/media/how-to-play/Triangle1.png">
+<img height="200" src="https://raw.githubusercontent.com/daniel-citrus/Sim/main/dist/media/how-to-play/Triangle2.png">
+
+**Non-Triangles**<br>
+<img height="200" src="https://raw.githubusercontent.com/daniel-citrus/Sim/main/dist/media/how-to-play/NonTriangle1.png">
+<img height="200" src="https://raw.githubusercontent.com/daniel-citrus/Sim/main/dist/media/how-to-play/NonTriangle2.png">
+
+## Gameplay
+<img height="200" src="https://raw.githubusercontent.com/daniel-citrus/Sim/main/dist/media/how-to-play/playing.gif">
+
+ -->
 <a name="readme-top"></a>
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/daniel-citrus/Todo-List">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/daniel-citrus/Sim">
+    <img src="readmefiles/sim white_animated.svg" alt="Sim Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Todo List</h3>
+<h1 align="center">Sim - The Pencil Game</h1>
   <p align="center">
-    project_description
+    Sim is a two-player game. Each player will take turns coloring any uncolored lines in the play area. The first player to create a triangle loses the match. 
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">Live Demo</a>
+    <a href="https://simthepencilgame.netlify.app/">Live Demo</a>
+    <br />
+    <h2>Gameplay</h2>
+    <img src="readmefiles/playing.gif" alt="Sim gameplay, players taking turns placing lines">
+    <br />
+    <h2>Rules</h2>
+    <p>
+    All three corners (ie. vertices) of the triangle must be on the outer edge of the diagram.
+    </p>
+    <h3>
+        Triangle
+    </h3>
+    <table border="0">
+ <tr>
+    <td><img src="readmefiles/Triangle1.png" alt="A losing triangle highlighted on the board"></td>
+    <td><img src="readmefiles/Triangle2.png" alt="A losing triangle highlighted on the board"></td>
+ </tr>
+</table>
+    <br />
+    <h3>
+    Non-Triangle
+    </h3>
+     <table border="0">
+ <tr>
+    <td><img src="readmefiles/NonTriangle1.png" alt="A non-triangle on the board"></td>
+    <td><img src="readmefiles/NonTriangle2.png" alt="A non-triangle on the board"></td>
+ </tr>
+</table>
     <br />
   </p>
 </div>
@@ -36,16 +79,12 @@
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started: To avoid retyping too much info
+This project aims to demonstrate the use of factory functions, complex algorithms, data structures, and encapsulation. The Computer opponent uses the Min-max algorithm with alpha-beta pruning to make smart decisions. The level of skill in these decisions vary depending on the selected difficulty.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -66,7 +105,6 @@ To setup this project locally you must have Node Package Manager ([npm](https://
 ### Prerequisites
 
 * npm
-
   ```sh
   npm install npm@latest -g
   ```
@@ -74,13 +112,10 @@ To setup this project locally you must have Node Package Manager ([npm](https://
 ### Installation
 
 1. Clone the repo
-
    ```sh
-   git clone https://github.com/daniel-citrus/Todo-List.git
+   git clone https://github.com/daniel-citrus/Sim.git
    ```
-
 2. Install NPM packages
-
    ```sh
    npm install
    ```
@@ -89,24 +124,22 @@ To setup this project locally you must have Node Package Manager ([npm](https://
 
 <!-- ROADMAP -->
 ## Roadmap
-
-* [ ] Todo Item Handler
-  * [ ] Generate todo item (Parameters: Title, Description, Due Date, Priority)
-* [ ] Sets (of Todo Items)
-  * [ ] Store sets containing todo items
-  * [ ] Generate set (empty, or populated with todo items)
-  * [ ] Delete set (use ID)
-  * [ ] Delete todo item from set (use ID)
-* [ ] DOM Features
-  * [ ] Sort by Title, Description, Due Date, or Priority
-  * [ ] Priority color indicator
-  * [ ] Search
-  * [ ] View all projects
-  * [ ] View all todos in each project
-  * [ ] Expand single todo item
-  * [ ] Delete a todo
-
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+- [x] Game board
+  - [x] Tracks each line
+  - [x] Check for losing triangles
+  - [x] Add new moves (including player number)
+  - [x] Reset the board
+  - [x] Provide available moves
+- [x] Bot
+  - [x] Random move
+  - [x] Move that does not result in a loss
+  - [x] Efficient move
+- [x] Game Director
+  - [x] Track current player
+  - [x] Controls front-end module
+  - [x] Controls game board
+  - [x] Controls bot
+- [x] Front-end module for UI operations
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -126,20 +159,14 @@ Project Link: [https://github.com/daniel-citrus/Sim](https://github.com/daniel-c
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
 
-* []()
-* []()
-* []()
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/calvo-daniel
 [product-screenshot]: readmefiles/sim%20white_animated.svg
+
 [html5-shield]: https://img.shields.io/badge/HTML5-%23222222?style=for-the-badge&logo=html5&logoColor=%23E34F26
 [html5-url]: https://html.spec.whatwg.org/
 [sass-shield]: https://img.shields.io/badge/SASS-%23CC6699?style=for-the-badge&logo=sass&logoColor=white
