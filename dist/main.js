@@ -26,7 +26,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
   \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../style/style.scss */ \"./src/style/style.scss\");\n/* harmony import */ var _set__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./set */ \"./src/scripts/set.js\");\n\r\n\r\n/* Database that contains all sets and todo items within each set. */\r\nlet brain = (()=> {\r\n    const sets = new Map();\r\n})();\r\n\r\n\r\n\r\nlet s = (0,_set__WEBPACK_IMPORTED_MODULE_1__.ItemSet)('Daniel','Karl','Jeff');\r\nconsole.log(s.search('Daniel'));\n\n//# sourceURL=webpack://todo-list/./src/scripts/main.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../style/style.scss */ \"./src/style/style.scss\");\n/* harmony import */ var _set__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./set */ \"./src/scripts/set.js\");\n\r\n\r\n\r\n/* Database that contains all sets and todo items within each set. */\r\nlet brain = (()=> {\r\n    const sets = new Map();\r\n\r\n    return {\r\n\r\n    }\r\n})();\r\n\r\nlet s = new _set__WEBPACK_IMPORTED_MODULE_1__[\"default\"]();\n\n//# sourceURL=webpack://todo-list/./src/scripts/main.js?");
 
 /***/ }),
 
@@ -36,7 +36,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sty
   \****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   ItemSet: () => (/* binding */ ItemSet)\n/* harmony export */ });\nlet ItemSet = (...items) => {\r\n    let storage = new Set();\r\n\r\n    items.forEach(item => {\r\n        storage.add(item);\r\n    })\r\n\r\n    function insert(item) {\r\n        storage.add(item);\r\n    }\r\n\r\n    \r\n    function remove(item) {\r\n        return storage.delete(item);\r\n    }\r\n\r\n    function search(item) {\r\n        return storage.has(item);\r\n    }\r\n\r\n    return {\r\n        insert,\r\n        remove,\r\n        search,\r\n    }\r\n}\r\n\n\n//# sourceURL=webpack://todo-list/./src/scripts/set.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Set)\n/* harmony export */ });\nclass Set {\r\n    constructor() {\r\n        this.storage = new Map();\r\n    }\r\n}\r\n\r\nSet.prototype.insert = function (key, item) {\r\n    this.storage.set(key, item);\r\n}\r\n\r\nSet.prototype.contains = function (key) {\r\n    return this.storage.has(key);\r\n}\r\n\r\nSet.prototype.remove = function (key) {\r\n    return this.storage.delete(key);\r\n}\r\n\n\n//# sourceURL=webpack://todo-list/./src/scripts/set.js?");
 
 /***/ })
 

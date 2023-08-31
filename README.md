@@ -94,14 +94,14 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [x] Generate todo item (Parameters: Title, Description, Due Date, Priority)
 * [x] Sets (of Todo Items)
   * [x] Track todo items
-  * [x] Generate set (empty or pre-populated with todo items)
+  * [x] Generate set
   * [x] Insert todo item
   * [x] Search for todo item
   * [x] Delete todo item
 * [ ] Brain
-  * [ ] Stores sets
-  * [ ] Delete set (use ID)
-  * [ ] Delete todo item from set (use ID)
+  * [ ] Stores sets (uses DOM elements as keys to set/todo item maps)
+  * [ ] Delete set
+  * [ ] Delete todo item from set
 * [ ] DOM Features
   * [ ] Sort by Title, Description, Due Date, or Priority
   * [ ] Priority color indicator

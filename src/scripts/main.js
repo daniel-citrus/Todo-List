@@ -1,11 +1,13 @@
 import "../style/style.scss";
+import Set from "./set";
 
 /* Database that contains all sets and todo items within each set. */
 let brain = (()=> {
     const sets = new Map();
+
+    return {
+
+    }
 })();
 
-import { ItemSet } from "./set";
-
-let s = ItemSet('Daniel','Karl','Jeff');
-console.log(s.search('Daniel'));
+let s = new Set();

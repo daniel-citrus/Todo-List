@@ -1,26 +1,17 @@
-export let ItemSet = (...items) => {
-    let storage = new Set();
-
-    items.forEach(item => {
-        storage.add(item);
-    })
-
-    function insert(item) {
-        storage.add(item);
+export default class Set {
+    constructor() {
+        this.storage = new Map();
     }
+}
 
-    
-    function remove(item) {
-        return storage.delete(item);
-    }
+Set.prototype.insert = function (key, item) {
+    this.storage.set(key, item);
+}
 
-    function search(item) {
-        return storage.has(item);
-    }
+Set.prototype.contains = function (key) {
+    return this.storage.has(key);
+}
 
-    return {
-        insert,
-        remove,
-        search,
-    }
+Set.prototype.remove = function (key) {
+    return this.storage.delete(key);
 }
