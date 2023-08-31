@@ -90,17 +90,17 @@ To setup this project locally you must have Node Package Manager ([npm](https://
 <!-- ROADMAP -->
 ## Roadmap
 
-* [x] Todo Item Handler
+* [x] Todo
   * [x] Generate todo item (Parameters: Title, Description, Due Date, Priority)
-* [x] Sets (of Todo Items)
+* [x] Project
   * [x] Track todo items
   * [x] Insert todo item
   * [x] Search for todo item
   * [x] Delete todo item
-* [ ] Brain
-  * [ ] Stores sets (uses DOM elements as keys to set/todo item maps)
-  * [ ] Delete set
-  * [ ] Delete todo item from set
+* [x] Brain (stores projects)
+  * [x] Create new projects and store into storage
+  * [x] Delete Projects
+  * [x] Delete Todo item from Project
 * [ ] DOM Features
   * [ ] Sort by Title, Description, Due Date, or Priority
   * [ ] Priority color indicator
