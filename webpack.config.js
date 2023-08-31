@@ -7,6 +7,10 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
+            },
+            {
                 test: /\.s[ac]ss$/i,
                 use: [
                     // Creates `style` nodes from JS strings
@@ -23,10 +27,16 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         filename: 'main.js',
     },
-    plugins: [new HtmlWebpackPlugin({
-        title: 'Todo List',
-        template: './src/template.html'
-    }),
-    new MiniCssExtractPlugin(),
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'Todo List',
+            template: './src/template.html'
+        }),
+        new MiniCssExtractPlugin(),
     ],
+    resolve: {
+        alias: {
+            Script: path.resolve(__dirname, 'src/scripts'),
+        }
+    },
 };

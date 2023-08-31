@@ -11,7 +11,7 @@
     project_description
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">Live Demo</a>
+    <a href="https://github.com/daniel-citrus/Todo-List">Live Demo</a>
     <br />
   </p>
 </div>
@@ -45,7 +45,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started: To avoid retyping too much info
+Todo List implements 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -90,11 +90,17 @@ To setup this project locally you must have Node Package Manager ([npm](https://
 <!-- ROADMAP -->
 ## Roadmap
 
-* [ ] Todo Item Handler
-  * [ ] Generate todo item (Parameters: Title, Description, Due Date, Priority)
+* [x] Todo Item Handler
+  * [x] Generate todo item (Parameters: Title, Description, Due Date, Priority)
 * [ ] Sets (of Todo Items)
-  * [ ] Store sets containing todo items
-  * [ ] Generate set (empty, or populated with todo items)
+  * [ ] Store todo items
+  * [ ] Generate set (empty or pre-populated with todo items)
+  * [ ] Insert todo item
+  * [ ] Search for todo item
+  * [ ] Delete todo item
+  <!-- Delete function returns FALSE for invalid deletes (value used by DOM handler) -->
+* [ ] Brain
+  * [ ] Stores sets
   * [ ] Delete set (use ID)
   * [ ] Delete todo item from set (use ID)
 * [ ] DOM Features
@@ -122,7 +128,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 [![LinkedIn][linkedin-shield]][linkedin-url]
 <br />
-Project Link: [https://github.com/daniel-citrus/Sim](https://github.com/daniel-citrus/Sim)
+Project Link: [https://github.com/daniel-citrus/Todo-List](https://github.com/daniel-citrus/Todo-List)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
