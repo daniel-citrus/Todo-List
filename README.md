@@ -101,6 +101,8 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [x] Create new projects and store into storage
   * [x] Delete Projects
   * [x] Delete Todo item from Project
+  * [ ] Store data in localStorage
+  * [ ] Load data from localStorage
 * [ ] DOM Features
   * [ ] Sort by Title, Description, Due Date, or Priority
   * [ ] Priority color indicator
