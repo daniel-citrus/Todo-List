@@ -1,13 +1,16 @@
 import "../style/style.scss";
-import Set from "./set";
 
-/* Database that contains all sets and todo items within each set. */
+/* Database that contains and manages sets */
 let brain = (()=> {
-    const sets = new Map();
+    /**
+     * Key: DOM Element
+     * Value: Object
+     **/ 
+    const storage = new Map();
+
+    
 
     return {
 
     }
 })();
-
-let s = new Set();

@@ -94,7 +94,6 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [x] Generate todo item (Parameters: Title, Description, Due Date, Priority)
 * [x] Sets (of Todo Items)
   * [x] Track todo items
-  * [x] Generate set
   * [x] Insert todo item
   * [x] Search for todo item
   * [x] Delete todo item
