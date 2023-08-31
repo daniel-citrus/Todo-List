@@ -92,13 +92,12 @@ To setup this project locally you must have Node Package Manager ([npm](https://
 
 * [x] Todo Item Handler
   * [x] Generate todo item (Parameters: Title, Description, Due Date, Priority)
-* [ ] Sets (of Todo Items)
-  * [ ] Store todo items
-  * [ ] Generate set (empty or pre-populated with todo items)
-  * [ ] Insert todo item
-  * [ ] Search for todo item
-  * [ ] Delete todo item
-  <!-- Delete function returns FALSE for invalid deletes (value used by DOM handler) -->
+* [x] Sets (of Todo Items)
+  * [x] Track todo items
+  * [x] Generate set (empty or pre-populated with todo items)
+  * [x] Insert todo item
+  * [x] Search for todo item
+  * [x] Delete todo item
 * [ ] Brain
   * [ ] Stores sets
   * [ ] Delete set (use ID)

@@ -5,6 +5,7 @@ let brain = (()=> {
     const sets = new Map();
 })();
 
-import { Set } from "./set";
+import { ItemSet } from "./set";
 
-let s = Set('Daniel','Karl','Jeff');
+let s = ItemSet('Daniel','Karl','Jeff');
+console.log(s.search('Daniel'));

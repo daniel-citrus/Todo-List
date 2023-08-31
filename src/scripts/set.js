@@ -1,11 +1,26 @@
-export let Set = (...items) => {
-    let set = new Map;
+export let ItemSet = (...items) => {
+    let storage = new Set();
 
-    if (!items) {
-        return { set };
+    items.forEach(item => {
+        storage.add(item);
+    })
+
+    function insert(item) {
+        storage.add(item);
     }
 
-    for (let item in items) {
-        set
+    
+    function remove(item) {
+        return storage.delete(item);
+    }
+
+    function search(item) {
+        return storage.has(item);
+    }
+
+    return {
+        insert,
+        remove,
+        search,
     }
 }
