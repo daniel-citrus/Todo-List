@@ -26,8 +26,9 @@ export default function ProjectList() {
     }
     
     function deleteProject(key) {
-        // delete project using key
-        
+        if (!projects.delete(key)) {
+            console.log(`Invalid Project Key: ${key}`);
+        }
     }
 
     function addTask(key, taskKey) {
@@ -84,8 +85,11 @@ export default function ProjectList() {
 
     return {
         addProject,
+        deleteProject,
         addTask,
         deleteTask,
+        getName,
+        getTasks,
         showProjects,
     }
 }
