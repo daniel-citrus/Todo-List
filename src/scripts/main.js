@@ -3,8 +3,8 @@ import { ProjectList } from './barrel'
 import { TaskList } from './barrel'
 
 let brain = (() => {
-    let projects = ProjectList();
     let tasks = TaskList();
+    let projects = ProjectList();
     /* 
         Adds a new task to the task list and saves its taskID in the project that it belongs to
     */
@@ -14,8 +14,10 @@ let brain = (() => {
     tasks.addTask(['Eat', 'Healthy balanced meal', '9/2/2023', 5]);
     tasks.addTask(['Sleep', 'Full night of sleep', '9/2/2023', 5]);
     tasks.addTask(['Study', 'Regular study session', '9/6/2023', 5]);
-    tasks.showTasks();
     
+    projects.addProject('Health');
+    projects.addProject('Health');
+    projects.showProjects();
 
     return {
     }

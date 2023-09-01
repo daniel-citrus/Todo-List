@@ -90,21 +90,23 @@ To setup this project locally you must have Node Package Manager ([npm](https://
 <!-- ROADMAP -->
 ## Roadmap
 
-* [x] TaskList
+* [] TaskList
   * [x] Stores all tasks
   * [x] Add task item (Parameters: Title, Description, Due Date, Priority)
   * [x] Remove a task using id
   * [ ] Save tasks to localStorage
   * [ ] Load tasks from localStorage
-* [x] Projects
+* [ ] Projects
   * [x] Track projects and their tasks
-  * [x] Create project object
+  * [x] Create project
   * [ ] Delete a project
-  * [x] Insert new project
-  * [x] Add task item to a specific project
-  * [x] Delete task item from a specific project
+  * [ ] Insert new project
+  * [ ] Add task item to a specific project
+  * [ ] Delete task item from a specific project
   * [ ] Save projects to localStorage
   * [ ] Load projects from localStorage
+  * [ ] Get project name by ID
+  * [ ] Get tasks that belong to a project
 * [] Brain (stores projects)
   * [] Create new projects and store into storage
   * [] Delete Projects

@@ -11,6 +11,15 @@ export default function TaskList() {
         }
     }
 
+    /*
+    Generate a new ID for new entries. This will search for the lowest possible ID number.
+    
+    For example, if the existing IDs are: 0, 1, 2, 4, 5, 7
+    then the generated ID will be 3
+
+    If the existing IDs are 0, 1, 2, 3
+    then the generated ID will be 4
+    */
     function generateID() {
         let taskCount = tasks.size;
         if (taskCount == 0) {
@@ -26,6 +35,7 @@ export default function TaskList() {
         return taskCount;
     }
 
+    /* Generates new task and returns the taskID */
     function addTask(inputs) {
         let taskID = generateID();
         tasks.set(taskID, createTask(...inputs));
