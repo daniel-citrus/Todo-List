@@ -20,11 +20,38 @@ export default function ProjectList() {
 
     /* Create a new project, store it, then return the project key */
     function addProject(name) {
-        projects.set(generateID(), newProject(name));
+        let key = generateID();
+        projects.set(key, newProject(name));
+        return key;
+    }
+    
+    function deleteProject(key) {
+        // delete project using key
+        
     }
 
-    function addTask(key, taskID) {
-        projects[key].tasks.push(taskID);
+    function addTask(key, taskKey) {
+        // Get project
+        // Insert taskKey into project
+    }
+
+    function deleteTask(key, taskKey) {
+        // get project using key
+        // get that project's task array
+        // remove task key from that task array
+        // store new array into project
+    }
+
+    function getName(key) {
+        // return project's name using key
+    }
+
+    /**
+     * Return all tasks that belong to a project 
+     * @returns array
+    */
+    function getTasks(key) {
+
     }
 
     function showProjects() {
