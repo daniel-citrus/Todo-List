@@ -6,6 +6,16 @@
     }
 } */
 
+/* 
+    Store projects and keep record of their tasks.
+    Map Structure:
+    projects = {
+        key -> {name, [task, task, task, ...]},
+        key -> {name, [task, task, task, ...]},
+        key -> {name, [task, task, task, ...]},
+        ...
+    }
+*/
 export default function ProjectList() {
     let projects = new Map();
 
@@ -22,7 +32,22 @@ export default function ProjectList() {
 
     function addTask(projectKey, taskID) {
         let project = projects.get(projectKey);
-        project.tasks.push(taskID);   
+        project.tasks.push(taskID);
+    }
+
+    function deleteTask(projectKey, taskID) {
+        let project = projects.get(projectKey);
+        let tasks = project.tasks;
+
+        for (let i in tasks) {
+            if (tasks[i] === taskID) {
+                project.tasks = tasks.slice(0, i).concat(tasks.slice(i + 1))
+                return true;
+            }
+        }
+
+        console.error(`Invalid Task ID: ${taskID}`);
+        return false;
     }
 
     function showProjects() {
@@ -32,6 +57,7 @@ export default function ProjectList() {
     return {
         addProject,
         addTask,
+        deleteTask,
         showProjects,
     }
 }

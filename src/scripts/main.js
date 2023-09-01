@@ -16,17 +16,19 @@ let brain = (() => {
     projects.addProject(b, 'Knowledge');
     projects.addTask(a, 1);
     projects.addTask(a, 2);
+    projects.addTask(a, 3);
+    projects.addTask(a, 4);
+    projects.addTask(a, 5);
+    projects.addTask(a, 6);
+    projects.addTask(a, 7);
+    projects.deleteTask(a, 4);
     projects.showProjects()
 
-    function newTask(taskData) {
-        let taskID = tasks.addTask(taskData);
-    }
-
-    newTask(['Pull Ups', 'Full range of motion', '9/4/2023', 4]);
-    newTask(['Dips', 'Heavy weight', '9/3/2023', 3]);
-    newTask(['Eat', 'Healthy balanced meal', '9/2/2023', 5]);
-    newTask(['Sleep', 'Full night of sleep with natural wake up', '9/2/2023', 5]);
-    newTask(['Study', 'Regular study session', '9/6/2023', 5]);
+    tasks.addTask(['Pull Ups', 'Full range of motion', '9/4/2023', 4]);
+    tasks.addTask(['Dips', 'Heavy weight', '9/3/2023', 3]);
+    tasks.addTask(['Eat', 'Healthy balanced meal', '9/2/2023', 5]);
+    tasks.addTask(['Sleep', 'Full night of sleep with natural wake up', '9/2/2023', 5]);
+    tasks.addTask(['Study', 'Regular study session', '9/6/2023', 5]);
 
     tasks.showTasks();
 

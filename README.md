@@ -97,8 +97,9 @@ To setup this project locally you must have Node Package Manager ([npm](https://
 * [x] Projects
   * [x] Track projects and their tasks
   * [x] Create project object
+  * [ ] Delete a project
   * [x] Insert new project
-  * [] Add task item to a specific project
+  * [x] Add task item to a specific project
   * [] Delete task item from a specific project
 * [] Brain (stores projects)
   * [] Create new projects and store into storage
