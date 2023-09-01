@@ -28,7 +28,6 @@ module.exports = {
         minimize: true,
         minimizer: [
             new TerserPlugin({
-                minify: TerserPlugin.uglifyJsMinify,
                 terserOptions: {
                     format: {
                         comments: false,

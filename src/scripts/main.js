@@ -20,7 +20,7 @@ let brain = (()=> {
     }
 
     /* Delete a Todo item from an existing project */
-    function deleteItem(projectKey, itemKey) {
+    function deleteItem(itemKey) {
         let project = storage.get(projectKey);
 
         if (!project) {

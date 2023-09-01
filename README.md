@@ -112,6 +112,9 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [ ] Expand single todo item
   * [ ] Delete a todo
 
+Todo items can be stored in one map
+
+
 See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
