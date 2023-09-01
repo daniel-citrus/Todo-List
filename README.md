@@ -100,7 +100,7 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [ ] Delete a project
   * [x] Insert new project
   * [x] Add task item to a specific project
-  * [] Delete task item from a specific project
+  * [x] Delete task item from a specific project
 * [] Brain (stores projects)
   * [] Create new projects and store into storage
   * [] Delete Projects

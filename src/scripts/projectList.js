@@ -38,10 +38,12 @@ export default function ProjectList() {
     function deleteTask(projectKey, taskID) {
         let project = projects.get(projectKey);
         let tasks = project.tasks;
-
+        
         for (let i in tasks) {
-            if (tasks[i] === taskID) {
-                project.tasks = tasks.slice(0, i).concat(tasks.slice(i + 1))
+            i = +i;
+            if (tasks[i] == taskID) {
+                tasks = tasks.slice(0, i).concat(tasks.slice(i + 1));
+                project.tasks = tasks;
                 return true;
             }
         }
