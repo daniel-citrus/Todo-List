@@ -1,10 +1,16 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-    entry: './src/scripts/main.js',
+    entry: {
+        main: './src/scripts/main.js',
+        barrel: './src/scripts/barrel.js',
+        domControl: './src/scripts/domControl.js',
+        projects: './src/scripts/projects.js',
+        todo: './src/scripts/todo.js',
+    },
     module: {
         rules: [
             {
@@ -25,25 +31,27 @@ module.exports = {
         ],
     },
     optimization: {
-        minimize: true,
         minimizer: [
-            new TerserPlugin({
-                minify: TerserPlugin.uglifyJsMinify,
-                terserOptions: {
-                    format: {
+            new UglifyJsPlugin({
+                uglifyOptions: {
+                    ie8: false,
+                    keep_fnames: false,
+                    mangle: true,
+                    nameCache: null,
+                    output: {
                         comments: false,
                     },
-                    keep_classnames: false,
-                    keep_fnames: false,
-                    mangle: { toplevel: true },
+                    toplevel: true,
+                    warnings: false,
+
                 },
-                extractComments: false,
             }),
         ],
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: 'main.js',
+        filename: '[name].bundle.js',
+        clean: true,
     },
     plugins: [
         new HtmlWebpackPlugin({
