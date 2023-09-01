@@ -2,16 +2,16 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/daniel-citrus/Todo-List">
+  <a href="https://github.com/daniel-citrus/Task-List">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Todo List</h3>
+<h3 align="center">Task List</h3>
   <p align="center">
     project_description
     <br />
     <br />
-    <a href="https://github.com/daniel-citrus/Todo-List">Live Demo</a>
+    <a href="https://github.com/daniel-citrus/Task-List">Live Demo</a>
     <br />
   </p>
 </div>
@@ -45,7 +45,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Todo List implements 
+Task List implements 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -76,7 +76,7 @@ To setup this project locally you must have Node Package Manager ([npm](https://
 1. Clone the repo
 
    ```sh
-   git clone https://github.com/daniel-citrus/Todo-List.git
+   git clone https://github.com/daniel-citrus/Task-List.git
    ```
 
 2. Install NPM packages
@@ -90,17 +90,20 @@ To setup this project locally you must have Node Package Manager ([npm](https://
 <!-- ROADMAP -->
 ## Roadmap
 
-* [x] Todo
-  * [x] Generate todo item (Parameters: Title, Description, Due Date, Priority)
-* [x] Project
-  * [x] Track todo items
-  * [x] Insert todo item
-  * [x] Search for todo item
-  * [x] Delete todo item
-* [x] Brain (stores projects)
-  * [x] Create new projects and store into storage
-  * [x] Delete Projects
-  * [x] Delete Todo item from Project
+* [x] TaskList
+  * [s] Stores all tasks
+  * [x] Add task item (Parameters: Title, Description, Due Date, Priority)
+  * [x] Remove a task using id
+* [x] Projects
+  * [x] Track projects and their tasks
+  * [x] Create project object
+  * [x] Insert new project
+  * [] Add task item to a specific project
+  * [] Delete task item from a specific project
+* [] Brain (stores projects)
+  * [] Create new projects and store into storage
+  * [] Delete Projects
+  * [] Delete Task item from Project
   * [ ] Store data in localStorage
   * [ ] Load data from localStorage
 * [ ] DOM Features
@@ -108,9 +111,9 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [ ] Priority color indicator
   * [ ] Search
   * [ ] View all projects
-  * [ ] View all todos in each project
-  * [ ] Expand single todo item
-  * [ ] Delete a todo
+  * [ ] View all tasks in each project
+  * [ ] Expand single task item
+  * [ ] Delete a task
 
 See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
 
@@ -128,7 +131,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 [![LinkedIn][linkedin-shield]][linkedin-url]
 <br />
-Project Link: [https://github.com/daniel-citrus/Todo-List](https://github.com/daniel-citrus/Todo-List)
+Project Link: [https://github.com/daniel-citrus/Task-List](https://github.com/daniel-citrus/Task-List)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

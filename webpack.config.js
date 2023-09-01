@@ -4,13 +4,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-    entry: {
-        main: './src/scripts/main.js',
-        barrel: './src/scripts/barrel.js',
-        domControl: './src/scripts/domControl.js',
-        projects: './src/scripts/projects.js',
-        todo: './src/scripts/todo.js',
-    },
+    entry: ['./src/scripts/main.js',
+        './src/scripts/barrel.js',
+        './src/scripts/domControl.js',
+        './src/scripts/projectList.js',
+        './src/scripts/taskList.js',
+    ],
     module: {
         rules: [
             {
@@ -43,14 +42,13 @@ module.exports = {
                     },
                     toplevel: true,
                     warnings: false,
-
                 },
             }),
         ],
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: '[name].bundle.js',
+        filename: 'bundle.js',
         clean: true,
     },
     plugins: [
@@ -60,9 +58,4 @@ module.exports = {
         }),
         new MiniCssExtractPlugin(),
     ],
-    resolve: {
-        alias: {
-            Script: path.resolve(__dirname, 'src/scripts'),
-        }
-    },
 };

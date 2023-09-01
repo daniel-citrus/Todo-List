@@ -1,56 +1,36 @@
 import "../style/style.scss";
-import { Todo } from './barrel'
-import { Project } from './barrel'
+import { ProjectList } from './barrel'
+import { TaskList } from './barrel'
 
-/* 
-    Contains and manages sets by using DOM elements as Map keys and Objects as Map  values.
-*/
-let brain = (()=> {
-    let storage = new Map();
+let brain = (() => {
+    let projects = ProjectList();
+    let tasks = TaskList();
+    /* 
+        Adds a new task to the task list and saves its taskID in the project that it belongs to
+    */
 
-    function addItem(projectKey, itemKey, data) {
-        let project = storage.get(projectKey);
+    let a = document.createElement('div');
+    let b = document.createElement('a');
+    
+    projects.addProject(a, 'Fitness');
+    projects.addProject(b, 'Knowledge');
+    projects.addTask(a, 1);
+    projects.addTask(a, 2);
+    projects.showProjects()
 
-        if (!project) {
-            console.error('Invalid Project Key')
-            return;
-        }
-
-        project.set(itemKey, new Todo(...data));
+    function newTask(taskData) {
+        let taskID = tasks.addTask(taskData);
     }
 
-    /* Delete a Todo item from an existing project */
-    function deleteItem(projectKey, itemKey) {
-        let project = storage.get(projectKey);
+    newTask(['Pull Ups', 'Full range of motion', '9/4/2023', 4]);
+    newTask(['Dips', 'Heavy weight', '9/3/2023', 3]);
+    newTask(['Eat', 'Healthy balanced meal', '9/2/2023', 5]);
+    newTask(['Sleep', 'Full night of sleep with natural wake up', '9/2/2023', 5]);
+    newTask(['Study', 'Regular study session', '9/6/2023', 5]);
 
-        if (!project) {
-            console.error('Invalid Project Key')
-            return;
-        }
-
-        if (!project.delete(itemKey)) {
-            console.error('Invalid Project Key')
-            return;
-        }
-    }
-
-    function deleteProject(key) {
-        if (!storage.delete(key)) {
-            console.error('Invalid Project Key')
-        }
-    }
-
-    /* Build a new project and insert into storage */
-    function newProject(key, name) {
-        let project = new Project(name);
-        storage.set(key, project);
-    }
+    tasks.showTasks();
 
     return {
-        addItem,
-        deleteItem,
-        deleteProject,
-        newProject
     }
 })();
 
