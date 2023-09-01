@@ -1,18 +1,10 @@
-/* export default class Project extends Map {
-    constructor(name) {
-        super();
-        this.name = name;
-        this.storage = [];
-    }
-} */
-
 /* 
     Store projects and keep record of their tasks.
     Map Structure:
     projects = {
-        key -> {name, [task, task, task, ...]},
-        key -> {name, [task, task, task, ...]},
-        key -> {name, [task, task, task, ...]},
+        key -> {name, [taskID, taskID, taskID, ...]},
+        key -> {name, [taskID, taskID, taskID, ...]},
+        key -> {name, [taskID, taskID, taskID, ...]},
         ...
     }
 */
@@ -26,19 +18,24 @@ export default function ProjectList() {
         }
     }
 
-    function addProject(key, name) {
-        projects.set(key, newProject(name));
+    function addProject(name) {
+        projects.set(newProject(name));
     }
 
-    function addTask(projectKey, taskID) {
-        let project = projects.get(projectKey);
-        project.tasks.push(taskID);
+    function addTask(key, taskID) {
+        projects[key].tasks.push(taskID);
     }
 
-    function deleteTask(projectKey, taskID) {
-        let project = projects.get(projectKey);
+    function deleteTask(key, taskID) {
+        let task = projects[key].tasks
+
+        if (!project) {
+            console.error(`Invalid Task ID: ${taskID}`);
+            return false;
+        }
+
         let tasks = project.tasks;
-        
+
         for (let i in tasks) {
             i = +i;
             if (tasks[i] == taskID) {
@@ -53,7 +50,7 @@ export default function ProjectList() {
     }
 
     function showProjects() {
-        console.log(projects);
+        /* console.log(projects); */
     }
 
     return {

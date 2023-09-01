@@ -1,38 +1,47 @@
-/* export default class Task {
-    constructor(title, description, dueDate, priority, completed = false) {
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.priority = priority;
-        this.completed = completed;
-    }
-}
- */
 export default function TaskList() {
-    let tasks = [];
+    let tasks = new Map();
 
     function createTask(title, description, dueDate, priority, completed = false) {
         return {
-            title: title, 
-            description : description,
-            dueDate : dueDate,
-            priority : priority,
-            completed : completed,
+            title: title,
+            description: description,
+            dueDate: dueDate,
+            priority: priority,
+            completed: completed,
         }
     }
 
-    /* Adds a new task object to the tasks array then returns the task ID */
-    function addTask(inputs) {
-        return tasks.push(createTask(...inputs));
+    function generateID() {
+        let taskCount = tasks.size;
+        if (taskCount == 0) {
+            return 0;
+        }
+
+        for (let i = 0; i < taskCount; i++) {
+            if (!tasks.has(i)) {
+                return i;
+            }
+        }
+
+        return taskCount;
     }
 
-    function removeTask(key) {
-        if (key >= tasks.length || key < 0 || key == undefined) {
+    function addTask(inputs) {
+        let taskID = generateID();
+        tasks.set(taskID, createTask(...inputs));
+        return taskID;
+    }
+
+    function deleteTask(key) {
+        /* if (key >= tasks.length || key < 0 || key == undefined) {
             console.error(`Invalid Task Key: ${key}`);
             return;
         }
-
-        tasks = tasks.slice(0, key).concat(tasks.slice(key + 1));
+        
+        tasks = tasks.slice(0, key).concat(tasks.slice(key + 1)); */
+        if (!tasks.delete(key)) {
+            console.error(`Invalid Task Key: ${key}`);
+        }
     }
 
     function showTasks() {
@@ -41,7 +50,7 @@ export default function TaskList() {
 
     return {
         addTask,
-        removeTask,
+        deleteTask,
         showTasks
     }
 };
