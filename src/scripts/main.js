@@ -16,11 +16,11 @@ let brain = (() => {
     tasks.addTask(['Study', 'Regular study session', '9/6/2023', 5]);
     
     projects.addProject('Health');
-    projects.addProject('Health1');
-    projects.addProject('Health2');
-    projects.addProject('Health3');
-    projects.addProject('Health4');
-    projects.addProject('Health4');
+    projects.addTask(0, 2)
+    projects.addTask(0, 3)
+    projects.addTask(0, 532)
+    projects.addTask(0, 23)
+    projects.addTask(0, 221)
     projects.showProjects();
 
     return {

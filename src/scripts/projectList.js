@@ -14,7 +14,7 @@ export default function ProjectList() {
     function newProject(name) {
         return {
             name: name,
-            tasks: [],
+            tasks: new Set(),
         }
     }
 
@@ -32,8 +32,7 @@ export default function ProjectList() {
     }
 
     function addTask(key, taskKey) {
-        // Get project
-        // Insert taskKey into project
+        projects.get(key).tasks.add(taskKey);
     }
 
     function deleteTask(key, taskKey) {
