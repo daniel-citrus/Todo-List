@@ -24,7 +24,7 @@ export default function ProjectList() {
         projects.set(key, createProject(name));
         return key;
     }
-    
+
     function deleteProject(key) {
         if (!projects.delete(key)) {
             console.log(`Invalid Project Key: ${key}`);
@@ -56,6 +56,14 @@ export default function ProjectList() {
 
     function getName(key) {
         // return project's name using key
+        let project = projects.get(key);
+
+        if (!project) {
+            console.error(`Invalid key: ${key}`);
+            return;
+        }
+
+        return project.name;
     }
 
     /**

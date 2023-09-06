@@ -67,13 +67,3 @@ export default function TaskList() {
         showTasks
     }
 };
-
-/* 
-let inputs = [
-    ['Pull Ups', 'Full range of motion', '9/4/2023', 4],
-    ['Dips', 'Heavy weight', '9/3/2023', 3],
-    ['Eat', 'Healthy balanced meal', '9/2/2023', 5],
-    ['Sleep', 'Full night of sleep with natural wake up', '9/2/2023', 5],
-    ['Study', 'Regular study session', '9/6/2023', 5],
-]
- */

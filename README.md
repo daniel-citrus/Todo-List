@@ -101,15 +101,15 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [x] Create project & Insert new project
   * [x] Delete a project
   * [x] Add task item to a specific project
-  * [~] Delete task item from a specific project
+  * [x] Delete task item from a specific project
   * [~] Get project name by ID
   * [~] Get tasks that belong to a project
   * [ ] Save projects to localStorage
   * [ ] Load projects from localStorage
-* [] Brain (stores projects)
-  * [] Create new projects and store into storage
-  * [] Delete Projects
-  * [] Delete Task item from Project
+* [ ] Brain (stores projects)
+  * [ ] Create new projects and store into storage
+  * [ ] Delete Projects
+  * [ ] Delete Task item from Project
   * [ ] Store data in localStorage
   * [ ] Load data from localStorage
 * [ ] DOM Features
