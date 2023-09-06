@@ -107,9 +107,10 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [ ] Save projects to localStorage
   * [ ] Load projects from localStorage
 * [ ] Brain (stores projects)
-  * [ ] Create new projects and store into storage
-  * [ ] Delete Projects
-  * [ ] Delete Task item from Project
+  * [~] Create new project
+  * [~] Create task
+  * [~] Delete Projects
+  * [ ] Delete Task
   * [ ] Store data in localStorage
   * [ ] Load data from localStorage
 * [ ] DOM Features

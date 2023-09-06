@@ -18,17 +18,23 @@ export default function ProjectList() {
         }
     }
 
-    /* Create a new project, store it, then return the project key */
+    /* Create a new project, store it, then return the project's key */
     function addProject(name) {
         let key = generateID();
         projects.set(key, createProject(name));
         return key;
     }
 
+    /* Delete an existing project and return the task keys that it contained */
     function deleteProject(key) {
-        if (!projects.delete(key)) {
+        if (!projects.has(key)) {
             console.log(`Invalid Project Key: ${key}`);
+            return;
         }
+
+        let tasks = Array.from(projects.get(key).tasks);
+        projects.delete(key);
+        return tasks;
     }
 
     /* Store a task keyin  a project */
