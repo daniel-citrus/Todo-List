@@ -38,16 +38,15 @@ export default function ProjectList() {
 
     /* Delete task from a project */
     function deleteTask(key, taskKey) {
-        // get project using key
         let project = projects.get(key);
 
         if (!project) {
             console.error(`Invalid key: ${key}`);
             return;
         }
-        // get that project's task array
+
         let tasks = project.tasks;
-        // remove task key from that task array
+
         if (!tasks.delete(taskKey)) {
             console.error(`Invalid taskKey: ${taskKey}`);
             return;
@@ -55,7 +54,6 @@ export default function ProjectList() {
     }
 
     function getName(key) {
-        // return project's name using key
         let project = projects.get(key);
 
         if (!project) {
@@ -71,7 +69,14 @@ export default function ProjectList() {
      * @returns array
     */
     function getTasks(key) {
+        let project = projects.get(key);
 
+        if (!project) {
+            console.error(`Invalid key: ${key}`);
+            return;
+        }
+
+        return project.tasks;
     }
 
     function showProjects() {

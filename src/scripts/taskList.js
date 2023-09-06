@@ -43,12 +43,6 @@ export default function TaskList() {
     }
 
     function deleteTask(key) {
-        /* if (key >= tasks.length || key < 0 || key == undefined) {
-            console.error(`Invalid Task Key: ${key}`);
-            return;
-        }
-        
-        tasks = tasks.slice(0, key).concat(tasks.slice(key + 1)); */
         if (!tasks.delete(key)) {
             console.error(`Invalid Task Key: ${key}`);
             return null;

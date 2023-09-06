@@ -18,7 +18,7 @@ let brain = (() => {
 
     
     tasks.deleteTask(3);
-    projects.deleteTask(0, 3);
+    projects.deleteTask(0, 2);
     
     tasks.showTasks();
     projects.showProjects();
