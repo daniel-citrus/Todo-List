@@ -11,7 +11,7 @@
 export default function ProjectList() {
     let projects = new Map();
 
-    function newProject(name) {
+    function createProject(name) {
         return {
             name: name,
             tasks: new Set(),
@@ -21,7 +21,7 @@ export default function ProjectList() {
     /* Create a new project, store it, then return the project key */
     function addProject(name) {
         let key = generateID();
-        projects.set(key, newProject(name));
+        projects.set(key, createProject(name));
         return key;
     }
     
@@ -31,15 +31,27 @@ export default function ProjectList() {
         }
     }
 
+    /* Store a task keyin  a project */
     function addTask(key, taskKey) {
         projects.get(key).tasks.add(taskKey);
     }
 
+    /* Delete task from a project */
     function deleteTask(key, taskKey) {
         // get project using key
+        let project = projects.get(key);
+
+        if (!project) {
+            console.error(`Invalid key: ${key}`);
+            return;
+        }
         // get that project's task array
+        let tasks = project.tasks;
         // remove task key from that task array
-        // store new array into project
+        if (!tasks.delete(taskKey)) {
+            console.error(`Invalid taskKey: ${taskKey}`);
+            return;
+        }
     }
 
     function getName(key) {
