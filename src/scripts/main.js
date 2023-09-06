@@ -8,25 +8,25 @@ let brain = (() => {
 
     function createProject(name) {
         // Create a new project
-        // Create new project element in front-end (poassing project key)
+        // Create new project element in dom (passing project key)
     }
 
     function createTask(inputs) {
         // add a new task in tasks
         // get selected project's key in front-end
+        // insert a new task element in DOM
         // pass project key and task key to create new project in projects
     }
 
     function deleteProject(key) {
         // use project key to delete it in projects
+        // get task keys that have been deleted and use to delete from tasks
     }
 
     function deleteTask(key, taskKey) {
         // pass project key and task key to delete task from projects
         // delete task from tasks
     }
-
-
 
     projects.addProject('Health');
     projects.addTask(0, tasks.addTask(['Pull Ups', 'Quality reps', '9/4/2023', 4]))
@@ -35,13 +35,9 @@ let brain = (() => {
     projects.addTask(0, tasks.addTask(['Sleep', 'Full night sleep', '9/2/2023', 5]))
     projects.addTask(0, tasks.addTask(['Study', 'Regular session', '9/6/2023', 5]))
 
-    tasks.deleteTask(3);
+    tasks.deleteTask(2);
     projects.deleteTask(0, 2);
-
-    console.log(projects.deleteProject(0));
-
-    /* tasks.showTasks();
-    projects.showProjects(); */
+    tasks.showTasks();
 
     return {
     }

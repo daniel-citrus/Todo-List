@@ -42,13 +42,20 @@ export default function TaskList() {
         return taskID;
     }
 
-    function deleteTask(key) {
-        if (!tasks.delete(key)) {
-            console.error(`Invalid Task Key: ${key}`);
-            return null;
+    /* delete one or more tasks from task list */
+    function deleteTask(...keys) {
+        if (keys.length == 0) {
+            console.error(`No tasks to delete`);
+            return false;
         }
+        
+        keys.forEach((key)=> {
+            if (!tasks.delete(key)) {
+                console.error(`Invalid task key: ${key}`);
+            }
+        });
 
-        return key;
+        return true;
     }
 
     function showTasks() {
