@@ -110,7 +110,7 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [~] Create new project
   * [~] Create task
   * [~] Delete Projects
-  * [ ] Delete Task
+  * [~] Delete Task
   * [ ] Store data in localStorage
   * [ ] Load data from localStorage
 * [ ] DOM Features

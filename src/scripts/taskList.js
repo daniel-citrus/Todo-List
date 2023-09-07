@@ -44,7 +44,7 @@ export default function TaskList() {
 
     /* delete one or more tasks from task list */
     function deleteTask(...keys) {
-        if (keys.length == 0) {
+        if (tasks.length == 0) {
             console.error(`No tasks to delete`);
             return false;
         }
@@ -62,9 +62,15 @@ export default function TaskList() {
         console.log(tasks);
     }
 
+    function saveData() {
+        console.log(tasks);
+        localStorage.setItem('Tasks', JSON.stringify(tasks));
+    }
+
     return {
         addTask,
         deleteTask,
-        showTasks
+        showTasks,
+        saveData
     }
 };
