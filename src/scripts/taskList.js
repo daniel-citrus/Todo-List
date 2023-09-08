@@ -1,8 +1,9 @@
 export default function TaskList() {
-    let tasks = new Map();
+    let tasks = [];
 
     function createTask(title, description, dueDate, priority, completed = false) {
         return {
+            id: generateID(),
             title: title,
             description: description,
             dueDate: dueDate,
@@ -21,24 +22,36 @@ export default function TaskList() {
     then the generated ID will be 4
     */
     function generateID() {
-        let taskCount = tasks.size;
+        let taskCount = tasks.length;
         if (taskCount == 0) {
             return 0;
         }
 
-        for (let i = 0; i < taskCount; i++) {
-            if (!tasks.has(i)) {
-                return i;
+        for (let t in tasks) {
+            if (t < tasks[t].id) {
+                taskCount = t;
+                break;
             }
         }
+
 
         return taskCount;
     }
 
     /* Generates new task and returns the taskID */
     function addTask(inputs) {
-        let taskID = generateID();
-        tasks.set(taskID, createTask(...inputs));
+        let task = createTask(...inputs);
+        let taskID = task.id;
+
+        if (tasks.length == 0) {
+            taskID = 0;
+            tasks.push(task);
+        }
+
+        for (let i in tasks) {
+            taskID = i;
+        }
+
         return taskID;
     }
 
@@ -63,8 +76,7 @@ export default function TaskList() {
     }
 
     function saveData() {
-        console.log(tasks);
-        localStorage.setItem('Tasks', JSON.stringify(tasks));
+        localStorage.setItem('Tasks', JSON.stringify(...tasks.entries()));
     }
 
     return {
