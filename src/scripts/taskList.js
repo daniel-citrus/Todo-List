@@ -34,8 +34,7 @@ export default function TaskList() {
             }
         }
 
-
-        return taskCount;
+        return +taskCount;
     }
 
     /* Generates new task and returns the taskID */
@@ -43,32 +42,26 @@ export default function TaskList() {
         let task = createTask(...inputs);
         let taskID = task.id;
 
-        if (tasks.length == 0) {
-            taskID = 0;
-            tasks.push(task);
-        }
-
-        for (let i in tasks) {
-            taskID = i;
-        }
+        tasks.splice(taskID, 0, task);
 
         return taskID;
     }
 
     /* delete one or more tasks from task list */
-    function deleteTask(...keys) {
+    function deleteTask(key) {
         if (tasks.length == 0) {
             console.error(`No tasks to delete`);
             return false;
         }
         
-        keys.forEach((key)=> {
-            if (!tasks.delete(key)) {
-                console.error(`Invalid task key: ${key}`);
+        for (let t in tasks) {
+            if (tasks[t].id == key) {
+                tasks.splice(t, 1);
+                return true;
             }
-        });
+        }
 
-        return true;
+        return false;
     }
 
     function showTasks() {
