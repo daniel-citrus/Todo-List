@@ -38,9 +38,8 @@ let brain = (() => {
     projects.addTask(0, tasks.addTask(['Eat', 'Healthy meals', '9/2/2023', 5]))
     projects.addTask(0, tasks.addTask(['Sleep', 'Full night sleep', '9/2/2023', 5]))
     projects.addTask(0, tasks.addTask(['Study', 'Regular session', '9/6/2023', 5]))
-
-    tasks.showTasks();
     tasks.saveData();
+    tasks.loadData();
 
 
 

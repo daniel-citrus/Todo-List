@@ -69,12 +69,17 @@ export default function TaskList() {
     }
 
     function saveData() {
-        localStorage.setItem('Tasks', JSON.stringify(...tasks.entries()));
+        localStorage.setItem('Tasks', JSON.stringify(tasks));
+    }
+
+    function loadData() {
+        tasks = JSON.parse(localStorage.getItem('Tasks'));
     }
 
     return {
         addTask,
         deleteTask,
+        loadData,
         showTasks,
         saveData
     }
