@@ -33,8 +33,8 @@ let brain = (() => {
     }
 
     projects.addProject('Health');
-    projects.addProject('Health');
-    projects.addProject('Health');
+    projects.addProject('Health1');
+    projects.addProject('Health2');
     projects.addTask(0, tasks.addTask(['Pull Ups', 'Quality reps', '9/4/2023', 4]))
     projects.addTask(0, tasks.addTask(['Dips', 'Heavy weight', '9/3/2023', 3]))
     projects.addTask(0, tasks.addTask(['Eat', 'Healthy meals', '9/2/2023', 5]))
