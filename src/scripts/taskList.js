@@ -23,6 +23,7 @@ export default function TaskList() {
     */
     function generateID() {
         let taskCount = tasks.length;
+        
         if (taskCount == 0) {
             return 0;
         }
@@ -33,7 +34,7 @@ export default function TaskList() {
                 break;
             }
         }
-
+        
         return +taskCount;
     }
 

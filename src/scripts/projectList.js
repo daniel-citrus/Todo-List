@@ -1,27 +1,29 @@
 /* 
     Store projects and keep record of their tasks.
-    Map Structure:
-    projects = {
-        key -> {name, [taskID, taskID, taskID, ...]},
-        key -> {name, [taskID, taskID, taskID, ...]},
-        key -> {name, [taskID, taskID, taskID, ...]},
+    projects = [
+        { projectID, prjectName, [taskID, taskID, taskID] },
+        { projectID, prjectName, [taskID, taskID, taskID] },
+        { projectID, prjectName, [taskID, taskID, taskID] },
         ...
-    }
+    ]
 */
 export default function ProjectList() {
-    let projects = new Map();
+    let projects = [];
 
     function createProject(name) {
         return {
+            id: generateID(),
             name: name,
-            tasks: new Set(),
+            tasks: [],
         }
     }
 
     /* Create a new project, store it, then return the project's key */
     function addProject(name) {
-        let key = generateID();
-        projects.set(key, createProject(name));
+        let project = createProject(name);
+        let key = project.id;
+        projects.splice(key, 0, project);
+        console.log(project)
         return key;
     }
 
@@ -39,7 +41,7 @@ export default function ProjectList() {
 
     /* Store a task keyin  a project */
     function addTask(key, taskKey) {
-        projects.get(key).tasks.add(taskKey);
+        /* projects.get(key).tasks.add(taskKey); */
     }
 
     /* Delete task from a project */
@@ -99,18 +101,20 @@ export default function ProjectList() {
     then the generated ID will be 4
     */
     function generateID() {
-        let projectCount = projects.size;
+        let projectCount = projects.length;
+
         if (projectCount == 0) {
             return 0;
         }
 
-        for (let i = 0; i < projectCount; i++) {
-            if (!projects.has(i)) {
-                return i;
+        for (let p in projects) {
+            if (p < projects[p].id) {
+                projectCount = p;
+                break;
             }
         }
-
-        return projectCount;
+        
+        return +projectCount;
     }
 
     return {
