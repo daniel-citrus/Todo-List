@@ -12,7 +12,7 @@ export default function ProjectList() {
 
     function createProject(name) {
         return {
-            id: generateID(),
+            id: undefined,
             name: name,
             tasks: [],
         }
@@ -21,22 +21,22 @@ export default function ProjectList() {
     /* Create a new project, store it, then return the project's key */
     function addProject(name) {
         let project = createProject(name);
-        let key = project.id;
+        let key = generateID();
+        project.id = key;
         projects.splice(key, 0, project);
-        console.log(project)
         return key;
     }
 
     /* Delete an existing project and return the task keys that it contained */
     function deleteProject(key) {
-        if (!projects.has(key)) {
-            console.log(`Invalid Project Key: ${key}`);
-            return;
+        for (let p in projects) {
+            if (projects[p].id == key) {
+                projects.splice(key, 1);
+                return;
+            }
         }
 
-        let tasks = Array.from(projects.get(key).tasks);
-        projects.delete(key);
-        return tasks;
+        console.error('Invalid project key');
     }
 
     /* Store a task keyin  a project */
