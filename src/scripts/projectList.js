@@ -10,6 +10,9 @@
 export default function ProjectList() {
     let projects = [];
 
+    /* Default project */
+    addProject('My Tasks');
+
     function createProject(name) {
         return {
             id: undefined,
@@ -40,7 +43,7 @@ export default function ProjectList() {
     }
 
     /* Store a task key in a project */
-    function addTask(key, taskKey) {
+    function addTask(key = 0, taskKey) {
         let project = getProject(key);
 
         if (!project) {

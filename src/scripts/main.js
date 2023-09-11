@@ -12,10 +12,11 @@ let brain = (() => {
         // Create new project element in dom (passing project key)
     }
 
-    function createTask(projectID, inputs) {
+    function createTask(inputs, projectKey) {
         // add a new task in tasks
-        let taskID = tasks.addTask(inputs)
+        let taskKey = tasks.addTask(inputs);
         // insert task into project
+        projects.addTask(projectKey, taskKey);
         // insert a new task element in DOM
     }
 
@@ -86,7 +87,7 @@ let brain = (() => {
     projects.addTask(1, tasks.addTask(task4));
     projects.addTask(2, tasks.addTask(task5));
 
-    tasks.showTasks();
+    projects.showProjects();
 
     return {
     }

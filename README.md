@@ -107,6 +107,16 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [x] Get tasks that belong to a project
   * [x] Save projects to localStorage
   * [x] Load projects from localStorage
+* [ ] DOM Features
+  * [ ] New Project
+  * [ ] New Task
+  * [ ] View all projects
+  * [ ] View all tasks in each project
+  * [ ] Expand single task item
+  * [ ] Sort by Title, Description, Due Date, or Priority
+  * [ ] Priority color indicator
+  * [ ] Search
+  * [ ] Delete a task
 * [ ] Brain (stores projects)
   * [~] Create new project
   * [~] Create task
@@ -114,16 +124,6 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [~] Delete Task
   * [ ] Store data in localStorage
   * [ ] Load data from localStorage
-* [ ] DOM Features
-  * [ ] Sort by Title, Description, Due Date, or Priority
-  * [ ] Priority color indicator
-  * [ ] Search
-  * [ ] View all projects
-  * [ ] View all tasks in each project
-  * [ ] New Project
-  * [ ] New Task
-  * [ ] Expand single task item
-  * [ ] Delete a task
 
 Todo items can be stored in one map
 
