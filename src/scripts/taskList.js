@@ -1,7 +1,12 @@
 export default function TaskList() {
     let tasks = [];
 
-    function createTask(title, description, dueDate, priority, completed = false) {
+    /* title, description, dueDate, priority, completed = false */
+    function createTask(inputs) {
+        let title='', description='', dueDate='', priority='', completed = false;
+
+        ({ title, description, dueDate, priority, completed } = inputs);
+
         return {
             id: generateID(),
             title: title,
@@ -23,7 +28,7 @@ export default function TaskList() {
     */
     function generateID() {
         let taskCount = tasks.length;
-        
+
         if (taskCount == 0) {
             return 0;
         }
@@ -34,13 +39,13 @@ export default function TaskList() {
                 break;
             }
         }
-        
+
         return +taskCount;
     }
 
     /* Generates new task and returns the taskID */
     function addTask(inputs) {
-        let task = createTask(...inputs);
+        let task = createTask(inputs);
         let taskID = task.id;
 
         tasks.splice(taskID, 0, task);
@@ -54,7 +59,7 @@ export default function TaskList() {
             console.error(`No tasks to delete`);
             return false;
         }
-        
+
         for (let t in tasks) {
             if (tasks[t].id == key) {
                 tasks.splice(t, 1);

@@ -8,14 +8,15 @@ let brain = (() => {
 
     function createProject(name) {
         // Create a new project
+        let projectID = projects.addProject(name);
         // Create new project element in dom (passing project key)
     }
 
-    function createTask(inputs) {
+    function createTask(projectID, inputs) {
         // add a new task in tasks
-        // get selected project's key in front-end
+        let taskID = tasks.addTask(inputs)
+        // insert task into project
         // insert a new task element in DOM
-        // pass project key and task key to create new project in projects
     }
 
     function deleteProject(key) {
@@ -28,20 +29,64 @@ let brain = (() => {
         // delete task from tasks
     }
 
-    function saveData() {
-
+    function loadData() {
+        // load projects
+        // load tasks
     }
+
+    function saveData() {
+        // load projects
+        // load tasks
+    }
+
+    let task1 = {
+        title: 'Pull Ups',
+        description: 'Quality reps',
+        dueDate: '9/4/2023',
+        priority: 4,
+        completed: true,
+    };
+
+    let task2 = {
+        title: 'Dips',
+        description: 'Heavy weight',
+        dueDate: '9/3/2023',
+        priority: 3,
+    }
+
+    let task3 = {
+        title: 'Eat',
+        description: 'Healthy meals',
+        dueDate: '9/2/2023',
+        priority: 5
+    }
+
+    let task4 = {
+        title: 'Sleep',
+        description: 'Full night sleep',
+        dueDate: '9/2/2023',
+        priority: 5
+    }
+
+    let task5 = {
+        title: 'Study',
+        description: 'Regular session',
+        dueDate: '9/6/2023',
+        priority: 5,
+    }
+
 
     projects.addProject('Health');
     projects.addProject('Health1');
     projects.addProject('Health2');
-    projects.addTask(2, tasks.addTask(['Pull Ups', 'Quality reps', '9/4/2023', 4]))
-    projects.addTask(0, tasks.addTask(['Dips', 'Heavy weight', '9/3/2023', 3]))
-    projects.addTask(1, tasks.addTask(['Eat', 'Healthy meals', '9/2/2023', 5]))
-    projects.addTask(1, tasks.addTask(['Sleep', 'Full night sleep', '9/2/2023', 5]))
-    projects.addTask(2, tasks.addTask(['Study', 'Regular session', '9/6/2023', 5]))
-    projects.saveData();
-    projects.loadData();
+
+    projects.addTask(2, tasks.addTask(task1));
+    projects.addTask(0, tasks.addTask(task2));
+    projects.addTask(1, tasks.addTask(task3));
+    projects.addTask(1, tasks.addTask(task4));
+    projects.addTask(2, tasks.addTask(task5));
+
+    tasks.showTasks();
 
     return {
     }

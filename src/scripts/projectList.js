@@ -118,7 +118,6 @@ export default function ProjectList() {
         projects = JSON.parse(localStorage.getItem('Projects'));
     }
 
-
     /*
     Generate a new ID for new entries. This will search for the lowest possible ID number.
     
