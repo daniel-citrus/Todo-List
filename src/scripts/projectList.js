@@ -29,6 +29,11 @@ export default function ProjectList() {
 
     /* Delete an existing project and return the task keys that it contained */
     function deleteProject(key) {
+        let project = getProject(key);
+
+        if (!project) {
+
+        }
         for (let p in projects) {
             if (projects[p].id == key) {
                 projects.splice(key, 1);
@@ -54,19 +59,40 @@ export default function ProjectList() {
 
     /* Delete task from a project */
     function deleteTask(key, taskKey) {
-        let project = projects.get(key);
+        let project = false;
+
+        for (let p in projects) {
+            project = projects[p];
+
+            if (project.id == key) {
+                break;
+            }
+
+            project = false;
+        }
 
         if (!project) {
-            console.error(`Invalid key: ${key}`);
+            console.error('Invalid project key')
             return;
         }
 
-        let tasks = project.tasks;
-
-        if (!tasks.delete(taskKey)) {
-            console.error(`Invalid taskKey: ${taskKey}`);
-            return;
+        for (let task in project.tasks) {
+            console.log(task);
         }
+    }
+
+    function getProject(key) {
+        let project;
+        for (let p in projects) {
+            project = projects[p];
+
+            if (project.id == key) {
+                return project;
+            }
+        }
+
+        console.error('Invalid project key');
+        return false;
     }
 
     function getName(key) {
@@ -121,7 +147,7 @@ export default function ProjectList() {
                 break;
             }
         }
-        
+
         return +projectCount;
     }
 
