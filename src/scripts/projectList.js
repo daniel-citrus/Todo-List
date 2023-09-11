@@ -54,7 +54,9 @@ export default function ProjectList() {
     function deleteTask(key, taskKey) {
         let project = getProject(key);
 
-        if (!project) return;
+        if (!project) {
+            return;
+        }
 
         for (let task in project.tasks) {
             if (taskKey == project.tasks[task]) {
@@ -81,10 +83,9 @@ export default function ProjectList() {
     }
 
     function getName(key) {
-        let project = projects.get(key);
+        let project = getProject(key);
 
         if (!project) {
-            console.error(`Invalid key: ${key}`);
             return;
         }
 

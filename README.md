@@ -101,7 +101,7 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [x] Create project & Insert new project
   * [x] Delete a project
   * [x] Add task item to a specific project
-  * [ ] Delete task item from a specific project
+  * [x] Delete task item from a specific project
   * [x] Get project by ID
   * [ ] Get project name by ID
   * [ ] Get tasks that belong to a project
