@@ -97,10 +97,9 @@ export default function ProjectList() {
      * @returns array
     */
     function getTasks(key) {
-        let project = projects.get(key);
+        let project = getProject(key);
 
         if (!project) {
-            console.error(`Invalid key: ${key}`);
             return;
         }
 

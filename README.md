@@ -103,8 +103,8 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [x] Add task item to a specific project
   * [x] Delete task item from a specific project
   * [x] Get project by ID
-  * [ ] Get project name by ID
-  * [ ] Get tasks that belong to a project
+  * [x] Get project name by ID
+  * [x] Get tasks that belong to a project
   * [ ] Save projects to localStorage
   * [ ] Load projects from localStorage
 * [ ] Brain (stores projects)

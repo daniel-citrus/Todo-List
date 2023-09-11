@@ -42,7 +42,6 @@ let brain = (() => {
     projects.addTask(1, tasks.addTask(['Study', 'Regular session', '9/6/2023', 5]))
     projects.showProjects();
 
-
     return {
     }
 })();
