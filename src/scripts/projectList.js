@@ -39,9 +39,17 @@ export default function ProjectList() {
         console.error('Invalid project key');
     }
 
-    /* Store a task keyin  a project */
+    /* Store a task key in a project */
     function addTask(key, taskKey) {
-        /* projects.get(key).tasks.add(taskKey); */
+        for (let p in projects) {
+            let project = projects[p];
+            if (project.id == key) {
+                project.tasks.push(taskKey);
+                return;
+            }
+        }
+
+        console.error('Invalid project key');
     }
 
     /* Delete task from a project */
