@@ -110,6 +110,15 @@ export default function ProjectList() {
         console.log(projects);
     }
 
+    function saveData() {
+        localStorage.setItem('Projects', JSON.stringify(projects));
+    }
+
+    function loadData() {
+        projects = JSON.parse(localStorage.getItem('Projects'));
+    }
+
+
     /*
     Generate a new ID for new entries. This will search for the lowest possible ID number.
     
@@ -143,6 +152,8 @@ export default function ProjectList() {
         deleteTask,
         getName,
         getTasks,
+        saveData,
+        loadData,
         showProjects,
     }
 }
