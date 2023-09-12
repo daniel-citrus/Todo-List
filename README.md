@@ -93,11 +93,13 @@ To setup this project locally you must have Node Package Manager ([npm](https://
 * [x] TaskList
   * [x] Stores all tasks
   * [x] Add task item (Parameters: Title, Description, Due Date, Priority)
+  * [ ] Edit task with new inputs
   * [x] Remove a task using id
   * [x] Save tasks to localStorage
   * [x] Load tasks from localStorage
 * [x] Projects
   * [x] Track projects and their tasks
+  * [ ] Edit Project
   * [x] Create project & Insert new project
   * [x] Delete a project
   * [x] Add task item to a specific project
@@ -110,18 +112,26 @@ To setup this project locally you must have Node Package Manager ([npm](https://
 * [ ] DOM Features
   * [x] New Project
   * [x] New Task
+  * [ ] Project Options
+    * [ ] Edit project name 
+    * [ ] Delete a project
+  * [ ] Task Options
+    * [ ] Edit Task
+    * [ ] Delete a task
+    * [ ] Move to a different project
+  * [ ] Complete task button
+  * [ ] Task item modal
   * [ ] View all projects
   * [ ] View all tasks in each project
-  * [ ] Expand single task item
   * [ ] Sort by Title, Description, Due Date, or Priority
-  * [ ] Priority color indicator
+  * [ ] Show completed
   * [ ] Search
-  * [ ] Delete a project
-  * [ ] Delete a task
 * [ ] Brain (stores projects)
   * [ ] Create new project
   * [ ] Create task
-  * [ ] Delete Projects
+  * [ ] Move a task to a different project
+  * [ ] Delete Project
+    * [ ] Delete all tasks in a project
   * [ ] Delete Task
   * [ ] Store data in localStorage
   * [ ] Load data from localStorage

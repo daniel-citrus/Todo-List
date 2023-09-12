@@ -1,9 +1,9 @@
 /* 
     Store projects and keep record of their tasks.
     projects = [
-        { projectID, prjectName, [taskID, taskID, taskID] },
-        { projectID, prjectName, [taskID, taskID, taskID] },
-        { projectID, prjectName, [taskID, taskID, taskID] },
+        { projectID, projectName, [taskID, taskID, taskID] },
+        { projectID, projectName, [taskID, taskID, taskID] },
+        { projectID, projectName, [taskID, taskID, taskID] },
         ...
     ]
 */
@@ -121,14 +121,16 @@ export default function ProjectList() {
         projects = JSON.parse(localStorage.getItem('Projects'));
     }
 
-    /*
-    Generate a new ID for new entries. This will search for the lowest possible ID number.
+    
+   /**
+    * Generate a new ID for new entries. This will search for the lowest possible ID number.
     
     For example, if the existing IDs are: 0, 1, 2, 4, 5, 7
     then the generated ID will be 3
 
     If the existing IDs are 0, 1, 2, 3
     then the generated ID will be 4
+    * @returns generated project ID
     */
     function generateID() {
         let projectCount = projects.length;

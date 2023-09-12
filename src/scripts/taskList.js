@@ -3,9 +3,19 @@ export default function TaskList() {
 
     /* title, description, dueDate, priority, completed = false */
     function createTask(inputs) {
-        let title='', description='', dueDate='', priority='', completed = false;
+        let title = '',
+            description = '',
+            dueDate = '',
+            priority = '',
+            completed = false;
 
-        ({ title, description, dueDate, priority, completed } = inputs);
+        ({
+            title,
+            description,
+            dueDate,
+            priority,
+            completed
+        } = inputs);
 
         return {
             id: generateID(),
@@ -43,17 +53,20 @@ export default function TaskList() {
         return +taskCount;
     }
 
-    /* Generates new task and returns the taskID */
+    /**
+     * Generates new task and returns the taskID
+     * @param {*} inputs object with the following properties: title, description, dueDate, priority, completed (boolean)
+     * @returns taskID integer
+     */
     function addTask(inputs) {
         let task = createTask(inputs);
         let taskID = task.id;
 
         tasks.splice(taskID, 0, task);
-
         return taskID;
     }
 
-    /* delete one or more tasks from task list */
+    /* Delete one or more tasks from task list */
     function deleteTask(key) {
         if (tasks.length == 0) {
             console.error(`No tasks to delete`);
@@ -68,6 +81,45 @@ export default function TaskList() {
         }
 
         return false;
+    }
+
+    function updateTask(key, inputs) {
+        let task = getTask(key);
+
+        if (!task) {
+            return;
+        }
+
+        tasks[getTaskIndex(key)] = createTask(inputs);
+        
+    }
+
+    /* Check if task ID exists in storage */
+    function getTask(key) {
+        for (let task of tasks) {
+            let taskID = task.id;
+
+            if (taskID > key) {
+                break;
+            }
+
+            if (taskID == key) {
+                return task;
+            }
+        }
+
+        console.error('Invalid task key');
+        return null;
+    }
+
+    function getTaskIndex(key) {
+        for (let taskIndex in tasks) {
+            let taskID = tasks[taskIndex].id;
+
+            if (taskID == key) {
+                return taskIndex;
+            }
+        }
     }
 
     function showTasks() {
@@ -87,6 +139,7 @@ export default function TaskList() {
         deleteTask,
         loadData,
         showTasks,
+        updateTask,
         saveData
     }
 };
