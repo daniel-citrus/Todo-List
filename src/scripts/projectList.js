@@ -10,12 +10,9 @@
 export default function ProjectList() {
     let projects = [];
 
-    /* Default project */
-    addProject('My Tasks');
-
     function createProject(name) {
         return {
-            id: undefined,
+            id: generateID(),
             name: name,
             tasks: [],
         }
@@ -24,8 +21,7 @@ export default function ProjectList() {
     /* Create a new project, store it, then return the project's key */
     function addProject(name) {
         let project = createProject(name);
-        let key = generateID();
-        project.id = key;
+        let key = project.id;
         projects.splice(key, 0, project);
         return key;
     }
@@ -61,9 +57,9 @@ export default function ProjectList() {
             return;
         }
 
-        for (let task in project.tasks) {
-            if (taskKey == project.tasks[task]) {
-                project.tasks.splice(task, 1);
+        for (let t in project.tasks) {
+            if (taskKey == project.tasks[t]) {
+                project.tasks.splice(t, 1);
                 return;
             }
         }
@@ -71,10 +67,25 @@ export default function ProjectList() {
         console.error('Invalid task key');
     }
 
+    function updateProjectName(key, name) {
+        let projectIndex = getProjectIndex(key);
+
+        if (projectIndex === false) {
+            return false;
+        }
+
+        projects[projectIndex].name = name;
+        return true;
+    }
+
+    /**
+     * Returns project object if it exists in storage
+     * @param {*} key project key
+     * @returns object
+     */
     function getProject(key) {
-        let project;
         for (let p in projects) {
-            project = projects[p];
+            let project = projects[p];
 
             if (project.id == key) {
                 return project;
@@ -82,6 +93,23 @@ export default function ProjectList() {
         }
 
         console.error('Invalid project key');
+        return false;
+    }
+
+    function getProjectIndex(key) {
+        for (let p in projects) {
+            let projectID = projects[p].id;
+
+            if (projectID > key) {
+                break;
+            }
+
+            if (projectID == key) {
+                return p;
+            }
+        }
+
+        console.error('Invalid project key')
         return false;
     }
 
@@ -121,17 +149,17 @@ export default function ProjectList() {
         projects = JSON.parse(localStorage.getItem('Projects'));
     }
 
-    
-   /**
-    * Generate a new ID for new entries. This will search for the lowest possible ID number.
-    
-    For example, if the existing IDs are: 0, 1, 2, 4, 5, 7
-    then the generated ID will be 3
 
-    If the existing IDs are 0, 1, 2, 3
-    then the generated ID will be 4
-    * @returns generated project ID
-    */
+    /**
+     * Generate a new ID for new entries. This will search for the lowest possible ID number.
+     
+     For example, if the existing IDs are: 0, 1, 2, 4, 5, 7
+     then the generated ID will be 3
+ 
+     If the existing IDs are 0, 1, 2, 3
+     then the generated ID will be 4
+     * @returns generated project ID
+     */
     function generateID() {
         let projectCount = projects.length;
 
@@ -152,6 +180,7 @@ export default function ProjectList() {
     return {
         addProject,
         deleteProject,
+        updateProjectName,
         addTask,
         deleteTask,
         getName,

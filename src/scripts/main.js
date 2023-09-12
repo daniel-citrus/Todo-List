@@ -90,12 +90,8 @@ let brain = (() => {
     projects.addTask(2, tasks.addTask(task5));
 
     tasks.showTasks();
-    tasks.updateTask(3, {
-        title: 'Sleeep',
-        description: 'Full night sleep and feel great!',
-        dueDate: '9/2/2023',
-        priority: 5
-    })
+    projects.showProjects();
+    
     return {
     }
 })();

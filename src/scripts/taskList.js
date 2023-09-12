@@ -1,7 +1,6 @@
 export default function TaskList() {
     let tasks = [];
 
-    /* title, description, dueDate, priority, completed = false */
     function createTask(inputs) {
         let title = '',
             description = '',
@@ -54,7 +53,7 @@ export default function TaskList() {
     }
 
     /**
-     * Generates new task and returns the taskID
+     * Generates new task, inserts it into storage (in order), and returns the taskID
      * @param {*} inputs object with the following properties: title, description, dueDate, priority, completed (boolean)
      * @returns taskID integer
      */
@@ -73,6 +72,10 @@ export default function TaskList() {
             return false;
         }
 
+        if (!taskExists) {
+            return false
+        }
+
         for (let t in tasks) {
             if (tasks[t].id == key) {
                 tasks.splice(t, 1);
@@ -84,18 +87,16 @@ export default function TaskList() {
     }
 
     function updateTask(key, inputs) {
-        let task = getTask(key);
-
-        if (!task) {
-            return;
+        if (!taskExists(key)) {
+            return false;
         }
 
         tasks[getTaskIndex(key)] = createTask(inputs);
-        
+        return true;
     }
 
     /* Check if task ID exists in storage */
-    function getTask(key) {
+    function taskExists(key) {
         for (let task of tasks) {
             let taskID = task.id;
 
@@ -104,15 +105,19 @@ export default function TaskList() {
             }
 
             if (taskID == key) {
-                return task;
+                return true;
             }
         }
 
         console.error('Invalid task key');
-        return null;
+        return false;
     }
 
     function getTaskIndex(key) {
+        if (!taskExists(key)) {
+            return;
+        }
+
         for (let taskIndex in tasks) {
             let taskID = tasks[taskIndex].id;
 

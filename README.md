@@ -93,7 +93,7 @@ To setup this project locally you must have Node Package Manager ([npm](https://
 * [x] TaskList
   * [x] Stores all tasks
   * [x] Add task item (Parameters: Title, Description, Due Date, Priority)
-  * [ ] Edit task with new inputs
+  * [x] Edit task with new inputs
   * [x] Remove a task using id
   * [x] Save tasks to localStorage
   * [x] Load tasks from localStorage
