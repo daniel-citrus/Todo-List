@@ -5,6 +5,7 @@
   grid-area: controls;
   border: 1px solid green;
   display: flex;
+  flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -21,15 +22,17 @@
 .projects {
   grid-area: projects;
   border: 1px solid blue;
+  overflow-y: auto;
 }
 
 .main {
-  height: 100%;
   display: grid;
-  grid-template: "controls controls" "projects tasks" "projects tasks" "projects tasks";
+  grid-template: "controls projects" 1fr "controls tasks" 1fr/minmax(70px, 300px) minmax(300px, auto);
+  height: 100%;
 }
 
-html, body {
-  margin: 0;
+html,
+body {
   height: 100%;
+  margin: 0;
 }
