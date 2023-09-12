@@ -99,7 +99,7 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [x] Load tasks from localStorage
 * [x] Projects
   * [x] Track projects and their tasks
-  * [ ] Edit Project
+  * [x] Edit Project
   * [x] Create project & Insert new project
   * [x] Delete a project
   * [x] Add task item to a specific project
