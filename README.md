@@ -118,10 +118,10 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [ ] Search
   * [ ] Delete a task
 * [ ] Brain (stores projects)
-  * [~] Create new project
-  * [~] Create task
-  * [~] Delete Projects
-  * [~] Delete Task
+  * [ ] Create new project
+  * [ ] Create task
+  * [ ] Delete Projects
+  * [ ] Delete Task
   * [ ] Store data in localStorage
   * [ ] Load data from localStorage
 

@@ -1,10 +1,12 @@
 import "../style/style.scss";
+import { DomControl } from './barrel'
 import { ProjectList } from './barrel'
 import { TaskList } from './barrel'
 
 let brain = (() => {
     let tasks = TaskList();
     let projects = ProjectList();
+    let domControl = DomControl();
 
     function createProject(name) {
         // Create a new project

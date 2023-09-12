@@ -1,3 +1,39 @@
-div {
-    color: red;
+.controls {
+    grid-area: controls;
+    border: 1px solid green;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    button {
+        font-size: 1.4rem;
+    }
+}
+
+.tasks {
+    grid-area: tasks;
+    border: 1px solid orange
+}
+
+.projects {
+    grid-area: projects;
+    border: 1px solid blue
+}
+
+.main {
+    height: 100%;
+    display: grid;
+    grid-template: 
+    "controls controls"
+    "projects tasks"
+    "projects tasks"
+    "projects tasks"
+    ;
+}
+
+html, body {
+    margin:0;
+    height: 100%;
 }
