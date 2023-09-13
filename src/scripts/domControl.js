@@ -14,7 +14,7 @@ export default function DomControl() {
 
     taskButtons.forEach((pButton) => {
         pButton.addEventListener("click", () => {
-            buildTask(p++, 'test');
+            taskContainer.appendChild(buildTask(p++, 'test'));
         })
     })
 
@@ -53,6 +53,17 @@ export default function DomControl() {
         return button;
     }
 
+    function updateProjectName(key, name) {
+        let projectName = document.querySelector(`.projects .project[data-id="${key}"]`);
+
+        if (!projectName) {
+            console.error(`Project element does not exist - Key: ${key}`)
+            return;
+        }
+
+        projectName.textContent = name;
+    }
+
     /**
      * Creates a task DOM element that has a custom data set called data-id. The element contains the task name, completion checkbox, and options button.
      * @param {*} key task id
@@ -75,6 +86,10 @@ export default function DomControl() {
         let options = document.createElement('button');
         options.classList.add('options');
         task.appendChild(options);
+
+        options.addEventListener('click', ()=> {
+            console.log(`Task ID: ${key}`);
+        })
 
         return task;
     }
