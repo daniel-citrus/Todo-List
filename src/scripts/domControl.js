@@ -64,6 +64,18 @@ export default function DomControl() {
         projectName.textContent = name;
     }
 
+    function deleteProject(key) {
+        let project = document.querySelector(`.projects .project[data-id="${key}"]`);
+
+        if (!project) {
+            console.error(`Project element does not exist - Key: ${key}`)
+            return false;
+        }
+
+        project.remove();
+        return true;
+    }
+
     /**
      * Creates a task DOM element that has a custom data set called data-id. The element contains the task name, completion checkbox, and options button.
      * @param {*} key task id
@@ -87,11 +99,34 @@ export default function DomControl() {
         options.classList.add('options');
         task.appendChild(options);
 
-        options.addEventListener('click', ()=> {
+        options.addEventListener('click', () => {
             console.log(`Task ID: ${key}`);
         })
 
         return task;
+    }
+
+    function taskOptionButton(key) {
+        let button = document.createElement('button');
+        button.classList.add('options');
+
+        /* Inserts task menu as a child of the task option button and then toggles its visibility */
+        button.addEventListener('click', () => {
+            let menu = taskOptions(key);
+            button.appendChild(taskOptions(key));
+            menu.classList.remove('hidden');
+        })
+
+        return button;
+    }
+
+    /* Creates a menu element that contains task actions */
+    function taskOptions(key) {
+
+    }
+
+    function editTaskName() {
+
     }
 
     return {

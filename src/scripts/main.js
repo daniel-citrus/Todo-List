@@ -66,7 +66,9 @@ let brain = (() => {
 
     let task4 = {
         title: 'Sleep',
-        description: 'Full night sleep',
+        description: `Good sleep improves your brain performance, mood, and health.
+                Not getting enough quality sleep regularly raises the risk of many diseases and disorders. These range from heart disease and stroke to obesity and dementia.
+                There’s more to good sleep than just the hours spent in bed, says Dr. Marishka Brown, a sleep expert at NIH. “Healthy sleep encompasses three major things,” she explains. “One is how much sleep you get. Another is sleep quality—that you get uninterrupted and refreshing sleep. The last is a consistent sleep schedule.”`,
         dueDate: '9/2/2023',
         priority: 5
     }
@@ -91,7 +93,7 @@ let brain = (() => {
 
     tasks.showTasks();
     projects.showProjects();
-    
+
     return {
     }
 })();

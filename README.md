@@ -113,12 +113,14 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [x] New Project
   * [x] New Task
   * [ ] Project Options
-    * [ ] Edit project name 
-    * [ ] Delete a project
+    * [x] Edit project name 
+    * [x] Delete a project
+    * [ ] Load projects from storage
   * [ ] Task Options
     * [ ] Edit Task
     * [ ] Delete a task
     * [ ] Move to a different project
+    * [ ] Load tasks from storage
   * [ ] Complete task button
   * [ ] Task item modal
   * [ ] View all projects
