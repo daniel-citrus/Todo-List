@@ -87,11 +87,13 @@ export default function TaskList() {
     }
 
     function updateTask(key, inputs) {
-        if (!taskExists(key)) {
+        let index = getTaskIndex(key);
+        
+        if (index === false) {
             return false;
         }
 
-        tasks[getTaskIndex(key)] = createTask(inputs);
+        tasks[index] = createTask(inputs);
         return true;
     }
 
@@ -115,7 +117,7 @@ export default function TaskList() {
 
     function getTaskIndex(key) {
         if (!taskExists(key)) {
-            return;
+            return false;
         }
 
         for (let taskIndex in tasks) {
