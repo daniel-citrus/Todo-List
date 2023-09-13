@@ -46,7 +46,7 @@ let brain = (() => {
         title: 'Pull Ups',
         description: 'Quality reps',
         dueDate: '9/4/2023',
-        priority: 4,
+        priority: 2,
         completed: true,
     };
 
@@ -61,7 +61,7 @@ let brain = (() => {
         title: 'Eat',
         description: 'Healthy meals',
         dueDate: '9/2/2023',
-        priority: 5
+        priority: 1
     }
 
     let task4 = {
@@ -70,14 +70,14 @@ let brain = (() => {
                 Not getting enough quality sleep regularly raises the risk of many diseases and disorders. These range from heart disease and stroke to obesity and dementia.
                 There’s more to good sleep than just the hours spent in bed, says Dr. Marishka Brown, a sleep expert at NIH. “Healthy sleep encompasses three major things,” she explains. “One is how much sleep you get. Another is sleep quality—that you get uninterrupted and refreshing sleep. The last is a consistent sleep schedule.”`,
         dueDate: '9/2/2023',
-        priority: 5
+        priority: 1
     }
 
     let task5 = {
         title: 'Study',
         description: 'Regular session',
         dueDate: '9/6/2023',
-        priority: 5,
+        priority: 1,
     }
 
 

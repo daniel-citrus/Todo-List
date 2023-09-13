@@ -113,14 +113,13 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [x] New Project
   * [x] New Task
   * [ ] Project Options
-    * [x] Edit project name 
+    * [x] Edit project name
     * [x] Delete a project
-    * [ ] Load projects from storage
   * [ ] Task Options
-    * [ ] Edit Task
+    * [ ] Task modal
+    * [ ] Edit task
     * [ ] Delete a task
     * [ ] Move to a different project
-    * [ ] Load tasks from storage
   * [ ] Complete task button
   * [ ] Task item modal
   * [ ] View all projects
@@ -137,6 +136,8 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [ ] Delete Task
   * [ ] Store data in localStorage
   * [ ] Load data from localStorage
+    * [ ] Load tasks
+    * [ ] Load projects
 
 Todo items can be stored in one map
 

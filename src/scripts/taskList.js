@@ -115,6 +115,16 @@ export default function TaskList() {
         return false;
     }
 
+    function getTask(key) {
+        let index = getTaskIndex(key);
+
+        if (index === false) {
+            return false;
+        }
+
+        return tasks[index];
+    }
+
     function getTaskIndex(key) {
         if (!taskExists(key)) {
             return false;
@@ -145,6 +155,7 @@ export default function TaskList() {
         addTask,
         deleteTask,
         loadData,
+        getTask,
         showTasks,
         updateTask,
         saveData
