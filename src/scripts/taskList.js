@@ -5,7 +5,7 @@ export default function TaskList() {
         let title = '',
             description = '',
             dueDate = '',
-            priority = '',
+            priority = 5,
             completed = false;
 
         ({

@@ -13,9 +13,20 @@
     }
 }
 
+.hidden {
+    display: none;
+}
+
 .tasks {
     grid-area: tasks;
     border: 1px solid orange;
+    position: relative;
+
+    #taskDisplay {
+        background: red;
+        position:absolute;
+        margin: auto;
+    }
 }
 
 .projects {

@@ -1,9 +1,27 @@
 export default function DomControl() {
-    let projectContainer = document.querySelector('.projects');
-    let taskContainer = document.querySelector('.tasks');
+    let mainContainer,
+        projectContainer,
+        taskContainer,
+        projectButtons,
+        taskButtons,
+        taskDisplay;
 
-    let projectButtons = document.querySelectorAll("button.project");
-    let taskButtons = document.querySelectorAll("button.task");
+    (() => {
+        mainContainer = document.querySelector('.main');
+        projectContainer = document.querySelector('.projects');
+        taskContainer = document.querySelector('.tasks');
+        projectButtons = document.querySelectorAll("button.project");
+        taskButtons = document.querySelectorAll("button.task");
+
+        taskDisplay = createTaskDisplay();
+
+        taskContainer.appendChild(taskDisplay);
+
+    })();
+
+    /* Close modal */
+    document.addEventListener('click', (e) => {
+    })
 
     let p = 1;
     projectButtons.forEach((pButton) => {
@@ -18,7 +36,8 @@ export default function DomControl() {
                 Not getting enough quality sleep regularly raises the risk of many diseases and disorders. These range from heart disease and stroke to obesity and dementia.
                 There’s more to good sleep than just the hours spent in bed, says Dr. Marishka Brown, a sleep expert at NIH. “Healthy sleep encompasses three major things,” she explains. “One is how much sleep you get. Another is sleep quality—that you get uninterrupted and refreshing sleep. The last is a consistent sleep schedule.”`,
         dueDate: '9/2/2023',
-        priority: 5
+        priority: 5,
+        completed: true,
     }
 
     taskButtons.forEach((pButton) => {
@@ -88,13 +107,22 @@ export default function DomControl() {
     /**
      * Creates a task DOM element that has a custom data set called data-id. The element contains the task name, completion checkbox, and options button.
      * @param {*} key task id
-     * @param {*} title task name
-     * @param {*} description task description
-     * @param {*} dueDate task due date
-     * @param {*} priority task priority level
-     * @param {*} completed boolean
+     * @param {*} task task object
      **/
-    function buildTask(key, { title = '', description = '', dueDate = '', priority = '5', completed = '' } = task) {
+    function buildTask(key, taskObj) {
+        let title = '',
+            description = '',
+            dueDate = '',
+            priority = '',
+            completed = '';
+        ({
+            title,
+            description,
+            dueDate,
+            priority,
+            completed
+        } = taskObj);
+
         /* Store Key, priority level, completed status */
         let task = document.createElement('div');
         task.classList.add('task');
@@ -119,32 +147,101 @@ export default function DomControl() {
 
         let options = document.createElement('button');
         options.classList.add('options');
-        task.appendChild(options);
-
-        options.addEventListener('click', () => {
-            console.log(`Task ID: ${key}`);
-        })
+        task.appendChild(taskOptionButton(key));
 
         return task;
     }
 
+    function createTaskDisplay() {
+        let display = document.createElement('div');
+        display.classList.add('hidden');
+        display.id = 'taskDisplay';
+
+        let titleDiv = document.createElement('div');
+        titleDiv.classList.add('title');
+        display.appendChild(titleDiv);
+        let descDiv = document.createElement('div');
+        descDiv.classList.add('description');
+        display.appendChild(descDiv);
+        let dueDateDiv = document.createElement('div');
+        dueDateDiv.classList.add('dueDate');
+        display.appendChild(dueDateDiv);
+        let priorityDiv = document.createElement('div');
+        priorityDiv.classList.add('priority');
+        display.appendChild(priorityDiv);
+        let completedDiv = document.createElement('div');
+        completedDiv.classList.add('completed');
+        display.appendChild(completedDiv);
+
+        let closeButton = document.createElement('button');
+        closeButton.textContent = 'Close';
+        closeButton.addEventListener('click', ()=> {
+            display.classList.add('hidden');
+        })
+        display.appendChild(closeButton);
+
+        return display;
+    }
+
+    /**
+     * Generate a modal to display task details.
+     * @param {*} key task key
+     * @param {*} task task details (title, description, dueDate, priority, completed status)
+     */
+    function viewTask(key, task) {
+        let title = '',
+            description = '',
+            dueDate = '',
+            priority = '',
+            completed = '';
+        ({
+            title,
+            description,
+            dueDate,
+            priority,
+            completed
+        } = task);
+
+        let titleDiv = taskDisplay.querySelector('.title');
+        titleDiv.textContent = title;
+        let descDiv = taskDisplay.querySelector('.description');
+        descDiv.textContent = description;
+        let dueDateDiv = taskDisplay.querySelector('.dueDate');
+        dueDateDiv.textContent = dueDate;
+        let priorityDiv = taskDisplay.querySelector('.priority');
+        priorityDiv.textContent = priority;
+        let completedDiv = taskDisplay.querySelector('.completed');
+        completedDiv.textContent = completed;
+
+        taskDisplay.classList.remove('hidden')
+    }
+
+    /* Create a task option button. When clicked, a list of task actions will appear. */
     function taskOptionButton(key) {
         let button = document.createElement('button');
         button.classList.add('options');
 
         /* Inserts task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', () => {
-            let menu = taskOptions(key);
+            viewTask(key, task4);
+            /* let menu = taskOptions(key);
             button.appendChild(taskOptions(key));
-            menu.classList.remove('hidden');
+            menu.classList.remove('hidden'); */
         })
 
         return button;
     }
 
-    /* Creates a menu element that contains task actions */
-    function taskOptions(key) {
-
+    /**
+     * Returns a menu element that contains task options.
+     * Task key is used to perform task operations
+     * @param {*} key task key
+     */
+    function createTaskOptionMenu(key) {
+        let button = document.createElement('button');
+        button.addEventListener('click', ()=> {
+            console.log('task options')
+        })
     }
 
     return {
