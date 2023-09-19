@@ -173,6 +173,7 @@ export default function DomControl() {
         task.appendChild(taskDueDate);
 
         let options = buildElement('button', '', 'options');
+        // generate option buttons and display
         task.appendChild(taskOptionButton(key));
 
         return task;
@@ -185,6 +186,9 @@ export default function DomControl() {
 
         let display = buildElement('form', '', 'taskDetails');
         wrapper.appendChild(display);
+
+        let nameLabel = buildElement('label', 'Task Name');
+        display.appendChild(nameLabel);
 
         let titleDiv = buildElement('div', '', 'title');
         display.appendChild(titleDiv);
@@ -204,10 +208,19 @@ export default function DomControl() {
         /* Edit task buttons */
         let submitEditButton = buildElement('button', 'Submit', 'hidden');
         submitEditButton.type = 'button';
+        submitEditButton.addEventListener('click', () => {
+            // submit new values and task key (from tasDiaply.data-task-id) to the brain to update task Data
+            // close the task pop up
+            // hide submit and cancel
+        })
         display.appendChild(submitEditButton);
 
         let cancelEditButton = buildElement('button', 'Cancel', 'hidden');
         cancelEditButton.type = 'button';
+        cancelEditButton.addEventListener('click', () => {
+            // close the task pop up
+            // hide submit and cancel
+        })
         display.appendChild(cancelEditButton);
 
         let closeButton = buildElement('button', 'Close');
@@ -226,20 +239,7 @@ export default function DomControl() {
      * @param {*} key task key
      * @param {*} task task details (title, description, dueDate, priority, completed status)
      */
-    function viewTask(key, task) {
-        let title = '',
-            description = '',
-            dueDate = '',
-            priority = '',
-            completed = '';
-        ({
-            title,
-            description,
-            dueDate,
-            priority,
-            completed
-        } = task);
-
+    function viewTask(key, title = '', description = '', dueDate = '', priority = '', completed = '') {
         let titleDiv = taskDisplay.querySelector('.title');
         titleDiv.textContent = title;
         let descDiv = taskDisplay.querySelector('.description');
@@ -250,7 +250,7 @@ export default function DomControl() {
         priorityDiv.textContent = priority;
         let completedDiv = taskDisplay.querySelector('.completed');
         completedDiv.textContent = completed;
-
+        taskDisplay.dataset.taskId = key;
         taskDisplay.classList.remove('hidden');
     }
 
@@ -261,8 +261,7 @@ export default function DomControl() {
         /* Inserts task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', () => {
             // display task menu options
-            viewTask(key, tasks[key]);
-
+            editTask(key);
         })
 
         return button;
@@ -293,8 +292,34 @@ export default function DomControl() {
 
     function editTask(key) {
         // enable task pop up
+        if (taskDisplay.classList.contains('hidden')) {
+            let title = '',
+                description = '',
+                dueDate = '',
+                priority = '',
+                completed = '';
+            ({
+                title,
+                description,
+                dueDate,
+                priority,
+                completed
+            } = tasks[0]);
+
+            // get task from brain then pass to view task
+            viewTask(key, title, description, dueDate, priority, completed);
+         }
         // turn divs into input fields
-        // 
+        let title = taskDisplay.querySelector('.title');
+        title.innerHTML = `
+        <input id=tTitle type="text" value="${title.textContent}">
+        `;
+        
+        let description = taskDisplay.querySelector('.description');
+        let dueDate = taskDisplay.querySelector('.dueDate');
+        let priority = taskDisplay.querySelector('.priority');
+        let completed = taskDisplay.querySelector('.priority');
+        // show submit and cancel buttons
     }
 
     return {
