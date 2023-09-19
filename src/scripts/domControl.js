@@ -75,18 +75,30 @@ export default function DomControl() {
      * @param {*} name project name
      **/
     function buildProject(key, name) {
-        let project = document.createElement('div');
-        project.classList.add('project');
+        let project = buildElement('div', '', 'project');
         project.dataset.id = key;
 
-        let projectName = document.createElement('div');
-        projectName.classList.add('name');
-        projectName.textContent = name;
+        let projectName = buildElement('div', name, 'name');
         project.appendChild(projectName);
-
         project.appendChild(projectOptionButton(key));
 
         return project;
+    }
+
+    function buildElement(tagName, content = '', ...classList) {
+        let element = document.createElement(tagName);
+        element.textContent = content;
+
+        if (!classList.length) return element;
+
+        classList.forEach((c) => {
+            if (c == '') {
+                return
+            }
+            element.classList.add(c);
+        })
+
+        return element;
     }
 
     function projectOptions(key) {
@@ -94,8 +106,7 @@ export default function DomControl() {
     }
 
     function projectOptionButton(key) {
-        let button = document.createElement('button');
-        button.classList.add('options');
+        let button = buildElement('button', '', 'options');
 
         button.addEventListener('click', () => {
             projectOptions(key);
@@ -147,65 +158,60 @@ export default function DomControl() {
         } = taskObj);
 
         /* Store Key, priority level, completed status */
-        let task = document.createElement('div');
-        task.classList.add('task');
+        let task = buildElement('div', '', 'task');
         task.dataset.id = key;
         task.dataset.priority = priority;
         task.dataset.completed = completed;
 
-        let taskName = document.createElement('div');
-        taskName.classList.add('title');
-        taskName.textContent = title;
+        let taskName = buildElement('div', title, 'title');
         task.appendChild(taskName);
 
-        let taskDescription = document.createElement('div');
-        taskDescription.classList.add('description');
-        taskDescription.textContent = description;
+        let taskDescription = buildElement('div', description, 'description');
         task.appendChild(taskDescription);
 
-        let taskDueDate = document.createElement('div');
-        taskDueDate.classList.add('dueDate');
-        taskDueDate.textContent = dueDate;
+        let taskDueDate = buildElement('div', dueDate, 'dueDate');
         task.appendChild(taskDueDate);
 
-        let options = document.createElement('button');
-        options.classList.add('options');
+        let options = buildElement('button', '', 'options');
         task.appendChild(taskOptionButton(key));
 
         return task;
     }
 
+    /* The task display box will also serve as the form for editing task details. */
     function createTaskDisplay() {
-        let wrapper = document.createElement('div');
-        wrapper.classList.add('taskDisplayWrapper', 'hidden');
+        let wrapper = buildElement('div', '', 'taskDisplayWrapper', 'hidden')
         wrapper.id = 'taskDisplay';
 
-        let display = document.createElement('div');
-        display.classList.add('taskDetails');
+        let display = buildElement('form', '', 'taskDetails');
         wrapper.appendChild(display);
 
-        let titleDiv = document.createElement('div');
-        titleDiv.classList.add('title');
+        let titleDiv = buildElement('div', '', 'title');
         display.appendChild(titleDiv);
 
-        let descDiv = document.createElement('div');
-        descDiv.classList.add('description');
+        let descDiv = buildElement('div', '', 'description');
         display.appendChild(descDiv);
 
-        let dueDateDiv = document.createElement('div');
-        dueDateDiv.classList.add('dueDate');
+        let dueDateDiv = buildElement('div', '', 'dueDate');
         display.appendChild(dueDateDiv);
 
-        let priorityDiv = document.createElement('div');
-        priorityDiv.classList.add('priority');
+        let priorityDiv = buildElement('div', '', 'priority');
         display.appendChild(priorityDiv);
 
-        let completedDiv = document.createElement('div');
-        completedDiv.classList.add('completed');
+        let completedDiv = buildElement('div', '', 'completed');
         display.appendChild(completedDiv);
 
-        let closeButton = document.createElement('button');
-        closeButton.textContent = 'Close';
+        /* Edit task buttons */
+        let submitEditButton = buildElement('button', 'Submit', 'hidden');
+        submitEditButton.type = 'button';
+        display.appendChild(submitEditButton);
+
+        let cancelEditButton = buildElement('button', 'Cancel', 'hidden');
+        cancelEditButton.type = 'button';
+        display.appendChild(cancelEditButton);
+
+        let closeButton = buildElement('button', 'Close');
+        closeButton.type = 'button';
         closeButton.addEventListener('click', () => {
             taskDisplay.classList.add('hidden');
         })
@@ -250,9 +256,7 @@ export default function DomControl() {
 
     /* Create a task option button. When clicked, a list of task actions will appear. */
     function taskOptionButton(key) {
-        let button = document.createElement('button');
-        button.classList.add('options');
-        button.textContent = 'task button';
+        let button = buildElement('button', 'Task Button', 'options');
 
         /* Inserts task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', () => {
@@ -270,10 +274,8 @@ export default function DomControl() {
      * @param {*} key task key
      */
     function createTaskMenu(key) {
-        let menuContainer = document.createElement('div');
-        menuContainer.classList.add('menuContainer');
-        let menu = document.createElement('div')
-        menu.classList.add('taskMenu');
+        let menuContainer = buildElement('div', '', 'menuContainer');
+        let menu = buildElement('div', '', 'taskMenu');
         menu.appendChild(menuContainer);
 
         // view task
@@ -281,12 +283,18 @@ export default function DomControl() {
         // move task to a new project
         // delete task
 
-        let button = document.createElement('button');
+        let button = buildElement('button');
         button.addEventListener('click', () => {
             console.log('task options')
         })
 
         return menuContainer;
+    }
+
+    function editTask(key) {
+        // enable task pop up
+        // turn divs into input fields
+        // 
     }
 
     return {
