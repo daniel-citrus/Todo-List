@@ -20,10 +20,6 @@ export default function DomControl() {
 
     })();
 
-    /* Close modal */
-    document.addEventListener('click', (e) => {
-    })
-
     let p = 1;
     projectButtons.forEach((pButton) => {
         pButton.addEventListener("click", () => {
@@ -259,9 +255,9 @@ export default function DomControl() {
 
         /* Inserts task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', () => {
+            // display task menu options
             viewTask(key, tasks[key]);
 
-            // get
         })
 
         return button;
@@ -269,14 +265,27 @@ export default function DomControl() {
 
     /**
      * Returns a menu element that contains task options.
-     * Task key is used to perform task operations
+     * Call the brain and passes the task key to perform operations to the task database.
      * @param {*} key task key
      */
-    function createTaskOptionMenu(key) {
+    function createTaskMenu(key) {
+        let menuContainer = document.createElement('div');
+        menuContainer.classList.add('menuContainer');
+        let menu = document.createElement('div')
+        menu.classList.add('taskMenu');
+        menu.appendChild(menuContainer);
+
+        // view task
+        // edit task
+        // move task to a new project
+        // delete task
+
         let button = document.createElement('button');
         button.addEventListener('click', () => {
             console.log('task options')
         })
+
+        return menuContainer;
     }
 
     return {

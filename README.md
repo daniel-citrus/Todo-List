@@ -116,12 +116,12 @@ To setup this project locally you must have Node Package Manager ([npm](https://
     * [x] Edit project name
     * [x] Delete a project
   * [ ] Task Options
-    * [ ] Task modal
+    * [x] Task pop-up
     * [ ] Edit task
     * [ ] Delete a task
     * [ ] Move to a different project
   * [ ] Complete task button
-  * [ ] Task item modal
+  * [ ] Task item pop-up
   * [ ] View all projects
   * [ ] View all tasks in each project
   * [ ] Sort by Title, Description, Due Date, or Priority

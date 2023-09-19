@@ -32,6 +32,10 @@ let brain = (() => {
         // delete task from tasks
     }
 
+    function moveTask(projectKey, taskKey)  {
+
+    }
+
     function loadData() {
         // load projects
         // load tasks
