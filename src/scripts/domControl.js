@@ -1,3 +1,5 @@
+
+
 export default function DomControl() {
     let mainContainer,
         projectContainer,
@@ -14,7 +16,6 @@ export default function DomControl() {
         taskButtons = document.querySelectorAll("button.task");
 
         taskDisplay = createTaskDisplay();
-
         taskContainer.appendChild(taskDisplay);
 
     })();
@@ -30,19 +31,45 @@ export default function DomControl() {
         })
     })
 
-    let task4 = {
-        title: 'Sleep',
-        description: `Good sleep improves your brain performance, mood, and health.
-                Not getting enough quality sleep regularly raises the risk of many diseases and disorders. These range from heart disease and stroke to obesity and dementia.
-                There’s more to good sleep than just the hours spent in bed, says Dr. Marishka Brown, a sleep expert at NIH. “Healthy sleep encompasses three major things,” she explains. “One is how much sleep you get. Another is sleep quality—that you get uninterrupted and refreshing sleep. The last is a consistent sleep schedule.”`,
-        dueDate: '9/2/2023',
-        priority: 5,
-        completed: true,
-    }
+    let tasks = [
+        {
+            title: 'Pull Ups',
+            description: 'Quality reps',
+            dueDate: '9/4/2023',
+            priority: 2,
+            completed: true,
+        },
+        {
+            title: 'Dips',
+            description: 'Heavy weight',
+            dueDate: '9/3/2023',
+            priority: 3,
+        },
+        {
+            title: 'Eat',
+            description: 'Healthy meals',
+            dueDate: '9/2/2023',
+            priority: 1
+        },
+        {
+            title: 'Sleep',
+            description: `Good sleep improves your brain performance, mood, and health.
+                    Not getting enough quality sleep regularly raises the risk of many diseases and disorders. These range from heart disease and stroke to obesity and dementia.
+                    There’s more to good sleep than just the hours spent in bed, says Dr. Marishka Brown, a sleep expert at NIH. “Healthy sleep encompasses three major things,” she explains. “One is how much sleep you get. Another is sleep quality—that you get uninterrupted and refreshing sleep. The last is a consistent sleep schedule.”`,
+            dueDate: '9/2/2023',
+            priority: 1
+        },
+        {
+            title: 'Study',
+            description: 'Regular session',
+            dueDate: '9/6/2023',
+            priority: 1,
+        }
+    ];
 
-    taskButtons.forEach((pButton) => {
-        pButton.addEventListener("click", () => {
-            taskContainer.appendChild(buildTask(p++, task4));
+    taskButtons.forEach((tButton) => {
+        tButton.addEventListener("click", () => {
+            taskContainer.appendChild(buildTask(p++, tasks[Math.floor(Math.random() * tasks.length)]));
         })
     })
 
@@ -153,38 +180,47 @@ export default function DomControl() {
     }
 
     function createTaskDisplay() {
+        let wrapper = document.createElement('div');
+        wrapper.classList.add('taskDisplayWrapper', 'hidden');
+        wrapper.id = 'taskDisplay';
+
         let display = document.createElement('div');
-        display.classList.add('hidden');
-        display.id = 'taskDisplay';
+        display.classList.add('taskDetails');
+        wrapper.appendChild(display);
 
         let titleDiv = document.createElement('div');
         titleDiv.classList.add('title');
         display.appendChild(titleDiv);
+
         let descDiv = document.createElement('div');
         descDiv.classList.add('description');
         display.appendChild(descDiv);
+
         let dueDateDiv = document.createElement('div');
         dueDateDiv.classList.add('dueDate');
         display.appendChild(dueDateDiv);
+
         let priorityDiv = document.createElement('div');
         priorityDiv.classList.add('priority');
         display.appendChild(priorityDiv);
+
         let completedDiv = document.createElement('div');
         completedDiv.classList.add('completed');
         display.appendChild(completedDiv);
 
         let closeButton = document.createElement('button');
         closeButton.textContent = 'Close';
-        closeButton.addEventListener('click', ()=> {
-            display.classList.add('hidden');
+        closeButton.addEventListener('click', () => {
+            taskDisplay.classList.add('hidden');
         })
+
         display.appendChild(closeButton);
 
-        return display;
+        return wrapper;
     }
 
     /**
-     * Generate a modal to display task details.
+     * Uses the task display div to display task information
      * @param {*} key task key
      * @param {*} task task details (title, description, dueDate, priority, completed status)
      */
@@ -213,7 +249,7 @@ export default function DomControl() {
         let completedDiv = taskDisplay.querySelector('.completed');
         completedDiv.textContent = completed;
 
-        taskDisplay.classList.remove('hidden')
+        taskDisplay.classList.remove('hidden');
     }
 
     /* Create a task option button. When clicked, a list of task actions will appear. */
@@ -223,10 +259,9 @@ export default function DomControl() {
 
         /* Inserts task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', () => {
-            viewTask(key, task4);
-            /* let menu = taskOptions(key);
-            button.appendChild(taskOptions(key));
-            menu.classList.remove('hidden'); */
+            viewTask(key, tasks[key]);
+
+            // get
         })
 
         return button;
@@ -239,7 +274,7 @@ export default function DomControl() {
      */
     function createTaskOptionMenu(key) {
         let button = document.createElement('button');
-        button.addEventListener('click', ()=> {
+        button.addEventListener('click', () => {
             console.log('task options')
         })
     }

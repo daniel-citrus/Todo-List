@@ -21,11 +21,21 @@
     grid-area: tasks;
     border: 1px solid orange;
     position: relative;
+}
 
-    #taskDisplay {
-        background: red;
-        position:absolute;
-        margin: auto;
+#taskDisplay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .taskDetails {
+    }
+
+    &.hidden {
+        display: none;
     }
 }
 
