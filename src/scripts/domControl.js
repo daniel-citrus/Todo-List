@@ -252,6 +252,7 @@ export default function DomControl() {
     function taskOptionButton(key) {
         let button = document.createElement('button');
         button.classList.add('options');
+        button.textContent = 'task button';
 
         /* Inserts task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', () => {

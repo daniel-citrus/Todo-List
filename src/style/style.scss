@@ -32,6 +32,10 @@
     align-items: center;
 
     .taskDetails {
+        background: white;
+        border: 1px solid black;
+        width: 90%;
+  height: 85%;
     }
 
     &.hidden {
