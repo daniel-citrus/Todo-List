@@ -179,7 +179,7 @@ export default function DomControl() {
         return task;
     }
 
-    /* The task display box will also serve as the form for editing task details. */
+    /* The task form will also serve as the display for task details. */
     function createTaskDisplay() {
         let wrapper = buildElement('div', '', 'taskDisplayWrapper', 'hidden')
         wrapper.id = 'taskDisplay';
@@ -187,23 +187,39 @@ export default function DomControl() {
         let display = buildElement('form', '', 'taskDetails');
         wrapper.appendChild(display);
 
-        let nameLabel = buildElement('label', 'Task Name');
-        display.appendChild(nameLabel);
-
-        let titleDiv = buildElement('div', '', 'title');
-        display.appendChild(titleDiv);
-
-        let descDiv = buildElement('div', '', 'description');
-        display.appendChild(descDiv);
-
-        let dueDateDiv = buildElement('div', '', 'dueDate');
-        display.appendChild(dueDateDiv);
-
-        let priorityDiv = buildElement('div', '', 'priority');
-        display.appendChild(priorityDiv);
-
-        let completedDiv = buildElement('div', '', 'completed');
-        display.appendChild(completedDiv);
+        /* Task name */
+        display.innerHTML = `
+            <label for="taskCompleted">
+                Completed:
+            </label>
+            <br/>
+            <input id="taskCompleted" name="taskCompleted" readonly>
+            <br/>
+            <label for="taskName">
+                Task Name:
+            </label>
+            <br/>
+            <input type="text" id="taskName" name="taskName" readonly>
+            <br/>
+            <label for="taskDueDate">
+                Due Date:
+            </label>
+            <br/>
+            <input type="date" id="taskDueDate" name="taskDueDate" readonly>
+            <br/>
+            <label for="taskPriority">
+                Priority:
+            </label>
+            <br/>
+            <input id="taskPriority" name="taskPriority" readonly>
+            <br/>
+            <label for="taskDesc">
+                Description:
+            </label>
+            <br/>
+            <input type="text" id="taskDesc" name="taskDesc" readonly>
+            <br/>
+        `
 
         /* Edit task buttons */
         let submitEditButton = buildElement('button', 'Submit', 'hidden');
@@ -240,17 +256,18 @@ export default function DomControl() {
      * @param {*} task task details (title, description, dueDate, priority, completed status)
      */
     function viewTask(key, title = '', description = '', dueDate = '', priority = '', completed = '') {
-        let titleDiv = taskDisplay.querySelector('.title');
-        titleDiv.textContent = title;
+        taskDisplay.dataset.taskId = key;
+
+        let titleInput = taskDisplay.querySelector('.title');
+        titleInput.textContent = title;
         let descDiv = taskDisplay.querySelector('.description');
         descDiv.textContent = description;
-        let dueDateDiv = taskDisplay.querySelector('.dueDate');
-        dueDateDiv.textContent = dueDate;
-        let priorityDiv = taskDisplay.querySelector('.priority');
-        priorityDiv.textContent = priority;
-        let completedDiv = taskDisplay.querySelector('.completed');
-        completedDiv.textContent = completed;
-        taskDisplay.dataset.taskId = key;
+        let dueDateInput = taskDisplay.querySelector('.dueDate');
+        dueDateInput.textContent = dueDate;
+        let priorityInput = taskDisplay.querySelector('.priority');
+        priorityInput.textContent = priority;
+        let completedInput = taskDisplay.querySelector('.completed');
+        completedInput.textContent = completed;
         taskDisplay.classList.remove('hidden');
     }
 
@@ -308,13 +325,13 @@ export default function DomControl() {
 
             // get task from brain then pass to view task
             viewTask(key, title, description, dueDate, priority, completed);
-         }
+        }
         // turn divs into input fields
         let title = taskDisplay.querySelector('.title');
         title.innerHTML = `
         <input id=tTitle type="text" value="${title.textContent}">
         `;
-        
+
         let description = taskDisplay.querySelector('.description');
         let dueDate = taskDisplay.querySelector('.dueDate');
         let priority = taskDisplay.querySelector('.priority');
