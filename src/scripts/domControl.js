@@ -179,7 +179,7 @@ export default function DomControl() {
         return task;
     }
 
-    /* The task form will also serve as the display for task details. */
+    /* The task display will also serve as a form for task detail inputs. */
     function createTaskDisplay() {
         let wrapper = buildElement('div', '', 'taskDisplayWrapper', 'hidden')
         wrapper.id = 'taskDisplay';
@@ -242,6 +242,7 @@ export default function DomControl() {
         let closeButton = buildElement('button', 'Close');
         closeButton.type = 'button';
         closeButton.addEventListener('click', () => {
+            // hide submit and cancel
             taskDisplay.classList.add('hidden');
         })
 
@@ -258,16 +259,21 @@ export default function DomControl() {
     function viewTask(key, title = '', description = '', dueDate = '', priority = '', completed = '') {
         taskDisplay.dataset.taskId = key;
 
-        let titleInput = taskDisplay.querySelector('.title');
-        titleInput.textContent = title;
-        let descDiv = taskDisplay.querySelector('.description');
-        descDiv.textContent = description;
-        let dueDateInput = taskDisplay.querySelector('.dueDate');
-        dueDateInput.textContent = dueDate;
-        let priorityInput = taskDisplay.querySelector('.priority');
-        priorityInput.textContent = priority;
-        let completedInput = taskDisplay.querySelector('.completed');
+        let completedInput = document.getElementById('taskCompleted');
         completedInput.textContent = completed;
+
+        let titleInput = document.getElementById('taskName');
+        titleInput.textContent = title;
+
+        let dueDateInput = document.getElementById('taskDueDate');
+        dueDateInput.textContent = dueDate;
+
+        let priorityInput = document.getElementById('taskPriority');
+        priorityInput.textContent = priority;
+
+        let descInput = document.getElementById('taskDesc');
+        descInput.textContent = description;
+
         taskDisplay.classList.remove('hidden');
     }
 
