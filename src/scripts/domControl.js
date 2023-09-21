@@ -179,7 +179,7 @@ export default function DomControl() {
         return task;
     }
 
-    /* Pop up to display task details and  */
+    /* Pop up to display task details. This popup also serves as a form for editing the task */
     function createTaskDisplay() {
         let wrapper = buildElement('div', '', 'taskDisplayWrapper', 'hidden')
         wrapper.id = 'taskDisplay';
@@ -221,7 +221,13 @@ export default function DomControl() {
             <br/>
         `
 
-        /* Edit task buttons */
+        let editButton = buildElement('button', 'Edit', 'edit');
+        editButton.type = 'button';
+        editButton.addEventListener('click', () => {
+            editTask(+taskDisplay.dataset.taskId);
+        })
+        display.appendChild(editButton);
+
         let submitEditButton = buildElement('button', 'Submit', 'submit', 'hidden');
         submitEditButton.type = 'button';
         submitEditButton.addEventListener('click', () => {
@@ -234,8 +240,18 @@ export default function DomControl() {
         let cancelEditButton = buildElement('button', 'Cancel', 'cancel', 'hidden');
         cancelEditButton.type = 'button';
         cancelEditButton.addEventListener('click', () => {
-            // close the task pop up
+            // display information viewtask()
+            let key = taskDisplay.dataset.taskId;
+
+            if (key == 'false') {
+                console.error('Invalid task key');
+            }
+
+            /* brain.getTaskDetails(key) */
+            viewTask(+key/*, details */)
             // hide submit and cancel
+            taskDisplay.querySelector('button.submit').classList.add('hidden');
+            taskDisplay.querySelector('button.cancel').classList.add('hidden');
         })
         display.appendChild(cancelEditButton);
 
@@ -252,17 +268,31 @@ export default function DomControl() {
     }
 
     /**
-     * Uses the task display div to display task information
+     * Uses the task display to display task information
      * @param {*} key task key
      * @param {*} task task details (title, description, dueDate, priority, completed status)
      */
     function viewTask(key, title = '', description = '', dueDate = '', priority = '', completed = '') {
         taskDisplay.dataset.taskId = key;
-        document.getElementById('taskCompleted').value = completed;
-        document.getElementById('taskName').value = title;
-        document.getElementById('taskDueDate').value = dueDate;
-        document.getElementById('taskPriority').value = priority;
-        document.getElementById('taskDesc').value = description;
+        let tComplete = document.getElementById('taskCompleted');
+        tComplete.value = completed;
+        tComplete.disabled = true;
+        let tName = document.getElementById('taskName');
+        tName.value = title;
+        tName.disabled = true;
+        let tDue = document.getElementById('taskDueDate');
+        tDue.value = dueDate;
+        tDue.disabled = true;
+        let tPriority = document.getElementById('taskPriority');
+        tPriority.value = priority;
+        tPriority.disabled = true;
+        let tDesc = document.getElementById('taskDesc');
+        tDesc.value = description;
+        tDesc.disabled = true;
+
+        taskDisplay.querySelector('button.edit').classList.remove('hidden');
+        taskDisplay.querySelector('button.submit').classList.add('hidden');
+        taskDisplay.querySelector('button.cancel').classList.add('hidden');
         taskDisplay.classList.remove('hidden');
     }
 
@@ -273,8 +303,7 @@ export default function DomControl() {
         /* Inserts task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', () => {
             // display task menu options
-            console.log(key);
-            editTask(key);
+            viewTask(key);
         })
 
         return button;
@@ -303,20 +332,13 @@ export default function DomControl() {
         return menuContainer;
     }
 
-    function editTask(key, title = 'asd', description = '', dueDate = '', priority = '', completed = '') {
-        // pull task data if form was initially closed
-        if (taskDisplay.classList.contains('hidden')) {
-            ({
-                title,
-                description,
-                dueDate,
-                priority,
-                completed
-            } = tasks[0]);
+    /* Enable editing on the task display */
+    function editTask(key) {
+        let title = '', description = '', dueDate = '', priority = '', completed = '';
 
-            // get task from brain then pass to view task
-            viewTask(key, title, description, dueDate, priority, completed);
-        }
+        // get task info from brain then pass to view task ()
+        // serves as an error check. In case users edit html it will override existing text content
+        viewTask(key, title, description, dueDate, priority, completed);
 
         document.getElementById('taskCompleted').disabled = false;
         document.getElementById('taskName').disabled = false;
@@ -325,6 +347,7 @@ export default function DomControl() {
         document.getElementById('taskDesc').disabled = false;
         taskDisplay.querySelector('button.submit').classList.remove('hidden');
         taskDisplay.querySelector('button.cancel').classList.remove('hidden');
+        taskDisplay.querySelector('button.edit').classList.add('hidden');
     }
 
     return {
