@@ -12,8 +12,8 @@ export default function DomControl() {
         mainContainer = document.querySelector('.main');
         projectContainer = document.querySelector('.projects');
         taskContainer = document.querySelector('.tasks');
-        projectButtons = document.querySelectorAll("button.project");
-        taskButtons = document.querySelectorAll("button.task");
+        projectButtons = document.querySelectorAll("button.projectCreator");
+        taskButtons = document.querySelectorAll("button.taskCreator");
 
         taskDisplay = createTaskDisplay();
         taskContainer.appendChild(taskDisplay);
@@ -179,7 +179,7 @@ export default function DomControl() {
         return task;
     }
 
-    /* The task display will also serve as a form for task detail inputs. */
+    /* Pop up to display task details and  */
     function createTaskDisplay() {
         let wrapper = buildElement('div', '', 'taskDisplayWrapper', 'hidden')
         wrapper.id = 'taskDisplay';
@@ -193,36 +193,36 @@ export default function DomControl() {
                 Completed:
             </label>
             <br/>
-            <input id="taskCompleted" name="taskCompleted" readonly>
+            <input id="taskCompleted" name="taskCompleted" disabled>
             <br/>
             <label for="taskName">
                 Task Name:
             </label>
             <br/>
-            <input type="text" id="taskName" name="taskName" readonly>
+            <input type="text" id="taskName" name="taskName" disabled>
             <br/>
             <label for="taskDueDate">
                 Due Date:
             </label>
             <br/>
-            <input type="date" id="taskDueDate" name="taskDueDate" readonly>
+            <input type="date" id="taskDueDate" name="taskDueDate" disabled>
             <br/>
             <label for="taskPriority">
                 Priority:
             </label>
             <br/>
-            <input id="taskPriority" name="taskPriority" readonly>
+            <input id="taskPriority" name="taskPriority" disabled>
             <br/>
             <label for="taskDesc">
                 Description:
             </label>
             <br/>
-            <input type="text" id="taskDesc" name="taskDesc" readonly>
+            <input type="text" id="taskDesc" name="taskDesc" disabled>
             <br/>
         `
 
         /* Edit task buttons */
-        let submitEditButton = buildElement('button', 'Submit', 'hidden');
+        let submitEditButton = buildElement('button', 'Submit', 'submit', 'hidden');
         submitEditButton.type = 'button';
         submitEditButton.addEventListener('click', () => {
             // submit new values and task key (from tasDiaply.data-task-id) to the brain to update task Data
@@ -231,7 +231,7 @@ export default function DomControl() {
         })
         display.appendChild(submitEditButton);
 
-        let cancelEditButton = buildElement('button', 'Cancel', 'hidden');
+        let cancelEditButton = buildElement('button', 'Cancel', 'cancel', 'hidden');
         cancelEditButton.type = 'button';
         cancelEditButton.addEventListener('click', () => {
             // close the task pop up
@@ -239,7 +239,7 @@ export default function DomControl() {
         })
         display.appendChild(cancelEditButton);
 
-        let closeButton = buildElement('button', 'Close');
+        let closeButton = buildElement('button', 'Close', 'close');
         closeButton.type = 'button';
         closeButton.addEventListener('click', () => {
             // hide submit and cancel
@@ -258,22 +258,11 @@ export default function DomControl() {
      */
     function viewTask(key, title = '', description = '', dueDate = '', priority = '', completed = '') {
         taskDisplay.dataset.taskId = key;
-
-        let completedInput = document.getElementById('taskCompleted');
-        completedInput.textContent = completed;
-
-        let titleInput = document.getElementById('taskName');
-        titleInput.textContent = title;
-
-        let dueDateInput = document.getElementById('taskDueDate');
-        dueDateInput.textContent = dueDate;
-
-        let priorityInput = document.getElementById('taskPriority');
-        priorityInput.textContent = priority;
-
-        let descInput = document.getElementById('taskDesc');
-        descInput.textContent = description;
-
+        document.getElementById('taskCompleted').value = completed;
+        document.getElementById('taskName').value = title;
+        document.getElementById('taskDueDate').value = dueDate;
+        document.getElementById('taskPriority').value = priority;
+        document.getElementById('taskDesc').value = description;
         taskDisplay.classList.remove('hidden');
     }
 
@@ -284,6 +273,7 @@ export default function DomControl() {
         /* Inserts task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', () => {
             // display task menu options
+            console.log(key);
             editTask(key);
         })
 
@@ -313,14 +303,9 @@ export default function DomControl() {
         return menuContainer;
     }
 
-    function editTask(key) {
-        // enable task pop up
+    function editTask(key, title = 'asd', description = '', dueDate = '', priority = '', completed = '') {
+        // pull task data if form was initially closed
         if (taskDisplay.classList.contains('hidden')) {
-            let title = '',
-                description = '',
-                dueDate = '',
-                priority = '',
-                completed = '';
             ({
                 title,
                 description,
@@ -332,17 +317,14 @@ export default function DomControl() {
             // get task from brain then pass to view task
             viewTask(key, title, description, dueDate, priority, completed);
         }
-        // turn divs into input fields
-        let title = taskDisplay.querySelector('.title');
-        title.innerHTML = `
-        <input id=tTitle type="text" value="${title.textContent}">
-        `;
 
-        let description = taskDisplay.querySelector('.description');
-        let dueDate = taskDisplay.querySelector('.dueDate');
-        let priority = taskDisplay.querySelector('.priority');
-        let completed = taskDisplay.querySelector('.priority');
-        // show submit and cancel buttons
+        document.getElementById('taskCompleted').disabled = false;
+        document.getElementById('taskName').disabled = false;
+        document.getElementById('taskDueDate').disabled = false;
+        document.getElementById('taskPriority').disabled = false;
+        document.getElementById('taskDesc').disabled = false;
+        taskDisplay.querySelector('button.submit').classList.remove('hidden');
+        taskDisplay.querySelector('button.cancel').classList.remove('hidden');
     }
 
     return {

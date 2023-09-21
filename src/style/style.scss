@@ -14,7 +14,7 @@
 }
 
 .hidden {
-    display: none;
+    visibility: hidden;
 }
 
 .tasks {
@@ -30,16 +30,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background: rgba(0, 0, 0, 0.226);
+    backdrop-filter: blur(1px);
 
     .taskDetails {
         background: white;
         border: 1px solid black;
-        width: 90%;
+        width: 94%;
         height: 85%;
     }
 
-    &.hidden {
-        display: none;
+    input:read-only {
+        border: none;
     }
 }
 
