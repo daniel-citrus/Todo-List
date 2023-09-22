@@ -55,7 +55,7 @@
 
 .main {
   display: grid;
-  grid-template: "controls projects" 1fr "controls tasks" 1fr/minmax(70px, 300px) minmax(300px, auto);
+  grid-template: "controls tasks" 1fr "projects tasks" 1fr/minmax(70px, 300px) minmax(300px, auto);
   height: 100%;
 }
 

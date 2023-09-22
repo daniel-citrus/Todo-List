@@ -105,18 +105,8 @@ let brain = (() => {
             console.error('Unable to update task');
         }
 
-        return result
+        return result;
     }
-
-    /* 
-    let {
-            title = '',
-            description = '',
-            dueDate = '',
-            priority = 5,
-            completed = false,
-        } = inputs;
-    */
 
     function loadData() {
         // load projects

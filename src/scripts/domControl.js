@@ -8,6 +8,7 @@ export default function DomControl() {
         taskButtons,
         taskDisplay;
 
+    /* Initializer */
     (() => {
         mainContainer = document.querySelector('.main');
         projectContainer = document.querySelector('.projects');
@@ -231,9 +232,7 @@ export default function DomControl() {
         let submitEditButton = buildElement('button', 'Submit', 'submit', 'hidden');
         submitEditButton.type = 'button';
         submitEditButton.addEventListener('click', () => {
-            // submit new values and task key (from tasDiaply.data-task-id) to the brain to update task Data
-            // close the task pop up
-            // hide submit and cancel
+            taskDetailsSubmit();
         })
         display.appendChild(submitEditButton);
 
@@ -254,7 +253,7 @@ export default function DomControl() {
             taskDisplay.querySelector('button.cancel').classList.add('hidden');
         })
         display.appendChild(cancelEditButton);
-        
+
         let closeButton = buildElement('button', 'Close', 'close');
         closeButton.type = 'button';
         closeButton.addEventListener('click', () => {
@@ -264,6 +263,12 @@ export default function DomControl() {
         display.appendChild(closeButton);
 
         return wrapper;
+    }
+
+    function taskDetailsSubmit() {
+        // submit new values and task key (from tasDiaply.data-task-id) to the brain to update task Data
+        // close the task pop up
+        // hide submit and cancel
     }
 
     /**
