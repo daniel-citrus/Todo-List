@@ -50,11 +50,10 @@ Task List implements
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
-
-* [![HTML5][html5-shield]][html5-url]
-* [![Sass][sass-shield]][sass-url]
-* [![Javascript][javascript-shield]][javascript-url]
-* [![Webpack][webpack-shield]][webpack-url]
+[![HTML5][html5-shield]][html5-url]
+[![Sass][sass-shield]][sass-url]
+[![Javascript][javascript-shield]][javascript-url]
+[![Webpack][webpack-shield]][webpack-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -118,6 +117,8 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [ ] Task Options
     * [x] Task pop-up
     * [x] Edit task
+      * [ ] Submit task form
+      * [x] Cancel task form
     * [ ] Delete a task
     * [ ] Move to a different project
   * [ ] Complete task button
@@ -132,6 +133,8 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [ ] Create task
   * [ ] Move a task to a different project
   * [ ] Delete Project
+  * [x] Update Task
+  * [ ] Get task details
     * [ ] Delete all tasks in a project
   * [ ] Delete Task
   * [ ] Store data in localStorage

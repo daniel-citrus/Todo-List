@@ -245,20 +245,19 @@ export default function DomControl() {
 
             if (key == 'false') {
                 console.error('Invalid task key');
+                return;
             }
 
             /* brain.getTaskDetails(key) */
             viewTask(+key/*, details */)
-            // hide submit and cancel
             taskDisplay.querySelector('button.submit').classList.add('hidden');
             taskDisplay.querySelector('button.cancel').classList.add('hidden');
         })
         display.appendChild(cancelEditButton);
-
+        
         let closeButton = buildElement('button', 'Close', 'close');
         closeButton.type = 'button';
         closeButton.addEventListener('click', () => {
-            // hide submit and cancel
             taskDisplay.classList.add('hidden');
         })
 

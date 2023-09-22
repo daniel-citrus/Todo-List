@@ -2,19 +2,13 @@ export default function TaskList() {
     let tasks = [];
 
     function createTask(inputs) {
-        let title = '',
+        let {
+            title = '',
             description = '',
             dueDate = '',
             priority = 5,
-            completed = false;
-
-        ({
-            title,
-            description,
-            dueDate,
-            priority,
-            completed
-        } = inputs);
+            completed = false,
+        } = inputs;
 
         return {
             id: generateID(),
@@ -65,15 +59,11 @@ export default function TaskList() {
         return taskID;
     }
 
-    /* Delete one or more tasks from task list */
+    /* Delete a task from task list */
     function deleteTask(key) {
         if (tasks.length == 0) {
             console.error(`No tasks to delete`);
             return false;
-        }
-
-        if (!taskExists) {
-            return false
         }
 
         for (let t in tasks) {
@@ -84,17 +74,6 @@ export default function TaskList() {
         }
 
         return false;
-    }
-
-    function updateTask(key, inputs) {
-        let index = getTaskIndex(key);
-        
-        if (index === false) {
-            return false;
-        }
-
-        tasks[index] = createTask(inputs);
-        return true;
     }
 
     /* Check if task ID exists in storage */
@@ -115,6 +94,17 @@ export default function TaskList() {
         return false;
     }
 
+    function updateTask(key, inputs) {
+        let index = getTaskIndex(key);
+
+        if (index === false) {
+            return false;
+        }
+        
+        tasks[index] = createTask(inputs);
+        return true;
+    }
+
     function getTask(key) {
         let index = getTaskIndex(key);
 
@@ -126,10 +116,6 @@ export default function TaskList() {
     }
 
     function getTaskIndex(key) {
-        if (!taskExists(key)) {
-            return false;
-        }
-
         for (let taskIndex in tasks) {
             let taskID = tasks[taskIndex].id;
 
@@ -137,6 +123,9 @@ export default function TaskList() {
                 return taskIndex;
             }
         }
+
+        console.error('Invalid task key');
+        return false;
     }
 
     function showTasks() {
@@ -158,6 +147,7 @@ export default function TaskList() {
         getTask,
         showTasks,
         updateTask,
-        saveData
+        saveData,
+        taskExists
     }
 };

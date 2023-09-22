@@ -8,44 +8,7 @@ let brain = (() => {
     let projects = ProjectList();
     let domControl = DomControl();
 
-    function createProject(name) {
-        // Create a new project
-        let projectID = projects.addProject(name);
-        // Create new project element in dom (passing project key)
-    }
-
-    function createTask(inputs, projectKey) {
-        // add a new task in tasks
-        let taskKey = tasks.addTask(inputs);
-        // insert task into project
-        projects.addTask(projectKey, taskKey);
-        // insert a new task element in DOM
-    }
-
-    function deleteProject(key) {
-        // use project key to delete it in projects
-        // get task keys that have been deleted and use to delete from tasks
-    }
-
-    function deleteTask(key, taskKey) {
-        // pass project key and task key to delete task from projects
-        // delete task from tasks
-    }
-
-    function moveTask(projectKey, taskKey)  {
-
-    }
-
-    function loadData() {
-        // load projects
-        // load tasks
-    }
-
-    function saveData() {
-        // load projects
-        // load tasks
-    }
-
+    /*  */
     let task1 = {
         title: 'Pull Ups',
         description: 'Quality reps',
@@ -97,6 +60,73 @@ let brain = (() => {
 
     tasks.showTasks();
     projects.showProjects();
+    /*  */
+
+    function createProject(name) {
+        // Create a new project
+        let projectID = projects.addProject(name);
+        // Create new project element in dom (passing project key)
+    }
+
+    function createTask(inputs, projectKey) {
+        // add a new task in tasks
+        let taskKey = tasks.addTask(inputs);
+        // insert task into project
+        projects.addTask(projectKey, taskKey);
+        // insert a new task element in DOM
+    }
+
+    function deleteProject(key) {
+        // use project key to delete it in projects
+        // get task keys that have been deleted and use to delete from tasks
+    }
+
+    function deleteTask(key, taskKey) {
+        // pass project key and task key to delete task from projects
+        // delete task from tasks
+    }
+
+    function getTaskDetails(key) {
+        if (tasks.taskExists(key) === false) {
+            return false;
+        }
+
+        return tasks.getTask(key);
+    }
+
+    function moveTask(projectKey, taskKey) {
+
+    }
+
+    function updateTask(key, inputs) {
+        let result = tasks.updateTask(key, inputs);
+
+        if (!result) {
+            console.error('Unable to update task');
+        }
+
+        return result
+    }
+
+    /* 
+    let {
+            title = '',
+            description = '',
+            dueDate = '',
+            priority = 5,
+            completed = false,
+        } = inputs;
+    */
+
+    function loadData() {
+        // load projects
+        // load tasks
+    }
+
+    function saveData() {
+        // load projects
+        // load tasks
+    }
 
     return {
     }

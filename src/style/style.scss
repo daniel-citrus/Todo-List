@@ -13,8 +13,8 @@
     }
 }
 
-.hidden {
-    visibility: hidden;
+.hidden{
+    display: none;
 }
 
 .tasks {
@@ -32,6 +32,10 @@
     align-items: center;
     background: rgba(0, 0, 0, 0.226);
     backdrop-filter: blur(1px);
+
+    &.hidden{
+        display: none;
+    }
 
     .taskDetails {
         background: white;
