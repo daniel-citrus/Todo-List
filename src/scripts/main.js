@@ -60,7 +60,6 @@ let brain = (() => {
 
     tasks.showTasks();
     projects.showProjects();
-    /*  */
 
     function createProject(name) {
         // Create a new project
@@ -119,6 +118,7 @@ let brain = (() => {
     }
 
     return {
+        getTaskDetails,
     }
 })();
 

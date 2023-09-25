@@ -1,4 +1,4 @@
-
+import { brain } from './barrel';
 
 export default function DomControl() {
     let mainContainer,
@@ -194,31 +194,31 @@ export default function DomControl() {
                 Completed:
             </label>
             <br/>
-            <input id="taskCompleted" name="taskCompleted" disabled>
+            <input id="taskCompleted" name="taskCompleted" required disabled>
             <br/>
             <label for="taskName">
                 Task Name:
             </label>
             <br/>
-            <input type="text" id="taskName" name="taskName" disabled>
+            <input type="text" id="taskName" name="taskName" required disabled>
             <br/>
             <label for="taskDueDate">
                 Due Date:
             </label>
             <br/>
-            <input type="date" id="taskDueDate" name="taskDueDate" disabled>
+            <input type="date" id="taskDueDate" name="taskDueDate" required disabled>
             <br/>
             <label for="taskPriority">
                 Priority:
             </label>
             <br/>
-            <input id="taskPriority" name="taskPriority" disabled>
+            <input id="taskPriority" name="taskPriority" required disabled>
             <br/>
             <label for="taskDesc">
                 Description:
             </label>
             <br/>
-            <input type="text" id="taskDesc" name="taskDesc" disabled>
+            <input type="text" id="taskDesc" name="taskDesc" required disabled>
             <br/>
         `
 
@@ -248,7 +248,7 @@ export default function DomControl() {
             }
 
             /* brain.getTaskDetails(key) */
-            viewTask(+key/*, details */)
+            viewTask(+key)
             taskDisplay.querySelector('button.submit').classList.add('hidden');
             taskDisplay.querySelector('button.cancel').classList.add('hidden');
         })
@@ -276,7 +276,14 @@ export default function DomControl() {
      * @param {*} key task key
      * @param {*} task task details (title, description, dueDate, priority, completed status)
      */
-    function viewTask(key, title = '', description = '', dueDate = '', priority = '', completed = '') {
+    function viewTask(key) {
+        let task = brain.getTaskDetails(key);
+        if (!task) {
+            return false;
+        }
+        let title = '', description = '', dueDate = '', priority = '', completed = '';
+        ({ title, description, dueDate, priority, completed } = task);
+
         taskDisplay.dataset.taskId = key;
         let tComplete = document.getElementById('taskCompleted');
         tComplete.value = completed;
@@ -307,7 +314,7 @@ export default function DomControl() {
         /* Inserts task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', () => {
             // display task menu options
-            viewTask(key);
+            viewTask(3);
         })
 
         return button;
@@ -338,11 +345,9 @@ export default function DomControl() {
 
     /* Enable editing on the task display */
     function editTask(key) {
-        let title = '', description = '', dueDate = '', priority = '', completed = '';
-
         // get task info from brain then pass to view task ()
         // serves as an error check. In case users edit html it will override existing text content
-        viewTask(key, title, description, dueDate, priority, completed);
+        viewTask(key);
 
         document.getElementById('taskCompleted').disabled = false;
         document.getElementById('taskName').disabled = false;
