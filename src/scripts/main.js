@@ -8,11 +8,10 @@ let brain = (() => {
     let projects = ProjectList();
     let domControl = DomControl();
 
-    /*  */
     let task1 = {
         title: 'Pull Ups',
         description: 'Quality reps',
-        dueDate: '9/4/2023',
+        dueDate: new Date('2023-09-04'),
         priority: 2,
         completed: true,
     };
@@ -20,14 +19,14 @@ let brain = (() => {
     let task2 = {
         title: 'Dips',
         description: 'Heavy weight',
-        dueDate: '9/3/2023',
+        dueDate: new Date('2023-9-3'),
         priority: 3,
     }
 
     let task3 = {
         title: 'Eat',
         description: 'Healthy meals',
-        dueDate: '9/2/2023',
+        dueDate: new Date('2023-9-2'),
         priority: 1
     }
 
@@ -36,14 +35,14 @@ let brain = (() => {
         description: `Good sleep improves your brain performance, mood, and health.
                 Not getting enough quality sleep regularly raises the risk of many diseases and disorders. These range from heart disease and stroke to obesity and dementia.
                 There’s more to good sleep than just the hours spent in bed, says Dr. Marishka Brown, a sleep expert at NIH. “Healthy sleep encompasses three major things,” she explains. “One is how much sleep you get. Another is sleep quality—that you get uninterrupted and refreshing sleep. The last is a consistent sleep schedule.”`,
-        dueDate: '9/2/2023',
+        dueDate: new Date('2023-9-2'),
         priority: 1
     }
 
     let task5 = {
         title: 'Study',
         description: 'Regular session',
-        dueDate: '9/6/2023',
+        dueDate: new Date('2023-9-6'),
         priority: 1,
     }
 
@@ -51,7 +50,7 @@ let brain = (() => {
     projects.addProject('Health');
     projects.addProject('Health1');
     projects.addProject('Health2');
-
+    
     projects.addTask(2, tasks.addTask(task1));
     projects.addTask(0, tasks.addTask(task2));
     projects.addTask(1, tasks.addTask(task3));

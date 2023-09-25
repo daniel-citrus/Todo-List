@@ -1,6 +1,6 @@
 import { brain } from './barrel';
 
-export default function DomControl() {
+export default function() {
     let mainContainer,
         projectContainer,
         taskContainer,
@@ -14,14 +14,14 @@ export default function DomControl() {
         projectContainer = document.querySelector('.projects');
         taskContainer = document.querySelector('.tasks');
         projectButtons = document.querySelectorAll("button.projectCreator");
-        taskButtons = document.querySelectorAll("button.taskCreator");
+        taskButtons = document.querySelectorAll("button.taskCreator"); 
 
         taskDisplay = createTaskDisplay();
         taskContainer.appendChild(taskDisplay);
 
     })();
 
-    let p = 1;
+    let p = 0;
     projectButtons.forEach((pButton) => {
         pButton.addEventListener("click", () => {
             projectContainer.appendChild(buildProject(p++, 'Test'));
@@ -32,20 +32,20 @@ export default function DomControl() {
         {
             title: 'Pull Ups',
             description: 'Quality reps',
-            dueDate: '9/4/2023',
+            dueDate: new Date('9/4/2023'),
             priority: 2,
             completed: true,
         },
         {
             title: 'Dips',
             description: 'Heavy weight',
-            dueDate: '9/3/2023',
+            dueDate: new Date('9/3/2023'),
             priority: 3,
         },
         {
             title: 'Eat',
             description: 'Healthy meals',
-            dueDate: '9/2/2023',
+            dueDate: '2023-09-02',
             priority: 1
         },
         {
@@ -59,7 +59,7 @@ export default function DomControl() {
         {
             title: 'Study',
             description: 'Regular session',
-            dueDate: '9/6/2023',
+            dueDate: new Date('9/6/2023'),
             priority: 1,
         }
     ];
@@ -180,7 +180,7 @@ export default function DomControl() {
         return task;
     }
 
-    /* Pop up to display task details. This popup also serves as a form for editing the task */
+    /* Pop up to display task details. This popup also serves as a form for creating and editing a task */
     function createTaskDisplay() {
         let wrapper = buildElement('div', '', 'taskDisplayWrapper', 'hidden')
         wrapper.id = 'taskDisplay';
@@ -239,18 +239,7 @@ export default function DomControl() {
         let cancelEditButton = buildElement('button', 'Cancel', 'cancel', 'hidden');
         cancelEditButton.type = 'button';
         cancelEditButton.addEventListener('click', () => {
-            // display information viewtask()
-            let key = taskDisplay.dataset.taskId;
-
-            if (key == 'false') {
-                console.error('Invalid task key');
-                return;
-            }
-
-            /* brain.getTaskDetails(key) */
-            viewTask(+key)
-            taskDisplay.querySelector('button.submit').classList.add('hidden');
-            taskDisplay.querySelector('button.cancel').classList.add('hidden');
+            taskDisplayCancel();
         })
         display.appendChild(cancelEditButton);
 
@@ -265,10 +254,25 @@ export default function DomControl() {
         return wrapper;
     }
 
+    function taskDisplayCancel() {
+        let key = taskDisplay.dataset.taskId;
+
+        if (key == 'false') {
+            console.error('Invalid task key');
+            return;
+        }
+
+        viewTask(+key)
+        taskDisplay.querySelector('button.submit').classList.add('hidden');
+        taskDisplay.querySelector('button.cancel').classList.add('hidden');
+    }
+
     function taskDetailsSubmit() {
         // submit new values and task key (from tasDiaply.data-task-id) to the brain to update task Data
         // close the task pop up
         // hide submit and cancel
+        let b =document.getElementById('taskDueDate').value;
+        console.log(b);
     }
 
     /**
@@ -278,11 +282,12 @@ export default function DomControl() {
      */
     function viewTask(key) {
         let task = brain.getTaskDetails(key);
+
         if (!task) {
             return false;
         }
-        let title = '', description = '', dueDate = '', priority = '', completed = '';
-        ({ title, description, dueDate, priority, completed } = task);
+
+        let { title = '', description = '', dueDate = '', priority = '', completed = '' } = task;
 
         taskDisplay.dataset.taskId = key;
         let tComplete = document.getElementById('taskCompleted');
@@ -292,7 +297,7 @@ export default function DomControl() {
         tName.value = title;
         tName.disabled = true;
         let tDue = document.getElementById('taskDueDate');
-        tDue.value = dueDate;
+        tDue.valueAsDate = dueDate;
         tDue.disabled = true;
         let tPriority = document.getElementById('taskPriority');
         tPriority.value = priority;
@@ -311,10 +316,10 @@ export default function DomControl() {
     function taskOptionButton(key) {
         let button = buildElement('button', 'Task Button', 'options');
 
-        /* Inserts task menu as a child of the task option button and then toggles its visibility */
+        /* Insert task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', () => {
             // display task menu options
-            viewTask(3);
+            viewTask(key);
         })
 
         return button;
@@ -330,6 +335,13 @@ export default function DomControl() {
         let menu = buildElement('div', '', 'taskMenu');
         menu.appendChild(menuContainer);
 
+
+        let buttons = [
+            ['View', viewTask],
+            ['Edit', editTask],
+            ['Move', () => { }],
+            ['Delete', () => { }],
+        ]
         // view task
         // edit task
         // move task to a new project
@@ -345,8 +357,6 @@ export default function DomControl() {
 
     /* Enable editing on the task display */
     function editTask(key) {
-        // get task info from brain then pass to view task ()
-        // serves as an error check. In case users edit html it will override existing text content
         viewTask(key);
 
         document.getElementById('taskCompleted').disabled = false;
