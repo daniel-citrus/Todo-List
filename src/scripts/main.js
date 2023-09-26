@@ -50,7 +50,7 @@ let brain = (() => {
     projects.addProject('Health');
     projects.addProject('Health1');
     projects.addProject('Health2');
-    
+
     projects.addTask(2, tasks.addTask(task1));
     projects.addTask(0, tasks.addTask(task2));
     projects.addTask(1, tasks.addTask(task3));
@@ -96,7 +96,7 @@ let brain = (() => {
 
     }
 
-    function updateTask(key, inputs) {
+    function updateTask(key, title = '', description = '', dueDate = '', priority = 5, completed = false,) {
         let result = tasks.updateTask(key, inputs);
 
         if (!result) {

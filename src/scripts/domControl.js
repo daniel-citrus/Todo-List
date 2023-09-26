@@ -1,6 +1,6 @@
 import { brain } from './barrel';
 
-export default function() {
+export default function () {
     let mainContainer,
         projectContainer,
         taskContainer,
@@ -14,7 +14,7 @@ export default function() {
         projectContainer = document.querySelector('.projects');
         taskContainer = document.querySelector('.tasks');
         projectButtons = document.querySelectorAll("button.projectCreator");
-        taskButtons = document.querySelectorAll("button.taskCreator"); 
+        taskButtons = document.querySelectorAll("button.taskCreator");
 
         taskDisplay = createTaskDisplay();
         taskContainer.appendChild(taskDisplay);
@@ -188,7 +188,6 @@ export default function() {
         let display = buildElement('form', '', 'taskDetails');
         wrapper.appendChild(display);
 
-        /* Task name */
         display.innerHTML = `
             <label for="taskCompleted">
                 Completed:
@@ -271,7 +270,25 @@ export default function() {
         // submit new values and task key (from tasDiaply.data-task-id) to the brain to update task Data
         // close the task pop up
         // hide submit and cancel
-        let b =document.getElementById('taskDueDate').value;
+
+        taskDisplay.dataset.taskId = key;
+        let tComplete = document.getElementById('taskCompleted');
+        tComplete.value = completed;
+        tComplete.disabled = true;
+        let tName = document.getElementById('taskName');
+        tName.value = title;
+        tName.disabled = true;
+        let tDue = document.getElementById('taskDueDate');
+        tDue.valueAsDate = dueDate;
+        tDue.disabled = true;
+        let tPriority = document.getElementById('taskPriority');
+        tPriority.value = priority;
+        tPriority.disabled = true;
+        let tDesc = document.getElementById('taskDesc');
+        tDesc.value = description;
+        tDesc.disabled = true;
+
+        let b = document.getElementById('taskDueDate').value;
         console.log(b);
     }
 
@@ -283,9 +300,7 @@ export default function() {
     function viewTask(key) {
         let task = brain.getTaskDetails(key);
 
-        if (!task) {
-            return false;
-        }
+        if (!task) { return false; }
 
         let { title = '', description = '', dueDate = '', priority = '', completed = '' } = task;
 
