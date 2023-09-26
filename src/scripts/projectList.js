@@ -13,7 +13,7 @@ export default function ProjectList() {
     function createProject(name) {
         return {
             id: generateID(),
-            name: name,
+            name,
             tasks: [],
         }
     }

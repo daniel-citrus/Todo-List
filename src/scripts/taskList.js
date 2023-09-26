@@ -12,11 +12,11 @@ export default function TaskList() {
 
         return {
             id: generateID(),
-            title: title,
-            description: description,
-            dueDate: dueDate,
-            priority: priority,
-            completed: completed,
+            title,
+            description,
+            dueDate,
+            priority,
+            completed,
         }
     }
 
@@ -100,8 +100,36 @@ export default function TaskList() {
         if (index === false) {
             return false;
         }
-        
-        tasks[index] = createTask(inputs);
+
+        let {
+            title,
+            description,
+            dueDate,
+            priority,
+            completed,
+        } = inputs;
+
+        if (title !== undefined) {
+            tasks[index].title = title;
+        }
+
+        if (description !== undefined) {
+            tasks[index].description = description;
+        }
+
+        if (dueDate !== undefined) {
+            console.log(dueDate)
+            tasks[index].dueDate = new Date(dueDate);
+        }
+
+        if (priority !== undefined) {
+            tasks[index].priority = priority;
+        }
+
+        if (completed !== undefined) {
+            tasks[index].completed = completed;
+        }
+
         return true;
     }
 

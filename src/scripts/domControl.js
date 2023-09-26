@@ -271,25 +271,15 @@ export default function () {
         // close the task pop up
         // hide submit and cancel
 
-        taskDisplay.dataset.taskId = key;
-        let tComplete = document.getElementById('taskCompleted');
-        tComplete.value = completed;
-        tComplete.disabled = true;
-        let tName = document.getElementById('taskName');
-        tName.value = title;
-        tName.disabled = true;
-        let tDue = document.getElementById('taskDueDate');
-        tDue.valueAsDate = dueDate;
-        tDue.disabled = true;
-        let tPriority = document.getElementById('taskPriority');
-        tPriority.value = priority;
-        tPriority.disabled = true;
-        let tDesc = document.getElementById('taskDesc');
-        tDesc.value = description;
-        tDesc.disabled = true;
+        let key = taskDisplay.dataset.taskId;
+        let completed = document.getElementById('taskCompleted').value;
+        let title = document.getElementById('taskName').value;
+        let dueDate = document.getElementById('taskDueDate').value;
+        let priority = document.getElementById('taskPriority').value;
+        let description = document.getElementById('taskDesc').value;
 
-        let b = document.getElementById('taskDueDate').value;
-        console.log(b);
+        brain.updateTask(key, title, description, dueDate, priority, completed);
+        console.log(dueDate);
     }
 
     /**

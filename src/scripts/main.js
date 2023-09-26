@@ -96,12 +96,22 @@ let brain = (() => {
 
     }
 
-    function updateTask(key, title = '', description = '', dueDate = '', priority = 5, completed = false,) {
+    function updateTask(key, title = undefined, description = undefined, dueDate = undefined, priority = undefined, completed = undefined,) {
+        let inputs = {
+             title,
+             description,
+             dueDate: dueDate.replaceAll('-','/'),
+             priority,
+             completed,
+        };
+
         let result = tasks.updateTask(key, inputs);
 
         if (!result) {
             console.error('Unable to update task');
         }
+
+        tasks.showTasks();
 
         return result;
     }
@@ -118,6 +128,7 @@ let brain = (() => {
 
     return {
         getTaskDetails,
+        updateTask,
     }
 })();
 
