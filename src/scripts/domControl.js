@@ -155,13 +155,14 @@ export default function () {
             description,
             dueDate,
             priority,
-            completed
+            completed=false,
         } = taskObj);
 
         /* Store Key, priority level, completed status */
         let task = buildElement('div', '', 'task');
         task.dataset.id = key;
         task.dataset.priority = priority;
+        console.log(completed);
         task.dataset.completed = completed;
 
         task.appendChild(buildElement('div', title, 'title'));
@@ -289,7 +290,7 @@ export default function () {
             return;
         }
 
-        if (populateTaskDisplay(+key) === false) {return};
+        if (populateTaskDisplay(+key) === false) { return };
         viewTaskDisplay();
     }
 
@@ -302,7 +303,7 @@ export default function () {
         let description = document.getElementById('taskDesc').value;
 
         brain.updateTask(key, title, description, dueDate, priority, completed);
-        if (populateTaskDisplay(key) === false) {return};
+        if (populateTaskDisplay(key) === false) { return };
         viewTaskDisplay();
     }
 
@@ -332,8 +333,9 @@ export default function () {
         /* Insert task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', () => {
             // display task menu options
-            if (populateTaskDisplay(key) === false) {return};
-            viewTaskDisplay();
+            /* if (populateTaskDisplay(key) === false) { return };
+            viewTaskDisplay(); */
+            deleteTask(key);
         })
 
         return button;
@@ -370,22 +372,29 @@ export default function () {
     }
 
     function viewTask(key) {
-        if (populateTaskDisplay(key) === false) {return};
+        if (populateTaskDisplay(key) === false) { return };
         viewTaskDisplay();
     }
-    
+
     /* Enable editing on the task display */
     function editTask(key) {
-        if (populateTaskDisplay(key) === false) {return};
+        if (populateTaskDisplay(key) === false) { return };
         editTaskDisplay();
     }
 
     function moveTask(key, project) {
         // brain stuff
     }
-    
-    function deleteTask() {
+
+    function deleteTask(key) {
         // brain stuff
+        let task = taskContainer.querySelector(`.task[data-id="${key}"]`);
+        
+        if (!task) {
+            console.error(`Task element does not exist - Key: ${key}`);
+        }
+
+        task.remove();
     }
 
     return {

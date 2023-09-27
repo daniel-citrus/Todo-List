@@ -117,9 +117,9 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [ ] Task Options
     * [x] Task pop-up
     * [x] Edit task
-      * [ ] Submit task form
+      * [x] Submit task form
       * [x] Cancel task form
-    * [ ] Delete a task
+    * [x] Delete a task
     * [ ] Move to a different project
   * [ ] Complete task button
   * [ ] Task item pop-up
