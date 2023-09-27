@@ -267,8 +267,6 @@ export default function () {
     }
 
     function taskDetailsSubmit() {
-        // submit new values and task key (from tasDiaply.data-task-id) to the brain to update task Data
-        // close the task pop up
         // hide submit and cancel
 
         let key = taskDisplay.dataset.taskId;
@@ -277,9 +275,12 @@ export default function () {
         let dueDate = document.getElementById('taskDueDate').value;
         let priority = document.getElementById('taskPriority').value;
         let description = document.getElementById('taskDesc').value;
-
-        brain.updateTask(key, title, description, dueDate, priority, completed);
-        console.log(dueDate);
+        
+        brain.updateTask(+key, title, description, dueDate, priority, completed);
+        
+        viewTask(+key)
+        taskDisplay.querySelector('button.submit').classList.add('hidden');
+        taskDisplay.querySelector('button.cancel').classList.add('hidden');
     }
 
     /**

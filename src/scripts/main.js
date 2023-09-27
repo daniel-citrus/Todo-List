@@ -98,11 +98,11 @@ let brain = (() => {
 
     function updateTask(key, title = undefined, description = undefined, dueDate = undefined, priority = undefined, completed = undefined,) {
         let inputs = {
-             title,
-             description,
-             dueDate: dueDate.replaceAll('-','/'),
-             priority,
-             completed,
+            title,
+            description,
+            dueDate: dueDate.replaceAll('-', '/'),
+            priority,
+            completed,
         };
 
         let result = tasks.updateTask(key, inputs);

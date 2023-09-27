@@ -118,11 +118,14 @@ export default function TaskList() {
         }
 
         if (dueDate !== undefined) {
-            console.log(dueDate)
             tasks[index].dueDate = new Date(dueDate);
         }
 
         if (priority !== undefined) {
+            if (priority < 1 || priority > 5) {
+                priority = 5;
+            }
+
             tasks[index].priority = priority;
         }
 
