@@ -164,15 +164,9 @@ export default function () {
         task.dataset.priority = priority;
         task.dataset.completed = completed;
 
-        let taskName = buildElement('div', title, 'title');
-        task.appendChild(taskName);
-
-        let taskDescription = buildElement('div', description, 'description');
-        task.appendChild(taskDescription);
-
-        let taskDueDate = buildElement('div', dueDate, 'dueDate');
-        task.appendChild(taskDueDate);
-
+        task.appendChild(buildElement('div', title, 'title'));
+        task.appendChild(buildElement('div', description, 'description'));
+        task.appendChild(buildElement('div', dueDate, 'dueDate'));
         let options = buildElement('button', '', 'options');
         // generate option buttons and display
         task.appendChild(taskOptionButton(key));
@@ -180,7 +174,7 @@ export default function () {
         return task;
     }
 
-    /* Pop up to display task details. This popup also serves as a form for creating and editing a task */
+    /* Pop up to display task details. This container also serves as a form for creating and editing a task */
     function createTaskDisplay() {
         let wrapper = buildElement('div', '', 'taskDisplayWrapper', 'hidden')
         wrapper.id = 'taskDisplay';
@@ -231,21 +225,21 @@ export default function () {
         let submitEditButton = buildElement('button', 'Submit', 'submit', 'hidden');
         submitEditButton.type = 'button';
         submitEditButton.addEventListener('click', () => {
-            taskDetailsSubmit();
+            submitTaskDetails();
         })
         display.appendChild(submitEditButton);
 
         let cancelEditButton = buildElement('button', 'Cancel', 'cancel', 'hidden');
         cancelEditButton.type = 'button';
         cancelEditButton.addEventListener('click', () => {
-            taskDisplayCancel();
+            cancelTaskDisplay();
         })
         display.appendChild(cancelEditButton);
 
         let closeButton = buildElement('button', 'Close', 'close');
         closeButton.type = 'button';
         closeButton.addEventListener('click', () => {
-            taskDisplay.classList.add('hidden');
+            hideTaskDisplay();
         })
 
         display.appendChild(closeButton);
@@ -253,7 +247,41 @@ export default function () {
         return wrapper;
     }
 
-    function taskDisplayCancel() {
+    /**
+     * Disable task display input fields and show the display
+     */
+    function viewTaskDisplay() {
+        document.getElementById('taskCompleted').disabled = true;
+        document.getElementById('taskName').disabled = true;
+        document.getElementById('taskDueDate').disabled = true;
+        document.getElementById('taskPriority').disabled = true;
+        document.getElementById('taskDesc').disabled = true;
+        taskDisplay.querySelector('button.edit').classList.remove('hidden');
+        taskDisplay.querySelector('button.submit').classList.add('hidden');
+        taskDisplay.querySelector('button.cancel').classList.add('hidden');
+        taskDisplay.classList.remove('hidden');
+    }
+
+    function hideTaskDisplay() {
+        taskDisplay.classList.add('hidden');
+    }
+
+    /**
+     * Enables task display input fields for editing
+     */
+    function editTaskDisplay() {
+        document.getElementById('taskCompleted').disabled = false;
+        document.getElementById('taskName').disabled = false;
+        document.getElementById('taskDueDate').disabled = false;
+        document.getElementById('taskPriority').disabled = false;
+        document.getElementById('taskDesc').disabled = false;
+        taskDisplay.querySelector('button.edit').classList.add('hidden');
+        taskDisplay.querySelector('button.submit').classList.remove('hidden');
+        taskDisplay.querySelector('button.cancel').classList.remove('hidden');
+        taskDisplay.classList.remove('hidden');
+    }
+
+    function cancelTaskDisplay() {
         let key = taskDisplay.dataset.taskId;
 
         if (key == 'false') {
@@ -261,34 +289,28 @@ export default function () {
             return;
         }
 
-        viewTask(+key)
-        taskDisplay.querySelector('button.submit').classList.add('hidden');
-        taskDisplay.querySelector('button.cancel').classList.add('hidden');
+        if (populateTaskDisplay(+key) === false) {return};
+        viewTaskDisplay();
     }
 
-    function taskDetailsSubmit() {
-        // hide submit and cancel
-
-        let key = taskDisplay.dataset.taskId;
+    function submitTaskDetails() {
+        let key = +taskDisplay.dataset.taskId;
         let completed = document.getElementById('taskCompleted').value;
         let title = document.getElementById('taskName').value;
         let dueDate = document.getElementById('taskDueDate').value;
         let priority = document.getElementById('taskPriority').value;
         let description = document.getElementById('taskDesc').value;
-        
-        brain.updateTask(+key, title, description, dueDate, priority, completed);
-        
-        viewTask(+key)
-        taskDisplay.querySelector('button.submit').classList.add('hidden');
-        taskDisplay.querySelector('button.cancel').classList.add('hidden');
+
+        brain.updateTask(key, title, description, dueDate, priority, completed);
+        if (populateTaskDisplay(key) === false) {return};
+        viewTaskDisplay();
     }
 
     /**
-     * Uses the task display to display task information
+     * Populates the task display with task information using the task key
      * @param {*} key task key
-     * @param {*} task task details (title, description, dueDate, priority, completed status)
      */
-    function viewTask(key) {
+    function populateTaskDisplay(key) {
         let task = brain.getTaskDetails(key);
 
         if (!task) { return false; }
@@ -296,26 +318,11 @@ export default function () {
         let { title = '', description = '', dueDate = '', priority = '', completed = '' } = task;
 
         taskDisplay.dataset.taskId = key;
-        let tComplete = document.getElementById('taskCompleted');
-        tComplete.value = completed;
-        tComplete.disabled = true;
-        let tName = document.getElementById('taskName');
-        tName.value = title;
-        tName.disabled = true;
-        let tDue = document.getElementById('taskDueDate');
-        tDue.valueAsDate = dueDate;
-        tDue.disabled = true;
-        let tPriority = document.getElementById('taskPriority');
-        tPriority.value = priority;
-        tPriority.disabled = true;
-        let tDesc = document.getElementById('taskDesc');
-        tDesc.value = description;
-        tDesc.disabled = true;
-
-        taskDisplay.querySelector('button.edit').classList.remove('hidden');
-        taskDisplay.querySelector('button.submit').classList.add('hidden');
-        taskDisplay.querySelector('button.cancel').classList.add('hidden');
-        taskDisplay.classList.remove('hidden');
+        document.getElementById('taskCompleted').value = completed;
+        document.getElementById('taskName').value = title;
+        document.getElementById('taskDueDate').valueAsDate = dueDate;
+        document.getElementById('taskPriority').value = priority;
+        document.getElementById('taskDesc').value = description;
     }
 
     /* Create a task option button. When clicked, a list of task actions will appear. */
@@ -325,7 +332,8 @@ export default function () {
         /* Insert task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', () => {
             // display task menu options
-            viewTask(key);
+            if (populateTaskDisplay(key) === false) {return};
+            viewTaskDisplay();
         })
 
         return button;
@@ -361,18 +369,23 @@ export default function () {
         return menuContainer;
     }
 
+    function viewTask(key) {
+        if (populateTaskDisplay(key) === false) {return};
+        viewTaskDisplay();
+    }
+    
     /* Enable editing on the task display */
     function editTask(key) {
-        viewTask(key);
+        if (populateTaskDisplay(key) === false) {return};
+        editTaskDisplay();
+    }
 
-        document.getElementById('taskCompleted').disabled = false;
-        document.getElementById('taskName').disabled = false;
-        document.getElementById('taskDueDate').disabled = false;
-        document.getElementById('taskPriority').disabled = false;
-        document.getElementById('taskDesc').disabled = false;
-        taskDisplay.querySelector('button.submit').classList.remove('hidden');
-        taskDisplay.querySelector('button.cancel').classList.remove('hidden');
-        taskDisplay.querySelector('button.edit').classList.add('hidden');
+    function moveTask(key, project) {
+        // brain stuff
+    }
+    
+    function deleteTask() {
+        // brain stuff
     }
 
     return {
