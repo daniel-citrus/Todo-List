@@ -21,15 +21,16 @@ export default function () {
 
     })();
 
-    let p = 0;
+   /*  let p = 0;
     projectButtons.forEach((pButton) => {
         pButton.addEventListener("click", () => {
             projectContainer.appendChild(buildProject(p++, 'Test'));
         })
-    })
+    }) */
 
     let tasks = [
         {
+            id: 0,
             title: 'Pull Ups',
             description: 'Quality reps',
             dueDate: new Date('9/4/2023'),
@@ -37,18 +38,21 @@ export default function () {
             completed: true,
         },
         {
+            id: 1,
             title: 'Dips',
             description: 'Heavy weight',
             dueDate: new Date('9/3/2023'),
             priority: 3,
         },
         {
+            id: 2,
             title: 'Eat',
             description: 'Healthy meals',
             dueDate: '2023-09-02',
             priority: 1
         },
         {
+            id: 3,
             title: 'Sleep',
             description: `Good sleep improves your brain performance, mood, and health.
                     Not getting enough quality sleep regularly raises the risk of many diseases and disorders. These range from heart disease and stroke to obesity and dementia.
@@ -57,6 +61,7 @@ export default function () {
             priority: 1
         },
         {
+            id: 4,
             title: 'Study',
             description: 'Regular session',
             dueDate: new Date('9/6/2023'),
@@ -64,24 +69,27 @@ export default function () {
         }
     ];
 
-    taskButtons.forEach((tButton) => {
+    /* taskButtons.forEach((tButton) => {
         tButton.addEventListener("click", () => {
-            taskContainer.appendChild(buildTask(p++, tasks[Math.floor(Math.random() * tasks.length)]));
+            taskContainer.appendChild(buildTask(tasks[Math.floor(Math.random() * tasks.length)]));
         })
-    })
+    }) */
 
     /**
      * Creates a project DOM element that has a custom data set called data-id. The element contains the project name and options button.
      * @param {*} key project id
      * @param {*} name project name
      **/
-    function buildProject(key, name) {
+    function buildProject(name) {
         let project = buildElement('div', '', 'project');
-        project.dataset.id = key;
+        let { id = undefined } = project;
+
+        if (id === undefined) { return; }
+        project.dataset.id = id;
 
         let projectName = buildElement('div', name, 'name');
         project.appendChild(projectName);
-        project.appendChild(projectOptionButton(key));
+        project.appendChild(projectOptionButton(id));
 
         return project;
     }
@@ -144,25 +152,21 @@ export default function () {
      * @param {*} key task id
      * @param {*} task task object
      **/
-    function buildTask(key, taskObj) {
-        let title = '',
+    function buildTask(taskObj) {
+        let {
+            id = undefined,
+            title = '',
             description = '',
             dueDate = '',
             priority = '',
-            completed = '';
-        ({
-            title,
-            description,
-            dueDate,
-            priority,
-            completed=false,
-        } = taskObj);
+            completed = false,
+        } = taskObj;
 
+        if (id === undefined) { return; }
         /* Store Key, priority level, completed status */
         let task = buildElement('div', '', 'task');
-        task.dataset.id = key;
+        task.dataset.id = id;
         task.dataset.priority = priority;
-        console.log(completed);
         task.dataset.completed = completed;
 
         task.appendChild(buildElement('div', title, 'title'));
@@ -170,9 +174,16 @@ export default function () {
         task.appendChild(buildElement('div', dueDate, 'dueDate'));
         let options = buildElement('button', '', 'options');
         // generate option buttons and display
-        task.appendChild(taskOptionButton(key));
+        task.appendChild(taskOptionButton(id));
 
         return task;
+    }
+
+    /**
+     * Insert a task element into the task display
+     **/
+    function insertTask(taskNode) {
+        taskContainer.appendChild(taskNode);
     }
 
     /* Pop up to display task details. This container also serves as a form for creating and editing a task */
@@ -398,7 +409,7 @@ export default function () {
 
         menu.appendChild(buildElement('button', 'Move to Project', 'moveTask'));
 
-        let options = buildElement('div')
+        let options;
 
         return menu;
     }
@@ -409,11 +420,14 @@ export default function () {
 
         if (!task) {
             console.error(`Task element does not exist - Key: ${key}`);
+            return;
         }
 
         task.remove();
     }
 
     return {
+        buildTask,
+        insertTask,
     }
 }

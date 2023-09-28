@@ -169,6 +169,16 @@ export default function TaskList() {
 
     function loadData() {
         tasks = JSON.parse(localStorage.getItem('Tasks'));
+
+        if (tasks === null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    function process(callBack) {
+        tasks.forEach(callBack);
     }
 
     return {
@@ -176,9 +186,10 @@ export default function TaskList() {
         deleteTask,
         loadData,
         getTask,
-        showTasks,
-        updateTask,
+        process,
         saveData,
-        taskExists
+        showTasks,
+        taskExists,
+        updateTask,
     }
 };

@@ -147,6 +147,12 @@ export default function ProjectList() {
 
     function loadData() {
         projects = JSON.parse(localStorage.getItem('Projects'));
+
+        if (projects === null) {
+            return false;
+        }
+
+        return true;
     }
 
 

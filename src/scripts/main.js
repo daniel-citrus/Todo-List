@@ -8,11 +8,6 @@ let brain = (() => {
     let projects = ProjectList();
     let domControl = DomControl();
 
-    /* Default project */
-    projects.addProject('Inbox');
-    /* loadData() */
-    
-
     let task1 = {
         title: 'Pull Ups',
         description: 'Quality reps',
@@ -62,7 +57,7 @@ let brain = (() => {
     projects.addTask(2, tasks.addTask(task5));
 
     tasks.showTasks();
-    projects.showProjects();
+    populateDisplay();
 
     function createProject(name) {
         // Create a new project
@@ -76,6 +71,8 @@ let brain = (() => {
         // insert task into project
         projects.addTask(projectKey, taskKey);
         // insert a new task element in DOM
+
+        saveData();
     }
 
     function deleteProject(key) {
@@ -116,20 +113,33 @@ let brain = (() => {
         }
 
         tasks.showTasks();
+        saveData();
 
         return result;
     }
 
     function loadData() {
-        // load projects
-        projects.loadData();
-        // load tasks
-        tasks.loadData();
+        console.log(`Projects: ${projects.loadData()}`);
+        console.log(`Tasks: ${tasks.loadData()}`);
     }
 
     function saveData() {
-        // load projects
-        // load tasks
+        projects.saveData();
+        tasks.saveData();
+    }
+
+    /* Use data in projects and tasks to populate the main display */
+    function populateDisplay() {
+        tasks.process((task) => {
+            let { id = undefined } = task;
+
+            if (id === undefined) {
+                console.error(`Task ID does not exist`);
+                return;
+            }
+
+            domControl.insertTask(domControl.buildTask(task))
+        })
     }
 
     return {
