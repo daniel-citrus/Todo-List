@@ -102,11 +102,11 @@ export default function TaskList() {
         }
 
         let {
-            title,
-            description,
-            dueDate,
-            priority,
-            completed,
+            title = undefined,
+            description = undefined,
+            dueDate = undefined,
+            priority = 5,
+            completed = false,
         } = inputs;
 
         if (title !== undefined) {

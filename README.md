@@ -125,7 +125,7 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [ ] Task item pop-up
   * [ ] View all projects
   * [ ] View all tasks in each project
-  * [ ] Sort by Title, Description, Due Date, or Priority
+  * [ ] Sort by Title, Description, Due Date (default), or Priority
   * [ ] Show completed
   * [ ] Search
 * [ ] Brain (stores projects)

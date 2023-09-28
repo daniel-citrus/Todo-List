@@ -8,6 +8,11 @@ let brain = (() => {
     let projects = ProjectList();
     let domControl = DomControl();
 
+    /* Default project */
+    projects.addProject('Inbox');
+    /* loadData() */
+    
+
     let task1 = {
         title: 'Pull Ups',
         description: 'Quality reps',
@@ -45,7 +50,6 @@ let brain = (() => {
         dueDate: new Date('2023-9-6'),
         priority: 1,
     }
-
 
     projects.addProject('Health');
     projects.addProject('Health1');
@@ -118,7 +122,9 @@ let brain = (() => {
 
     function loadData() {
         // load projects
+        projects.loadData();
         // load tasks
+        tasks.loadData();
     }
 
     function saveData() {

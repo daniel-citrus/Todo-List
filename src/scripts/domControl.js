@@ -382,7 +382,8 @@ export default function () {
         editTaskDisplay();
     }
 
-    function moveTask(key, project) {
+    /* Opens menu that lists out project names that the task can be moved to */
+    function moveTask(key) {
         // brain stuff
         // get all project names except key's current project
         // event listener on each object option
@@ -392,11 +393,12 @@ export default function () {
     /**
      * Generates a task move dropdown menu. This menu will list all avaialble projects that the task can be moved to.
     */
-    function moveTaskMenu() {
-        let menu = buildElement('div','','moveTaskMenu');
+    function moveTaskMenu(key) {
+        let menu = buildElement('div', '', 'moveTaskMenu');
 
-        menu.appendChild(buildElement('button','Move to Project', 'moveTask'));
-        
+        menu.appendChild(buildElement('button', 'Move to Project', 'moveTask'));
+
+        let options = buildElement('div')
 
         return menu;
     }
