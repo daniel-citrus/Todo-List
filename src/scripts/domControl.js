@@ -384,12 +384,27 @@ export default function () {
 
     function moveTask(key, project) {
         // brain stuff
+        // get all project names except key's current project
+        // event listener on each object option
+        // move task to the project selected
+    }
+
+    /**
+     * Generates a task move dropdown menu. This menu will list all avaialble projects that the task can be moved to.
+    */
+    function moveTaskMenu() {
+        let menu = buildElement('div','','moveTaskMenu');
+
+        menu.appendChild(buildElement('button','Move to Project', 'moveTask'));
+        
+
+        return menu;
     }
 
     function deleteTask(key) {
         // brain stuff
         let task = taskContainer.querySelector(`.task[data-id="${key}"]`);
-        
+
         if (!task) {
             console.error(`Task element does not exist - Key: ${key}`);
         }
