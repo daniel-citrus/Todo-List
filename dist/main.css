@@ -72,3 +72,16 @@ body {
   display: flex;
   padding: 20px;
 }
+#projectModal input.invalid {
+  border: 1px solid red;
+}
+
+.projects {
+  padding: 20px;
+}
+.projects .project {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  justify-content: space-between;
+}

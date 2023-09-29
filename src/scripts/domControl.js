@@ -24,15 +24,15 @@ export default function () {
         taskContainer.appendChild(taskDisplay);
     })();
 
-    taskButtons.forEach((button) => {
+    projectButtons.forEach((button) => {
         button.addEventListener('click', () => {
             /* brain.createProject('Daniel'); */
-            projectModal.showModal();
+            createProjectForm();
         })
     })
 
     /**
-     * Creates a project DOM element that has a custom data set called data-id. The element contains the project name and options button.
+     * Creates a project DOM element and inserts it into the project list element
      * @param {*} id project id
      * @param {*} name project name
      * @returns project DOM element
@@ -54,9 +54,7 @@ export default function () {
         if (!classList.length) return element;
 
         classList.forEach((c) => {
-            if (c == '') {
-                return
-            }
+            if (c == '') { return; }
             element.classList.add(c);
         })
 
@@ -69,18 +67,18 @@ export default function () {
     }
 
     function projectOptionButton(key) {
-        let button = buildElement('button', '', 'options');
+        let button = buildElement('button', '...', 'options');
 
         button.addEventListener('click', () => {
             /* projectOptions(key); */
             /* deleteProject(key); */
-            updateProjectName(key);
+            updateProject(key);
         })
 
         return button;
     }
 
-    function updateProjectName(key) {
+    function updateProject(key) {
         let projectName = document.querySelector(`.projects .project[data-id="${key}"] .name`).textContent;
 
         if (!projectName) {
@@ -89,6 +87,10 @@ export default function () {
         }
 
         document.getElementById('projectName').value = projectName;
+
+        projectModal.querySelector('button.create').classList.add('hidden');
+        projectModal.querySelector('button.submit').classList.remove('hidden');
+        projectModal.querySelector('button.cancel').classList.remove('hidden');
         projectModal.dataset.id = key;
         projectModal.showModal();
     }
@@ -194,34 +196,46 @@ export default function () {
 
         let editButton = buildElement('button', 'Edit', 'edit');
         editButton.type = 'button';
-        editButton.addEventListener('click', () => {
-            editTask(+taskDisplay.dataset.taskId);
-        })
+        editButton.addEventListener('click', () => { editTask(+taskDisplay.dataset.taskId); })
         display.appendChild(editButton);
 
         let submitEditButton = buildElement('button', 'Submit', 'submit', 'hidden');
         submitEditButton.type = 'button';
-        submitEditButton.addEventListener('click', () => {
-            submitTaskDetails();
-        })
+        submitEditButton.addEventListener('click', () => { submitTaskDetails(); })
         display.appendChild(submitEditButton);
 
         let cancelEditButton = buildElement('button', 'Cancel', 'cancel', 'hidden');
         cancelEditButton.type = 'button';
-        cancelEditButton.addEventListener('click', () => {
-            cancelTaskDisplay();
-        })
+        cancelEditButton.addEventListener('click', () => { cancelTaskDisplay(); })
         display.appendChild(cancelEditButton);
 
         let closeButton = buildElement('button', 'Close', 'close');
         closeButton.type = 'button';
-        closeButton.addEventListener('click', () => {
-            hideTaskDisplay();
-        })
+        closeButton.addEventListener('click', () => { hideTaskDisplay(); })
 
         display.appendChild(closeButton);
 
         return wrapper;
+    }
+
+    /* Displays the project modal in creation mode */
+    function createProjectForm() {
+        document.getElementById('projectName').value = '';
+        projectModal.querySelector('button.create').classList.remove('hidden');
+        projectModal.querySelector('button.submit').classList.add('hidden');
+        projectModal.querySelector('button.cancel').classList.remove('hidden');
+        projectModal.showModal();
+    }
+
+    function createProject() {
+        /* Input field for project name */
+        let projectName = document.getElementById('projectName');
+
+        if (!projectName.validity.valid) { return; }
+
+        let input = projectName.value;
+        brain.createProject(input);
+        projectModal.close();
     }
 
     /**
@@ -234,9 +248,7 @@ export default function () {
         wrapper.id = 'projectModal';
 
         wrapper.addEventListener('click', (e) => {
-            if (e.target === wrapper) {
-                wrapper.close();
-            }
+            if (e.target === wrapper) { wrapper.close(); }
         })
 
         let form = buildElement('form', '', 'projectDetails');
@@ -247,17 +259,18 @@ export default function () {
         `;
 
         let buttons = buildElement('div', '', 'buttons');
-        let submitButton = buildElement('button', 'Submit', 'sumbmit');
-        submitButton.type = 'button';
-        submitButton.addEventListener('click', ()=> {
-            submitProjectDetails();
-        })
+
+        let createButton = buildElement('button', 'Create', 'create', 'hidden');
+        createButton.addEventListener('click', () => { createProject(); })
+        buttons.appendChild(createButton);
+
+        let submitButton = buildElement('button', 'Submit', 'submit', 'hidden');
+        submitButton.addEventListener('click', () => { submitProjectDetails(); })
         buttons.appendChild(submitButton);
-        let cancelButton = buildElement('button', 'Cancel', 'cancel');
+
+        let cancelButton = buildElement('button', 'Cancel', 'cancel', 'hidden');
         cancelButton.type = 'button';
-        cancelButton.addEventListener('click', ()=> {
-            wrapper.close();
-        })
+        cancelButton.addEventListener('click', () => { wrapper.close(); })
         buttons.appendChild(cancelButton);
 
         wrapper.appendChild(form);
@@ -272,17 +285,15 @@ export default function () {
     function submitProjectDetails() {
         let key = projectModal.dataset.id;
 
-        if (key === 'undefined') {
-            return;
-        }
+        if (key === 'undefined') { return; }
 
-        /* Project DOM element */
-        let project = document.querySelector(`.projects .project[data-id="${key}"]`);
         /* Input field for project name */
-        let projectName = document.getElementById('projectName').value;
+        let projectName = document.getElementById('projectName');
 
-        if(brain.updateProjectName(+key, projectName)) {
-            project.querySelector('.name').textContent = projectName;
+        if (!projectName.validity.valid) { return; }
+
+        if (brain.updateProject(+key, projectName.value)) {
+            projectContainer.querySelector(`.project[data-id="${key}"] .name`).textContent = projectName.value;
         }
 
         projectModal.close();

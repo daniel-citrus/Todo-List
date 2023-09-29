@@ -13,7 +13,7 @@
     }
 }
 
-.hidden{
+.hidden {
     display: none;
 }
 
@@ -33,7 +33,7 @@
     background: rgba(0, 0, 0, 0.226);
     backdrop-filter: blur(1px);
 
-    &.hidden{
+    &.hidden {
         display: none;
     }
 
@@ -71,8 +71,24 @@ body {
 
 #projectModal {
     padding: 0;
+
     .projectDetails {
         display: flex;
         padding: 20px;
+    }
+
+    input.invalid {
+        border: 1px solid red;
+    }
+}
+
+.projects {
+    padding: 20px;
+
+    .project {
+        display: flex;
+        flex-flow: row nowrap;
+        width: 100%;
+        justify-content: space-between;
     }
 }

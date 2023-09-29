@@ -58,12 +58,10 @@ let brain = (() => {
     /* tasks.showTasks(); */
     localStorage.clear();
 
-
     function createProject(name) {
-        // Create a new project
         let projectID = projects.addProject(name);
-        // Create new project element in dom (passing project key)
         domControl.buildProjectElement(projectID, name);
+        saveData();
     }
 
     function createTask(inputs, projectKey) {
@@ -146,7 +144,7 @@ let brain = (() => {
      * @param {*} name new project name
      * @returns boolean indicating successful update
      */
-    function updateProjectName(key, name) {
+    function updateProject(key, name) {
         let result = projects.updateProjectName(key, name);
         saveData();
         return result;
@@ -167,7 +165,7 @@ let brain = (() => {
         deleteProject,
         getTaskDetails,
         updateTask,
-        updateProjectName,
+        updateProject,
     }
 })();
 
