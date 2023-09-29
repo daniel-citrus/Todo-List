@@ -69,7 +69,6 @@ body {
   padding: 0;
 }
 #projectModal .projectDetails {
+  display: flex;
   padding: 20px;
-  height: 500px;
-  width: 500px;
 }

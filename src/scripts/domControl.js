@@ -224,13 +224,37 @@ export default function () {
     function createProjectModal() {
         let wrapper = buildElement('dialog', '', 'projectModal');
         wrapper.id = 'projectModal';
-        wrapper.appendChild(buildElement('div','tyestadsassd','projectDetails'))
 
-        wrapper.addEventListener('click', (e)=> {
-                if (e.target === wrapper) {
-                    wrapper.close();
-                }
+        wrapper.addEventListener('click', (e) => {
+            if (e.target === wrapper) {
+                wrapper.close();
+            }
         })
+
+        let form = buildElement('form', '', 'projectDetails');
+        form.innerHTML = `
+        <label for=projectName>Project Name: </label>
+        <input type="text" id="projectName" name="projectName" required>
+        <br>
+        `;
+
+        let buttons = buildElement('div', '', 'buttons');
+        let submitButton = buildElement('button', 'Submit', 'sumbmit');
+        submitButton.type = 'button';
+        submitButton.addEventListener('click', ()=> {
+            console.log(`Submit`);
+        })
+        buttons.appendChild(submitButton);
+        let cancelButton = buildElement('button', 'Cancel', 'cancel');
+        cancelButton.type = 'button';
+        cancelButton.addEventListener('click', ()=> {
+            wrapper.close();
+        })
+        buttons.appendChild(cancelButton);
+
+        wrapper.appendChild(form);
+        wrapper.appendChild(buttons);
+
         return wrapper;
     }
 

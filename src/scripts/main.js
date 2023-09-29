@@ -55,7 +55,7 @@ let brain = (() => {
     projects.addTask(1, tasks.addTask(task3));
     projects.addTask(1, tasks.addTask(task4));
     projects.addTask(2, tasks.addTask(task5)); */
-    tasks.showTasks();
+    /* tasks.showTasks(); */
     localStorage.clear();
 
 
