@@ -5,6 +5,7 @@ export default function () {
         projectContainer,
         taskContainer,
         projectButtons,
+        projectModal,
         taskButtons,
         taskDisplay;
 
@@ -16,14 +17,17 @@ export default function () {
         projectButtons = document.querySelectorAll("button.projectCreator");
         taskButtons = document.querySelectorAll("button.taskCreator");
 
+        projectModal = createProjectModal();
+        mainContainer.appendChild(projectModal);
+
         taskDisplay = createTaskDisplay();
         taskContainer.appendChild(taskDisplay);
-
     })();
 
-    projectButtons.forEach((button) => {
+    taskButtons.forEach((button) => {
         button.addEventListener('click', () => {
-            brain.createProject('Daniel');
+            /* brain.createProject('Daniel'); */
+            projectModal.showModal();
         })
     })
 
@@ -214,6 +218,19 @@ export default function () {
 
         display.appendChild(closeButton);
 
+        return wrapper;
+    }
+
+    function createProjectModal() {
+        let wrapper = buildElement('dialog', '', 'projectModal');
+        wrapper.id = 'projectModal';
+        wrapper.appendChild(buildElement('div','tyestadsassd','projectDetails'))
+
+        wrapper.addEventListener('click', (e)=> {
+                if (e.target === wrapper) {
+                    wrapper.close();
+                }
+        })
         return wrapper;
     }
 

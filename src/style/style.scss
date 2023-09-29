@@ -68,3 +68,12 @@ body {
     height: 100%;
     margin: 0;
 }
+
+#projectModal {
+    padding: 0;
+    .projectDetails {
+        padding: 20px;
+        height: 500px;
+        width: 500px;
+    }
+}

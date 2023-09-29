@@ -47,8 +47,8 @@ let brain = (() => {
     }
 
     createProject('Health');
-    createProject('Health1');
-    createProject('Health2');
+    createProject('Fitness');
+    createProject('Tasks');
 
     /* projects.addTask(2, tasks.addTask(task1));
     projects.addTask(0, tasks.addTask(task2));
