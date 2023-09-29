@@ -23,7 +23,7 @@ export default function () {
 
     projectButtons.forEach((button) => {
         button.addEventListener('click', () => {
-            insertProject(buildProject(1, 'Daniel'));
+            brain.createProject('Daniel');
         })
     })
 
@@ -40,8 +40,7 @@ export default function () {
         let projectName = buildElement('div', name, 'name');
         projectNode.appendChild(projectName);
         projectNode.appendChild(projectOptionButton(id));
-
-        return projectNode;
+        insertProject(projectNode)
     }
 
     function buildElement(tagName, content = '', ...classList) {

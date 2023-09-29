@@ -130,8 +130,8 @@ export default function ProjectList() {
     function getTasks(key) {
         let project = getProject(key);
 
-        if (!project) {
-            return;
+        if (project === false) {
+            return false;
         }
 
         return project.tasks;

@@ -46,22 +46,24 @@ let brain = (() => {
         priority: 1,
     }
 
-    projects.addProject('Health');
-    projects.addProject('Health1');
-    projects.addProject('Health2');
+    createProject('Health');
+    createProject('Health1');
+    createProject('Health2');
 
-    projects.addTask(2, tasks.addTask(task1));
+    /* projects.addTask(2, tasks.addTask(task1));
     projects.addTask(0, tasks.addTask(task2));
     projects.addTask(1, tasks.addTask(task3));
     projects.addTask(1, tasks.addTask(task4));
-    projects.addTask(2, tasks.addTask(task5));
-    tasks.showTasks(); localStorage.clear();
+    projects.addTask(2, tasks.addTask(task5)); */
+    tasks.showTasks();
+    localStorage.clear();
 
 
     function createProject(name) {
         // Create a new project
         let projectID = projects.addProject(name);
         // Create new project element in dom (passing project key)
+        domControl.buildProject(projectID, name);
     }
 
     function createTask(inputs, projectKey) {
@@ -74,9 +76,25 @@ let brain = (() => {
         saveData();
     }
 
+    /**
+     * Delete a project and all tasks that it contains
+     * @param {*} key project key
+     */
     function deleteProject(key) {
         // use project key to delete it in projects
+        let tasksToDelete = projects.getTasks(key);
+
+        if (tasksToDelete === false) {
+            console.log('Project has no tasks');
+            return;
+        }
+
+        /* tasksToDelete.forEach(()=> {
+
+        }) */
+
         // get task keys that have been deleted and use to delete from tasks
+        
     }
 
     function deleteTask(key, taskKey) {
@@ -125,6 +143,8 @@ let brain = (() => {
     }
 
     return {
+        createProject,
+        deleteProject,
         getTaskDetails,
         updateTask,
     }
