@@ -2,12 +2,13 @@ import { brain } from './barrel';
 
 export default function () {
     let mainContainer,
-        projectContainer,
-        taskContainer,
-        projectButtons,
-        projectModal,
-        taskButtons,
-        taskDisplay;
+        projectContainer, // Displays projects
+        taskContainer,    // Displays tasks for selected project
+        projectButtons,   // All buttons for creating projects
+        projectModal,     // Modal containing form to create/edit project
+        popperOverlay,    // Mouse click catcher for pop up menus
+        taskButtons,      // All buttons for creating buttons
+        taskDisplay;      // Displays task details (also serves as a form)
 
     /* Initializer */
     (() => {
@@ -22,6 +23,9 @@ export default function () {
 
         taskDisplay = createTaskDisplay();
         taskContainer.appendChild(taskDisplay);
+
+        popperOverlay = buildElement('div', '', 'popperOverlay'/* , 'hidden' */);
+        mainContainer.appendChild(popperOverlay);
     })();
 
     projectButtons.forEach((button) => {
@@ -29,6 +33,12 @@ export default function () {
             /* brain.createProject('Daniel'); */
             createProjectForm();
         })
+    })
+
+    popperOverlay.addEventListener('click', (e) => {
+        if (e.target === popperOverlay) {
+            popperOverlay.classList.add('hidden');
+        }
     })
 
     /**
@@ -63,16 +73,26 @@ export default function () {
 
     /* Create an element containing project options */
     function projectOptions(key) {
-        console.log(key);
+        let actions = [
+            ['Delete', deleteProject],
+            ['Edit', updateProject]
+        ];
+
+        let buttons = buildElement('div', '', 'projectMenuButtons');
+        actions.forEach((action) => {
+            let button = buildElement('button', action[0], action[0].toLowerCase());
+            button.addEventListener('click', () => { action[1](key); })
+            buttons.appendChild(button);
+        })
+
+        return buttons;
     }
 
     function projectOptionButton(key) {
         let button = buildElement('button', '...', 'options');
 
         button.addEventListener('click', () => {
-            /* projectOptions(key); */
-            /* deleteProject(key); */
-            updateProject(key);
+            mainContainer.appendChild(projectOptions(key));
         })
 
         return button;
@@ -81,6 +101,7 @@ export default function () {
     function updateProject(key) {
         let projectName = document.querySelector(`.projects .project[data-id="${key}"] .name`).textContent;
 
+        console.log(projectName)
         if (!projectName) {
             console.error(`Project element does not exist - Key: ${key}`)
             return;
@@ -166,31 +187,31 @@ export default function () {
                 Completed:
             </label>
             <br/>
-            <input id="taskCompleted" name="taskCompleted" required disabled>
+            <input id="taskCompleted" name="taskCompleted" required disabled autocomplete='off'>
             <br/>
             <label for="taskName">
                 Task Name:
             </label>
             <br/>
-            <input type="text" id="taskName" name="taskName" required disabled>
+            <input type="text" id="taskName" name="taskName" required disabled autocomplete='off'>
             <br/>
             <label for="taskDueDate">
                 Due Date:
             </label>
             <br/>
-            <input type="date" id="taskDueDate" name="taskDueDate" required disabled>
+            <input type="date" id="taskDueDate" name="taskDueDate" required disabled autocomplete='off'>
             <br/>
             <label for="taskPriority">
                 Priority:
             </label>
             <br/>
-            <input id="taskPriority" name="taskPriority" required disabled>
+            <input id="taskPriority" name="taskPriority" required disabled autocomplete='off'>
             <br/>
             <label for="taskDesc">
                 Description:
             </label>
             <br/>
-            <input type="text" id="taskDesc" name="taskDesc" required disabled>
+            <input type="text" id="taskDesc" name="taskDesc" required disabled autocomplete='off'>
             <br/>
         `
 
@@ -254,7 +275,7 @@ export default function () {
         let form = buildElement('form', '', 'projectDetails');
         form.innerHTML = `
         <label for=projectName>Project Name: </label>
-        <input type="text" id="projectName" name="projectName" required>
+        <input type="text" id="projectName" name="projectName" required autocomplete='off'>
         <br>
         `;
 

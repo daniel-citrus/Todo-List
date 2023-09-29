@@ -50,13 +50,14 @@ let brain = (() => {
     createProject('Fitness');
     createProject('Tasks');
 
-    /* projects.addTask(2, tasks.addTask(task1));
+    projects.addTask(2, tasks.addTask(task1));
     projects.addTask(0, tasks.addTask(task2));
     projects.addTask(1, tasks.addTask(task3));
     projects.addTask(1, tasks.addTask(task4));
-    projects.addTask(2, tasks.addTask(task5)); */
-    /* tasks.showTasks(); */
-    localStorage.clear();
+    projects.addTask(2, tasks.addTask(task5));
+    projects.showProjects();
+    tasks.showTasks();
+    /* localStorage.clear(); */
 
     function createProject(name) {
         let projectID = projects.addProject(name);
@@ -83,16 +84,14 @@ let brain = (() => {
         let tasksToDelete = projects.getTasks(key);
 
         if (tasksToDelete === false) {
-            console.log('Project has no tasks');
+            console.error('Project has no tasks');
             return;
         }
 
-        /* tasksToDelete.forEach(()=> {
+        tasksToDelete.forEach((task)=> {
+            tasks.deleteTask(task);
+        })
 
-        }) */
-
-        // get task keys that have been deleted and use to delete from tasks
-        
     }
 
     function deleteTask(key, taskKey) {

@@ -110,8 +110,8 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [x] Load projects from localStorage
 * [ ] DOM Features
   * [ ] Project
-    * [ ] Create project
-    * [ ] Rename project
+    * [x] Create project
+    * [x] Rename project
     * [ ] Delete Project
   * [ ] Task 
     * [ ] Create task
