@@ -63,7 +63,7 @@ let brain = (() => {
         // Create a new project
         let projectID = projects.addProject(name);
         // Create new project element in dom (passing project key)
-        domControl.buildProject(projectID, name);
+        domControl.buildProjectElement(projectID, name);
     }
 
     function createTask(inputs, projectKey) {
@@ -111,6 +111,15 @@ let brain = (() => {
 
     }
 
+    /**
+     * @param {*} key 
+     * @param {*} title 
+     * @param {*} description 
+     * @param {*} dueDate 
+     * @param {*} priority 
+     * @param {*} completed 
+     * @returns boolean indicating successful update
+     */
     function updateTask(key, title = undefined, description = undefined, dueDate = undefined, priority = undefined, completed = undefined,) {
         let inputs = {
             title,
@@ -132,6 +141,17 @@ let brain = (() => {
         return result;
     }
 
+    /**
+     * @param {*} key project key
+     * @param {*} name new project name
+     * @returns boolean indicating successful update
+     */
+    function updateProjectName(key, name) {
+        let result = projects.updateProjectName(key, name);
+        saveData();
+        return result;
+    }
+
     function loadData() {
         console.log(`Projects: ${projects.loadData()}`);
         console.log(`Tasks: ${tasks.loadData()}`);
@@ -147,6 +167,7 @@ let brain = (() => {
         deleteProject,
         getTaskDetails,
         updateTask,
+        updateProjectName,
     }
 })();
 

@@ -37,7 +37,7 @@ export default function () {
      * @param {*} name project name
      * @returns project DOM element
      **/
-    function buildProject(id, name) {
+    function buildProjectElement(id, name) {
         let projectNode = buildElement('div', '', 'project');
         projectNode.dataset.id = id;
 
@@ -73,21 +73,24 @@ export default function () {
 
         button.addEventListener('click', () => {
             /* projectOptions(key); */
-            deleteProject(key);
+            /* deleteProject(key); */
+            updateProjectName(key);
         })
 
         return button;
     }
 
-    function updateProjectName(key, name) {
-        let projectName = document.querySelector(`.projects .project[data-id="${key}"]`);
+    function updateProjectName(key) {
+        let projectName = document.querySelector(`.projects .project[data-id="${key}"] .name`).textContent;
 
         if (!projectName) {
             console.error(`Project element does not exist - Key: ${key}`)
             return;
         }
 
-        projectName.textContent = name;
+        document.getElementById('projectName').value = projectName;
+        projectModal.dataset.id = key;
+        projectModal.showModal();
     }
 
     function deleteProject(key) {
@@ -221,8 +224,13 @@ export default function () {
         return wrapper;
     }
 
+    /**
+     * Serves as a form to create or edit a project
+     * @returns DOM element
+     */
     function createProjectModal() {
         let wrapper = buildElement('dialog', '', 'projectModal');
+        wrapper.dataset.id = undefined;
         wrapper.id = 'projectModal';
 
         wrapper.addEventListener('click', (e) => {
@@ -242,7 +250,7 @@ export default function () {
         let submitButton = buildElement('button', 'Submit', 'sumbmit');
         submitButton.type = 'button';
         submitButton.addEventListener('click', ()=> {
-            console.log(`Submit`);
+            submitProjectDetails();
         })
         buttons.appendChild(submitButton);
         let cancelButton = buildElement('button', 'Cancel', 'cancel');
@@ -256,6 +264,28 @@ export default function () {
         wrapper.appendChild(buttons);
 
         return wrapper;
+    }
+
+    /**
+     * Submit all inputs on the project modal form to the brain.
+     */
+    function submitProjectDetails() {
+        let key = projectModal.dataset.id;
+
+        if (key === 'undefined') {
+            return;
+        }
+
+        /* Project DOM element */
+        let project = document.querySelector(`.projects .project[data-id="${key}"]`);
+        /* Input field for project name */
+        let projectName = document.getElementById('projectName').value;
+
+        if(brain.updateProjectName(+key, projectName)) {
+            project.querySelector('.name').textContent = projectName;
+        }
+
+        projectModal.close();
     }
 
     /**
@@ -416,7 +446,7 @@ export default function () {
 
     return {
         buildTask,
-        buildProject,
+        buildProjectElement,
         insertTask,
         insertProject,
     }
