@@ -55,9 +55,8 @@ let brain = (() => {
     projects.addTask(1, tasks.addTask(task3));
     projects.addTask(1, tasks.addTask(task4));
     projects.addTask(2, tasks.addTask(task5));
+    tasks.showTasks(); localStorage.clear();
 
-    tasks.showTasks();
-    populateDisplay();
 
     function createProject(name) {
         // Create a new project
@@ -86,10 +85,7 @@ let brain = (() => {
     }
 
     function getTaskDetails(key) {
-        if (tasks.taskExists(key) === false) {
-            return false;
-        }
-
+        if (tasks.taskExists(key) === false) { return false; }
         return tasks.getTask(key);
     }
 
@@ -126,20 +122,6 @@ let brain = (() => {
     function saveData() {
         projects.saveData();
         tasks.saveData();
-    }
-
-    /* Use data in projects and tasks to populate the main display */
-    function populateDisplay() {
-        tasks.process((task) => {
-            let { id = undefined } = task;
-
-            if (id === undefined) {
-                console.error(`Task ID does not exist`);
-                return;
-            }
-
-            domControl.insertTask(domControl.buildTask(task))
-        })
     }
 
     return {

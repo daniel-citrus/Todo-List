@@ -177,16 +177,11 @@ export default function TaskList() {
         return true;
     }
 
-    function process(callBack) {
-        tasks.forEach(callBack);
-    }
-
     return {
         addTask,
         deleteTask,
         loadData,
         getTask,
-        process,
         saveData,
         showTasks,
         taskExists,

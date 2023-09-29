@@ -21,77 +21,27 @@ export default function () {
 
     })();
 
-   /*  let p = 0;
-    projectButtons.forEach((pButton) => {
-        pButton.addEventListener("click", () => {
-            projectContainer.appendChild(buildProject(p++, 'Test'));
+    projectButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            insertProject(buildProject(1, 'Daniel'));
         })
-    }) */
-
-    let tasks = [
-        {
-            id: 0,
-            title: 'Pull Ups',
-            description: 'Quality reps',
-            dueDate: new Date('9/4/2023'),
-            priority: 2,
-            completed: true,
-        },
-        {
-            id: 1,
-            title: 'Dips',
-            description: 'Heavy weight',
-            dueDate: new Date('9/3/2023'),
-            priority: 3,
-        },
-        {
-            id: 2,
-            title: 'Eat',
-            description: 'Healthy meals',
-            dueDate: '2023-09-02',
-            priority: 1
-        },
-        {
-            id: 3,
-            title: 'Sleep',
-            description: `Good sleep improves your brain performance, mood, and health.
-                    Not getting enough quality sleep regularly raises the risk of many diseases and disorders. These range from heart disease and stroke to obesity and dementia.
-                    There’s more to good sleep than just the hours spent in bed, says Dr. Marishka Brown, a sleep expert at NIH. “Healthy sleep encompasses three major things,” she explains. “One is how much sleep you get. Another is sleep quality—that you get uninterrupted and refreshing sleep. The last is a consistent sleep schedule.”`,
-            dueDate: '9/2/2023',
-            priority: 1
-        },
-        {
-            id: 4,
-            title: 'Study',
-            description: 'Regular session',
-            dueDate: new Date('9/6/2023'),
-            priority: 1,
-        }
-    ];
-
-    /* taskButtons.forEach((tButton) => {
-        tButton.addEventListener("click", () => {
-            taskContainer.appendChild(buildTask(tasks[Math.floor(Math.random() * tasks.length)]));
-        })
-    }) */
+    })
 
     /**
      * Creates a project DOM element that has a custom data set called data-id. The element contains the project name and options button.
-     * @param {*} key project id
+     * @param {*} id project id
      * @param {*} name project name
+     * @returns project DOM element
      **/
-    function buildProject(name) {
-        let project = buildElement('div', '', 'project');
-        let { id = undefined } = project;
-
-        if (id === undefined) { return; }
-        project.dataset.id = id;
+    function buildProject(id, name) {
+        let projectNode = buildElement('div', '', 'project');
+        projectNode.dataset.id = id;
 
         let projectName = buildElement('div', name, 'name');
-        project.appendChild(projectName);
-        project.appendChild(projectOptionButton(id));
+        projectNode.appendChild(projectName);
+        projectNode.appendChild(projectOptionButton(id));
 
-        return project;
+        return projectNode;
     }
 
     function buildElement(tagName, content = '', ...classList) {
@@ -110,6 +60,7 @@ export default function () {
         return element;
     }
 
+    /* Create an element containing project options */
     function projectOptions(key) {
         console.log(key);
     }
@@ -118,7 +69,8 @@ export default function () {
         let button = buildElement('button', '', 'options');
 
         button.addEventListener('click', () => {
-            projectOptions(key);
+            /* projectOptions(key); */
+            deleteProject(key);
         })
 
         return button;
@@ -180,10 +132,17 @@ export default function () {
     }
 
     /**
-     * Insert a task element into the task display
+     * Insert a task element into the task container
      **/
     function insertTask(taskNode) {
         taskContainer.appendChild(taskNode);
+    }
+
+    /**
+     * Insert a project element into the project container
+     **/
+    function insertProject(projectNode) {
+        projectContainer.appendChild(projectNode);
     }
 
     /* Pop up to display task details. This container also serves as a form for creating and editing a task */
@@ -319,7 +278,7 @@ export default function () {
     }
 
     /**
-     * Populates the task display with task information using the task key
+     * Use task key to search the database for a task. Use the information from that task to populate the task display.
      * @param {*} key task key
      */
     function populateTaskDisplay(key) {
@@ -362,22 +321,11 @@ export default function () {
         let menu = buildElement('div', '', 'taskMenu');
         menu.appendChild(menuContainer);
 
-
-        let buttons = [
-            ['View', viewTask],
-            ['Edit', editTask],
-            ['Move', () => { }],
-            ['Delete', () => { }],
-        ]
+        let buttons = []
         // view task
         // edit task
         // move task to a new project
         // delete task
-
-        let button = buildElement('button');
-        button.addEventListener('click', () => {
-            console.log('task options')
-        })
 
         return menuContainer;
     }
@@ -428,6 +376,8 @@ export default function () {
 
     return {
         buildTask,
+        buildProject,
         insertTask,
+        insertProject,
     }
 }
