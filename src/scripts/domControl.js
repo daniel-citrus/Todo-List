@@ -24,7 +24,7 @@ export default function () {
         taskDisplay = createTaskDisplay();
         taskContainer.appendChild(taskDisplay);
 
-        popperOverlay = buildElement('div', '', 'popperOverlay'/* , 'hidden' */);
+        popperOverlay = buildElement('div', '', 'popperOverlay', 'hidden');
         mainContainer.appendChild(popperOverlay);
     })();
 
@@ -36,10 +36,21 @@ export default function () {
     })
 
     popperOverlay.addEventListener('click', (e) => {
-        if (e.target === popperOverlay) {
-            popperOverlay.classList.add('hidden');
+        if (e.target !== popperOverlay) {
+            return;
         }
+
+        closePopper();
     })
+    
+    function closePopper() {
+        popperOverlay.innerHTML = ``;
+        popperOverlay.classList.add('hidden');
+    }
+    
+    function openPopper() {
+        popperOverlay.classList.remove('hidden');
+    }
 
     /**
      * Creates a project DOM element and inserts it into the project list element
@@ -85,6 +96,10 @@ export default function () {
             buttons.appendChild(button);
         })
 
+        buttons.addEventListener('click', () => {
+            closePopper();
+        })
+
         return buttons;
     }
 
@@ -92,7 +107,8 @@ export default function () {
         let button = buildElement('button', '...', 'options');
 
         button.addEventListener('click', () => {
-            mainContainer.appendChild(projectOptions(key));
+            openPopper();
+            popperOverlay.appendChild(projectOptions(key));
         })
 
         return button;
@@ -101,7 +117,6 @@ export default function () {
     function updateProject(key) {
         let projectName = document.querySelector(`.projects .project[data-id="${key}"] .name`).textContent;
 
-        console.log(projectName)
         if (!projectName) {
             console.error(`Project element does not exist - Key: ${key}`)
             return;
