@@ -36,7 +36,8 @@ export default function () {
     })
 
     popperOverlay.addEventListener('click', (e) => {
-        if (e.target !== popperOverlay) {
+        if (e.target === popperOverlay) {
+            console.log(`X: ${e.clientX}, Y: ${e.clientY}`);
             return;
         }
 
@@ -107,8 +108,8 @@ export default function () {
         let button = buildElement('button', '...', 'options');
 
         button.addEventListener('click', () => {
-            openPopper();
             popperOverlay.appendChild(projectOptions(key));
+            openPopper();
         })
 
         return button;
