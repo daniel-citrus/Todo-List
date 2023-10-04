@@ -36,7 +36,7 @@ export default function () {
     })
 
     taskButtons.forEach((button) => {
-        button.addEventListener('click', ()=> {
+        button.addEventListener('click', () => {
             brain.showData();
         })
     })
@@ -72,7 +72,14 @@ export default function () {
         let projectName = buildElement('div', name, 'name');
         projectNode.appendChild(projectName);
         projectNode.appendChild(projectOptionButton(id));
-        insertProject(projectNode)
+        insertProject(projectNode);
+
+        projectNode.addEventListener('click', () => {
+            let tasks = brain.getProjectTasks(id);
+
+            if (tasks === false || tasks.length === 0) { return; }
+
+        })
     }
 
     function buildElement(tagName, content = '', ...classList) {

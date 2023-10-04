@@ -76,6 +76,10 @@ let brain = (() => {
         saveData();
     }
 
+    function getProjectTasks(key) {
+        return projects.getTasks(key);
+    }
+
     /**
      * Delete a project and all tasks that it contains
      * @param {*} key project key
@@ -171,6 +175,7 @@ let brain = (() => {
         createProject,
         deleteProject,
         getTaskDetails,
+        getProjectTasks,
         updateTask,
         updateProject,
         showData,
