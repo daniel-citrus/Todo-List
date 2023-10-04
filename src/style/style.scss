@@ -207,10 +207,25 @@ body {
 }
 
 .popperOverlay {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     height: 100%;
     width: 100%;
     background: rgba(255, 0, 0, 0.158);
+
+    .projectMenuButtons {
+        padding: 10px;
+        background: green;
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
+    &.hidden {
+        display: none;
+    }
 }
 
 .projects {

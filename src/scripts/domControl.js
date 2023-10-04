@@ -18,8 +18,7 @@ export default function () {
         projectButtons = document.querySelectorAll("button.projectCreator");
         taskButtons = document.querySelectorAll("button.taskCreator");
 
-        projectModal = createProjectModal();
-        mainContainer.appendChild(projectModal);
+        projectModal = createProjectForm();
 
         taskDisplay = createTaskDisplay();
         taskContainer.appendChild(taskDisplay);
@@ -31,26 +30,33 @@ export default function () {
     projectButtons.forEach((button) => {
         button.addEventListener('click', () => {
             /* brain.createProject('Daniel'); */
-            createProjectForm();
+            openPopper(projectModal);
+            projectFormCreateMode();
+        })
+    })
+
+    taskButtons.forEach((button) => {
+        button.addEventListener('click', ()=> {
+            brain.showData();
         })
     })
 
     popperOverlay.addEventListener('click', (e) => {
-        if (e.target === popperOverlay) {
-            console.log(`X: ${e.clientX}, Y: ${e.clientY}`);
-            return;
-        }
+        if (e.target !== popperOverlay) { return; }
 
         closePopper();
     })
-    
+
     function closePopper() {
         popperOverlay.innerHTML = ``;
         popperOverlay.classList.add('hidden');
     }
-    
-    function openPopper() {
+
+    function openPopper(elem) {
         popperOverlay.classList.remove('hidden');
+
+        if (!elem) { return; }
+        popperOverlay.appendChild(elem);
     }
 
     /**
@@ -86,20 +92,22 @@ export default function () {
     /* Create an element containing project options */
     function projectOptions(key) {
         let actions = [
+            ['Edit', updateProjectForm],
             ['Delete', deleteProject],
-            ['Edit', updateProject]
         ];
 
         let buttons = buildElement('div', '', 'projectMenuButtons');
+
         actions.forEach((action) => {
             let button = buildElement('button', action[0], action[0].toLowerCase());
-            button.addEventListener('click', () => { action[1](key); })
+            button.addEventListener('click', () => {
+                closePopper();
+                action[1](key);
+
+            })
             buttons.appendChild(button);
         })
 
-        buttons.addEventListener('click', () => {
-            closePopper();
-        })
 
         return buttons;
     }
@@ -107,15 +115,16 @@ export default function () {
     function projectOptionButton(key) {
         let button = buildElement('button', '...', 'options');
 
-        button.addEventListener('click', () => {
-            popperOverlay.appendChild(projectOptions(key));
-            openPopper();
+        button.addEventListener('click', (e) => {
+            openPopper(projectOptions(key));
         })
 
         return button;
     }
 
-    function updateProject(key) {
+    function updateProjectForm(key) {
+        openPopper(projectModal);
+
         let projectName = document.querySelector(`.projects .project[data-id="${key}"] .name`).textContent;
 
         if (!projectName) {
@@ -124,15 +133,16 @@ export default function () {
         }
 
         document.getElementById('projectName').value = projectName;
-
         projectModal.querySelector('button.create').classList.add('hidden');
         projectModal.querySelector('button.submit').classList.remove('hidden');
         projectModal.querySelector('button.cancel').classList.remove('hidden');
         projectModal.dataset.id = key;
-        projectModal.showModal();
     }
 
     function deleteProject(key) {
+        console.log(`Deleting: ${key}`);
+        brain.deleteProject(key);
+
         let project = document.querySelector(`.projects .project[data-id="${key}"]`);
 
         if (!project) {
@@ -256,30 +266,28 @@ export default function () {
     }
 
     /* Displays the project modal in creation mode */
-    function createProjectForm() {
+    function projectFormCreateMode() {
         document.getElementById('projectName').value = '';
         projectModal.querySelector('button.create').classList.remove('hidden');
         projectModal.querySelector('button.submit').classList.add('hidden');
         projectModal.querySelector('button.cancel').classList.remove('hidden');
-        projectModal.showModal();
     }
 
+    /* Create new project in the brain */
     function createProject() {
-        /* Input field for project name */
         let projectName = document.getElementById('projectName');
 
         if (!projectName.validity.valid) { return; }
 
         let input = projectName.value;
         brain.createProject(input);
-        projectModal.close();
     }
 
     /**
      * Serves as a form to create or edit a project
      * @returns DOM element
      */
-    function createProjectModal() {
+    function createProjectForm() {
         let wrapper = buildElement('dialog', '', 'projectModal');
         wrapper.dataset.id = undefined;
         wrapper.id = 'projectModal';
@@ -298,26 +306,37 @@ export default function () {
         let buttons = buildElement('div', '', 'buttons');
 
         let createButton = buildElement('button', 'Create', 'create', 'hidden');
-        createButton.addEventListener('click', () => { createProject(); })
+        createButton.type = 'button';
+        createButton.addEventListener('click', () => {
+            createProject();
+            closePopper();
+        })
         buttons.appendChild(createButton);
 
         let submitButton = buildElement('button', 'Submit', 'submit', 'hidden');
-        submitButton.addEventListener('click', () => { submitProjectDetails(); })
+        submitButton.type = 'button';
+        submitButton.addEventListener('click', () => {
+            submitProjectDetails();
+            closePopper();
+        })
         buttons.appendChild(submitButton);
 
         let cancelButton = buildElement('button', 'Cancel', 'cancel', 'hidden');
         cancelButton.type = 'button';
-        cancelButton.addEventListener('click', () => { wrapper.close(); })
+        cancelButton.addEventListener('click', () => {
+            closePopper();
+        })
         buttons.appendChild(cancelButton);
 
-        wrapper.appendChild(form);
-        wrapper.appendChild(buttons);
+        form.appendChild(buttons);
+        /* wrapper.appendChild(form);
+        wrapper.appendChild(buttons); */
 
-        return wrapper;
+        return form;
     }
 
     /**
-     * Submit all inputs on the project modal form to the brain.
+     * Submit all inputs on the project form to the brain to update information.
      */
     function submitProjectDetails() {
         let key = projectModal.dataset.id;
@@ -332,8 +351,6 @@ export default function () {
         if (brain.updateProject(+key, projectName.value)) {
             projectContainer.querySelector(`.project[data-id="${key}"] .name`).textContent = projectName.value;
         }
-
-        projectModal.close();
     }
 
     /**

@@ -55,6 +55,7 @@ let brain = (() => {
     projects.addTask(1, tasks.addTask(task3));
     projects.addTask(1, tasks.addTask(task4));
     projects.addTask(2, tasks.addTask(task5));
+    console.clear();
     projects.showProjects();
     tasks.showTasks();
     /* localStorage.clear(); */
@@ -82,16 +83,18 @@ let brain = (() => {
     function deleteProject(key) {
         // use project key to delete it in projects
         let tasksToDelete = projects.getTasks(key);
+        projects.deleteProject(key);
 
         if (tasksToDelete === false) {
             console.error('Project has no tasks');
             return;
         }
 
-        tasksToDelete.forEach((task)=> {
+        tasksToDelete.forEach((task) => {
             tasks.deleteTask(task);
         })
 
+        saveData();
     }
 
     function deleteTask(key, taskKey) {
@@ -159,12 +162,18 @@ let brain = (() => {
         tasks.saveData();
     }
 
+    function showData() {
+        console.clear();
+        projects.showProjects();
+        tasks.showTasks();
+    }
     return {
         createProject,
         deleteProject,
         getTaskDetails,
         updateTask,
         updateProject,
+        showData,
     }
 })();
 

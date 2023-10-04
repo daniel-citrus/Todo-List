@@ -30,7 +30,7 @@ export default function ProjectList() {
     function deleteProject(key) {
         for (let p in projects) {
             if (projects[p].id == key) {
-                projects.splice(key, 1);
+                projects.splice(p, 1);
                 return;
             }
         }

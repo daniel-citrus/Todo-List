@@ -112,14 +112,7 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [ ] Project
     * [x] Create project
     * [x] Rename project
-    * [ ] Delete Project
-
-I want the popper overlay to appear when: 
-Selecting project settings
-Project Settings menu will appear inside of the page popper
-when page popper is closed delete in elements inside it
-when selecting any of the options in the menu, make sure to close page popper before executing
-
+    * [x] Delete Project
   * [ ] Task 
     * [ ] Create task
     * [ ] Complete task
