@@ -46,9 +46,9 @@ let brain = (() => {
         priority: 1,
     }
 
+    createProject('Tasks');
     createProject('Health');
     createProject('Fitness');
-    createProject('Tasks');
 
     projects.addTask(2, tasks.addTask(task1));
     projects.addTask(0, tasks.addTask(task2));

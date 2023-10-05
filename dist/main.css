@@ -195,7 +195,7 @@ body {
 
 .main {
   display: grid;
-  grid-template: "controls tasks" 1fr "projects tasks" 1fr/minmax(70px, 300px) minmax(300px, auto);
+  grid-template: "controls tasks" "projects tasks"/minmax(300px, 300px) auto;
   height: 100%;
 }
 
@@ -210,7 +210,8 @@ body {
   background: rgba(255, 0, 0, 0.158);
 }
 .popperOverlay .projectMenuButtons {
-  padding: 10px;
+  position: absolute;
+  padding: 5px;
   background: green;
   display: flex;
   flex-flow: column nowrap;

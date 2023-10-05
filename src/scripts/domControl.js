@@ -8,15 +8,19 @@ export default function () {
         projectModal,     // Modal containing form to create/edit project
         popperOverlay,    // Mouse click catcher for pop up menus
         taskButtons,      // All buttons for creating buttons
-        taskDisplay;      // Displays task details (also serves as a form)
+        taskDisplay,      // Displays task details (also serves as a form)
+        currentProject;   // Current project selected
 
     /* Initializer */
     (() => {
         mainContainer = document.querySelector('.main');
-        projectContainer = document.querySelector('.projects');
-        taskContainer = document.querySelector('.tasks');
         projectButtons = document.querySelectorAll("button.projectCreator");
         taskButtons = document.querySelectorAll("button.taskCreator");
+
+        projectContainer = buildElement('div', '', 'projects');
+        mainContainer.appendChild(projectContainer);
+        taskContainer = buildElement('div', '', 'tasks');
+        mainContainer.appendChild(taskContainer);
 
         projectModal = createProjectForm();
 
@@ -29,7 +33,6 @@ export default function () {
 
     projectButtons.forEach((button) => {
         button.addEventListener('click', () => {
-            /* brain.createProject('Daniel'); */
             openPopper(projectModal);
             projectFormCreateMode();
         })
@@ -48,15 +51,21 @@ export default function () {
     })
 
     function closePopper() {
-        popperOverlay.innerHTML = ``;
         popperOverlay.classList.add('hidden');
+        popperOverlay.innerHTML = ``;
     }
 
-    function openPopper(elem) {
-        popperOverlay.classList.remove('hidden');
+    function openPopper(elem, xCoord = undefined, yCoord = undefined) {
+        if (xCoord !== undefined) {
+            console.log(xCoord)
+            elem.style.left = `${xCoord}px`;
+            elem.style.top = `${yCoord}px`;
+        }
 
         if (!elem) { return; }
+
         popperOverlay.appendChild(elem);
+        popperOverlay.classList.remove('hidden');
     }
 
     /**
@@ -75,11 +84,32 @@ export default function () {
         insertProject(projectNode);
 
         projectNode.addEventListener('click', () => {
-            let tasks = brain.getProjectTasks(id);
-
-            if (tasks === false || tasks.length === 0) { return; }
-
+            displayProjectTasks(id);
+            currentProject = id;
         })
+    }
+
+    /**
+     * Get all tasks from a project and display it into the taskContainer
+     * @param {*} projectID 
+     * @returns boolean
+     */
+    function displayProjectTasks(projectID) {
+        taskContainer.innerHTML = '';
+
+        let tasks = brain.getProjectTasks(projectID);
+
+        if (tasks === false || tasks.length === 0) { return false; }
+
+        tasks.forEach((taskID) => {
+            let task = brain.getTaskDetails(taskID);
+
+            if (!task) { return false; }
+
+            taskContainer.appendChild(buildTask(task));
+        })
+
+        return true;
     }
 
     function buildElement(tagName, content = '', ...classList) {
@@ -123,7 +153,9 @@ export default function () {
         let button = buildElement('button', '...', 'options');
 
         button.addEventListener('click', (e) => {
-            openPopper(projectOptions(key));
+            var rect = button.getBoundingClientRect();
+            openPopper(projectOptions(key), rect.left - 20, rect.top + button.offsetHeight);
+            e.stopPropagation(); // prevent clicking project 
         })
 
         return button;
@@ -295,14 +327,6 @@ export default function () {
      * @returns DOM element
      */
     function createProjectForm() {
-        let wrapper = buildElement('dialog', '', 'projectModal');
-        wrapper.dataset.id = undefined;
-        wrapper.id = 'projectModal';
-
-        wrapper.addEventListener('click', (e) => {
-            if (e.target === wrapper) { wrapper.close(); }
-        })
-
         let form = buildElement('form', '', 'projectDetails');
         form.innerHTML = `
         <label for=projectName>Project Name: </label>
@@ -336,8 +360,6 @@ export default function () {
         buttons.appendChild(cancelButton);
 
         form.appendChild(buttons);
-        /* wrapper.appendChild(form);
-        wrapper.appendChild(buttons); */
 
         return form;
     }
