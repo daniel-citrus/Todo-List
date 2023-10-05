@@ -153,25 +153,6 @@ body {
   border: 1px solid red;
 }
 
-#taskDisplay {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.226);
-  backdrop-filter: blur(1px);
-}
-#taskDisplay.hidden {
-  display: none;
-}
-#taskDisplay .taskDetails {
-  background: white;
-  border: 1px solid black;
-  width: 94%;
-  height: 85%;
-}
 #taskDisplay input:read-only {
   border: none;
 }

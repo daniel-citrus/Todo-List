@@ -19,13 +19,12 @@ export default function () {
 
         projectContainer = buildElement('div', '', 'projects');
         mainContainer.appendChild(projectContainer);
+
         taskContainer = buildElement('div', '', 'tasks');
         mainContainer.appendChild(taskContainer);
 
         projectModal = createProjectForm();
-
         taskDisplay = createTaskDisplay();
-        taskContainer.appendChild(taskDisplay);
 
         popperOverlay = buildElement('div', '', 'popperOverlay', 'hidden');
         mainContainer.appendChild(popperOverlay);
@@ -33,14 +32,15 @@ export default function () {
 
     projectButtons.forEach((button) => {
         button.addEventListener('click', () => {
-            openPopper(projectModal);
-            projectFormCreateMode();
+            /* openPopper(projectModal);
+            projectFormCreateMode(); */
+            brain.showData();
         })
     })
 
     taskButtons.forEach((button) => {
         button.addEventListener('click', () => {
-            brain.showData();
+            createNewTask();
         })
     })
 
@@ -57,7 +57,6 @@ export default function () {
 
     function openPopper(elem, xCoord = undefined, yCoord = undefined) {
         if (xCoord !== undefined) {
-            console.log(xCoord)
             elem.style.left = `${xCoord}px`;
             elem.style.top = `${yCoord}px`;
         }
@@ -140,7 +139,6 @@ export default function () {
             button.addEventListener('click', () => {
                 closePopper();
                 action[1](key);
-
             })
             buttons.appendChild(button);
         })
@@ -154,7 +152,7 @@ export default function () {
 
         button.addEventListener('click', (e) => {
             var rect = button.getBoundingClientRect();
-            openPopper(projectOptions(key), rect.left - 20, rect.top + button.offsetHeight);
+            openPopper(projectOptions(key), rect.left - 17, rect.top + button.offsetHeight);
             e.stopPropagation(); // prevent clicking project 
         })
 
@@ -179,7 +177,6 @@ export default function () {
     }
 
     function deleteProject(key) {
-        console.log(`Deleting: ${key}`);
         brain.deleteProject(key);
 
         let project = document.querySelector(`.projects .project[data-id="${key}"]`);
@@ -239,13 +236,10 @@ export default function () {
         projectContainer.appendChild(projectNode);
     }
 
-    /* Pop up to display task details. This container also serves as a form for creating and editing a task */
+    /* Pop up to display task details. This also serves as a form for creating and editing a task */
     function createTaskDisplay() {
-        let wrapper = buildElement('div', '', 'taskDisplayWrapper', 'hidden')
-        wrapper.id = 'taskDisplay';
-
         let display = buildElement('form', '', 'taskDetails');
-        wrapper.appendChild(display);
+        display.id = 'taskDisplay';
 
         display.innerHTML = `
             <label for="taskCompleted">
@@ -280,28 +274,29 @@ export default function () {
             <br/>
         `
 
+        let buttons = buildElement('div', '', 'buttons');
         let editButton = buildElement('button', 'Edit', 'edit');
         editButton.type = 'button';
         editButton.addEventListener('click', () => { editTask(+taskDisplay.dataset.taskId); })
-        display.appendChild(editButton);
+        buttons.appendChild(editButton);
 
         let submitEditButton = buildElement('button', 'Submit', 'submit', 'hidden');
         submitEditButton.type = 'button';
         submitEditButton.addEventListener('click', () => { submitTaskDetails(); })
-        display.appendChild(submitEditButton);
+        buttons.appendChild(submitEditButton);
 
         let cancelEditButton = buildElement('button', 'Cancel', 'cancel', 'hidden');
         cancelEditButton.type = 'button';
         cancelEditButton.addEventListener('click', () => { cancelTaskDisplay(); })
-        display.appendChild(cancelEditButton);
+        buttons.appendChild(cancelEditButton);
 
         let closeButton = buildElement('button', 'Close', 'close');
         closeButton.type = 'button';
-        closeButton.addEventListener('click', () => { hideTaskDisplay(); })
+        closeButton.addEventListener('click', () => { closePopper(); })
+        buttons.appendChild(closeButton);
+        display.appendChild(buttons);
 
-        display.appendChild(closeButton);
-
-        return wrapper;
+        return display;
     }
 
     /* Displays the project modal in creation mode */
@@ -382,6 +377,11 @@ export default function () {
         }
     }
 
+    function createNewTask() {
+        openPopper(taskDisplay);
+        editTaskDisplay();
+    }
+
     /**
      * Disable task display input fields and show the display
      */
@@ -394,11 +394,6 @@ export default function () {
         taskDisplay.querySelector('button.edit').classList.remove('hidden');
         taskDisplay.querySelector('button.submit').classList.add('hidden');
         taskDisplay.querySelector('button.cancel').classList.add('hidden');
-        taskDisplay.classList.remove('hidden');
-    }
-
-    function hideTaskDisplay() {
-        taskDisplay.classList.add('hidden');
     }
 
     /**
@@ -412,7 +407,7 @@ export default function () {
         document.getElementById('taskDesc').disabled = false;
         taskDisplay.querySelector('button.edit').classList.add('hidden');
         taskDisplay.querySelector('button.submit').classList.remove('hidden');
-        taskDisplay.querySelector('button.cancel').classList.remove('hidden');
+        taskDisplay.querySelector('button.cancel').classList.add('hidden');
         taskDisplay.classList.remove('hidden');
     }
 

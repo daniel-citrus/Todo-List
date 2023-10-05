@@ -154,25 +154,6 @@ body {
 }
 
 #taskDisplay {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.226);
-    backdrop-filter: blur(1px);
-
-    &.hidden {
-        display: none;
-    }
-
-    .taskDetails {
-        background: white;
-        border: 1px solid black;
-        width: 94%;
-        height: 85%;
-    }
 
     input:read-only {
         border: none;
@@ -201,7 +182,7 @@ body {
 .main {
     display: grid;
     grid-template:
-        "controls tasks" 
+        "controls tasks"
         "projects tasks" / minmax(300px, 300px) auto;
     height: 100%;
 }
