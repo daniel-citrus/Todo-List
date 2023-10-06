@@ -94,6 +94,11 @@ video {
   vertical-align: baseline;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -136,11 +141,6 @@ table {
   border-spacing: 0;
 }
 
-html,
-body {
-  height: 100%;
-}
-
 /* End CSS Reset */
 #projectModal {
   padding: 0;
@@ -151,10 +151,6 @@ body {
 }
 #projectModal input.invalid {
   border: 1px solid red;
-}
-
-#taskDisplay input:read-only {
-  border: none;
 }
 
 .controls {

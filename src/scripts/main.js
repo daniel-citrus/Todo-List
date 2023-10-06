@@ -66,12 +66,20 @@ let brain = (() => {
         saveData();
     }
 
+    /**
+     * 
+     * @param {*} inputs Object containing task details (title, description, dueDate, priority, completed)
+     * @param {*} projectKey Project that the key belongs to
+     */
     function createTask(inputs, projectKey) {
         // add a new task in tasks
         let taskKey = tasks.addTask(inputs);
         // insert task into project
         projects.addTask(projectKey, taskKey);
         // insert a new task element in DOM
+        if (domControl.getCurrentProject() === projectKey) {
+            domControl.insertTask(domControl.buildTask(inputs));
+        }
 
         saveData();
     }
@@ -173,6 +181,7 @@ let brain = (() => {
     }
     return {
         createProject,
+        createTask,
         deleteProject,
         getTaskDetails,
         getProjectTasks,

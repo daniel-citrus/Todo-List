@@ -40,7 +40,7 @@ export default function () {
 
     taskButtons.forEach((button) => {
         button.addEventListener('click', () => {
-            createNewTask();
+            createModeTaskDisplay();
         })
     })
 
@@ -85,6 +85,7 @@ export default function () {
         projectNode.addEventListener('click', () => {
             displayProjectTasks(id);
             currentProject = id;
+            console.log(`Current Project ID: ${currentProject}`);
         })
     }
 
@@ -198,6 +199,14 @@ export default function () {
     }
 
     /**
+     * @returns currently selected project's ID
+     */
+    function getCurrentProject() {
+        return currentProject;
+    }
+
+
+    /**
      * Creates a task DOM element that has a custom data set called data-id. The element contains the task name, completion checkbox, and options button.
      * @param {*} key task id
      * @param {*} task task object
@@ -286,7 +295,7 @@ export default function () {
         let createButton = buildElement('button', 'Create', 'create');
         createButton.type = 'button';
         createButton.addEventListener('click', () => {
-
+            createTask();
         })
         buttons.appendChild(createButton);
 
@@ -392,28 +401,33 @@ export default function () {
         }
     }
 
-    function createNewTask() {
-        openPopper(taskDisplay);
-        document.getElementById('taskCompleted').disabled = false;
-        document.getElementById('taskName').disabled = false;
-        document.getElementById('taskDueDate').disabled = false;
-        document.getElementById('taskPriority').disabled = false;
-        document.getElementById('taskDesc').disabled = false;
-        taskDisplay.querySelector('button.edit').classList.add('hidden');
-        taskDisplay.querySelector('button.submit').classList.remove('hidden');
-        taskDisplay.querySelector('button.cancel').classList.add('hidden');
-    }
-
     /**
-     * Disable task display input fields and show the display
+     * Open the taskDisplay in creation mode using the popper overlay
      */
-    function viewTaskDisplay() {
-        document.getElementById('taskCompleted').disabled = true;
-        document.getElementById('taskName').disabled = true;
-        document.getElementById('taskDueDate').disabled = true;
-        document.getElementById('taskPriority').disabled = true;
-        document.getElementById('taskDesc').disabled = true;
-        taskDisplay.querySelector('button.edit').classList.remove('hidden');
+    function createModeTaskDisplay() {
+        openPopper(taskDisplay);
+        let tComplete = document.getElementById('taskCompleted');
+        tComplete.value = '';
+        tComplete.disabled = false;
+
+        let tName = document.getElementById('taskName');
+        tName.value = '';
+        tName.disabled = false;
+
+        let tDue = document.getElementById('taskDueDate');
+        tDue.value = '';
+        tDue.disabled = false;
+
+        let tPriority = document.getElementById('taskPriority');
+        tPriority.value = '';
+        tPriority.disabled = false;
+
+        let tDesc = document.getElementById('taskDesc');
+        tDesc.value = '';
+        tDesc.disabled = false;
+
+        taskDisplay.querySelector('button.create').classList.remove('hidden');
+        taskDisplay.querySelector('button.edit').classList.add('hidden');
         taskDisplay.querySelector('button.submit').classList.add('hidden');
         taskDisplay.querySelector('button.cancel').classList.add('hidden');
     }
@@ -442,7 +456,7 @@ export default function () {
         }
 
         if (populateTaskDisplay(+key) === false) { return };
-        viewTaskDisplay();
+        viewTask(key);
     }
 
     function submitTaskDetails() {
@@ -455,7 +469,7 @@ export default function () {
 
         brain.updateTask(key, title, description, dueDate, priority, completed);
         if (populateTaskDisplay(key) === false) { return };
-        viewTaskDisplay();
+        viewTask(key);
     }
 
     /**
@@ -464,17 +478,16 @@ export default function () {
      */
     function populateTaskDisplay(key) {
         let task = brain.getTaskDetails(key);
-
         if (!task) { return false; }
 
         let { title = '', description = '', dueDate = '', priority = '', completed = '' } = task;
 
         taskDisplay.dataset.taskId = key;
-        document.getElementById('taskCompleted').value = completed;
-        document.getElementById('taskName').value = title;
-        document.getElementById('taskDueDate').valueAsDate = dueDate;
-        document.getElementById('taskPriority').value = priority;
-        document.getElementById('taskDesc').value = description;
+        taskDisplay.querySelector('#taskCompleted').value = completed;
+        taskDisplay.querySelector('#taskName').value = title;
+        taskDisplay.querySelector('#taskDueDate').valueAsDate = dueDate;
+        taskDisplay.querySelector('#taskPriority').value = priority;
+        taskDisplay.querySelector('#taskDesc').value = description;
     }
 
     /* Create a task option button. When clicked, a list of task actions will appear. */
@@ -484,9 +497,8 @@ export default function () {
         /* Insert task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', () => {
             // display task menu options
-            /* if (populateTaskDisplay(key) === false) { return };
-            viewTaskDisplay(); */
-            deleteTask(key);
+            viewTask(key);
+            /* deleteTask(key); */
         })
 
         return button;
@@ -511,9 +523,26 @@ export default function () {
         return menuContainer;
     }
 
+    /**
+     * Creates a new task using information from the task display
+     */
+    function createTask() {
+
+    }
+
     function viewTask(key) {
         if (populateTaskDisplay(key) === false) { return };
-        viewTaskDisplay();
+
+        openPopper(taskDisplay);
+        document.getElementById('taskCompleted').disabled = true;
+        document.getElementById('taskName').disabled = true;
+        document.getElementById('taskDueDate').disabled = true;
+        document.getElementById('taskPriority').disabled = true;
+        document.getElementById('taskDesc').disabled = true;
+        taskDisplay.querySelector('button.create').classList.add('hidden');
+        taskDisplay.querySelector('button.edit').classList.remove('hidden');
+        taskDisplay.querySelector('button.submit').classList.add('hidden');
+        taskDisplay.querySelector('button.cancel').classList.add('hidden');
     }
 
     /* Enable editing on the task display */
@@ -558,6 +587,7 @@ export default function () {
     return {
         buildTask,
         buildProjectElement,
+        getCurrentProject,
         insertTask,
         insertProject,
     }
