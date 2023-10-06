@@ -5,7 +5,7 @@ export default function () {
         projectContainer, // Displays projects
         taskContainer,    // Displays tasks for selected project
         projectButtons,   // All buttons for creating projects
-        projectModal,     // Modal containing form to create/edit project
+        projectDisplay,     // Modal containing form to create/edit project
         popperOverlay,    // Mouse click catcher for pop up menus
         taskButtons,      // All buttons for creating buttons
         taskDisplay,      // Displays task details (also serves as a form)
@@ -23,7 +23,7 @@ export default function () {
         taskContainer = buildElement('div', '', 'tasks');
         mainContainer.appendChild(taskContainer);
 
-        projectModal = createProjectForm();
+        projectDisplay = createProjectForm();
         taskDisplay = createTaskDisplay();
 
         popperOverlay = buildElement('div', '', 'popperOverlay', 'hidden');
@@ -32,7 +32,7 @@ export default function () {
 
     projectButtons.forEach((button) => {
         button.addEventListener('click', () => {
-            /* openPopper(projectModal);
+            /* openPopper(projectDisplay);
             projectFormCreateMode(); */
             brain.showData();
         })
@@ -111,6 +111,13 @@ export default function () {
         return true;
     }
 
+    /**
+     * Build a DOM Element
+     * @param {*} tagName element tag
+     * @param {*} content text content
+     * @param  {...any} classList class names
+     * @returns DOM element
+     */
     function buildElement(tagName, content = '', ...classList) {
         let element = document.createElement(tagName);
         element.textContent = content;
@@ -160,7 +167,7 @@ export default function () {
     }
 
     function updateProjectForm(key) {
-        openPopper(projectModal);
+        openPopper(projectDisplay);
 
         let projectName = document.querySelector(`.projects .project[data-id="${key}"] .name`).textContent;
 
@@ -170,10 +177,10 @@ export default function () {
         }
 
         document.getElementById('projectName').value = projectName;
-        projectModal.querySelector('button.create').classList.add('hidden');
-        projectModal.querySelector('button.submit').classList.remove('hidden');
-        projectModal.querySelector('button.cancel').classList.remove('hidden');
-        projectModal.dataset.id = key;
+        projectDisplay.querySelector('button.create').classList.add('hidden');
+        projectDisplay.querySelector('button.submit').classList.remove('hidden');
+        projectDisplay.querySelector('button.cancel').classList.remove('hidden');
+        projectDisplay.dataset.id = key;
     }
 
     function deleteProject(key) {
@@ -236,7 +243,7 @@ export default function () {
         projectContainer.appendChild(projectNode);
     }
 
-    /* Pop up to display task details. This also serves as a form for creating and editing a task */
+    /* Form element to display task details. This also serves as a form for creating and editing a task */
     function createTaskDisplay() {
         let display = buildElement('form', '', 'taskDetails');
         display.id = 'taskDisplay';
@@ -275,6 +282,14 @@ export default function () {
         `
 
         let buttons = buildElement('div', '', 'buttons');
+
+        let createButton = buildElement('button', 'Create', 'create');
+        createButton.type = 'button';
+        createButton.addEventListener('click', () => {
+
+        })
+        buttons.appendChild(createButton);
+
         let editButton = buildElement('button', 'Edit', 'edit');
         editButton.type = 'button';
         editButton.addEventListener('click', () => { editTask(+taskDisplay.dataset.taskId); })
@@ -299,12 +314,12 @@ export default function () {
         return display;
     }
 
-    /* Displays the project modal in creation mode */
+    /* Displays the project display in creation mode */
     function projectFormCreateMode() {
         document.getElementById('projectName').value = '';
-        projectModal.querySelector('button.create').classList.remove('hidden');
-        projectModal.querySelector('button.submit').classList.add('hidden');
-        projectModal.querySelector('button.cancel').classList.remove('hidden');
+        projectDisplay.querySelector('button.create').classList.remove('hidden');
+        projectDisplay.querySelector('button.submit').classList.add('hidden');
+        projectDisplay.querySelector('button.cancel').classList.remove('hidden');
     }
 
     /* Create new project in the brain */
@@ -363,7 +378,7 @@ export default function () {
      * Submit all inputs on the project form to the brain to update information.
      */
     function submitProjectDetails() {
-        let key = projectModal.dataset.id;
+        let key = projectDisplay.dataset.id;
 
         if (key === 'undefined') { return; }
 
@@ -379,7 +394,14 @@ export default function () {
 
     function createNewTask() {
         openPopper(taskDisplay);
-        editTaskDisplay();
+        document.getElementById('taskCompleted').disabled = false;
+        document.getElementById('taskName').disabled = false;
+        document.getElementById('taskDueDate').disabled = false;
+        document.getElementById('taskPriority').disabled = false;
+        document.getElementById('taskDesc').disabled = false;
+        taskDisplay.querySelector('button.edit').classList.add('hidden');
+        taskDisplay.querySelector('button.submit').classList.remove('hidden');
+        taskDisplay.querySelector('button.cancel').classList.add('hidden');
     }
 
     /**
