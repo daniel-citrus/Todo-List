@@ -160,16 +160,14 @@ export default function () {
 
         button.addEventListener('click', (e) => {
             var rect = button.getBoundingClientRect();
-            openPopper(projectOptions(key), rect.left - 17, rect.top + button.offsetHeight);
             e.stopPropagation(); // prevent clicking project 
+            openPopper(projectOptions(key), rect.left, rect.top + button.offsetHeight);
         })
 
         return button;
     }
 
     function updateProjectForm(key) {
-        openPopper(projectDisplay);
-
         let projectName = document.querySelector(`.projects .project[data-id="${key}"] .name`).textContent;
 
         if (!projectName) {
@@ -177,11 +175,13 @@ export default function () {
             return;
         }
 
-        document.getElementById('projectName').value = projectName;
+        projectDisplay.querySelector('#projectName').value = projectName;
         projectDisplay.querySelector('button.create').classList.add('hidden');
         projectDisplay.querySelector('button.submit').classList.remove('hidden');
         projectDisplay.querySelector('button.cancel').classList.remove('hidden');
         projectDisplay.dataset.id = key;
+
+        openPopper(projectDisplay);
     }
 
     function deleteProject(key) {
@@ -262,28 +262,35 @@ export default function () {
                 Completed:
             </label>
             <br/>
-            <input id="taskCompleted" name="taskCompleted" required disabled autocomplete='off'>
+            <input type="checkbox" id="taskCompleted" name="taskCompleted" disabled autocomplete='off'>
             <br/>
             <label for="taskName">
-                Task Name:
+                Task Name
             </label>
             <br/>
             <input type="text" id="taskName" name="taskName" required disabled autocomplete='off'>
             <br/>
             <label for="taskDueDate">
-                Due Date:
+                Due Date
             </label>
             <br/>
             <input type="date" id="taskDueDate" name="taskDueDate" required disabled autocomplete='off'>
             <br/>
             <label for="taskPriority">
-                Priority:
+                Priority
             </label>
             <br/>
-            <input id="taskPriority" name="taskPriority" required disabled autocomplete='off'>
+            <select id="taskPriority" name="taskPriority">
+                <option value="" disabled>1 (High) - 5 (Low)</option>
+                <option value=1>1 - High</option>
+                <option value=2>2</option>
+                <option value=3>3 - Medium</option>
+                <option value=4>4</option>
+                <option select value=5>5 - Low</option>
+            </select>
             <br/>
             <label for="taskDesc">
-                Description:
+                Description
             </label>
             <br/>
             <input type="text" id="taskDesc" name="taskDesc" required disabled autocomplete='off'>
@@ -405,24 +412,23 @@ export default function () {
      * Open the taskDisplay in creation mode using the popper overlay
      */
     function createModeTaskDisplay() {
-        openPopper(taskDisplay);
-        let tComplete = document.getElementById('taskCompleted');
+        let tComplete = taskDisplay.querySelector('#taskCompleted');
         tComplete.value = '';
         tComplete.disabled = false;
 
-        let tName = document.getElementById('taskName');
+        let tName = taskDisplay.querySelector('#taskName');
         tName.value = '';
         tName.disabled = false;
 
-        let tDue = document.getElementById('taskDueDate');
+        let tDue = taskDisplay.querySelector('#taskDueDate');
         tDue.value = '';
         tDue.disabled = false;
 
-        let tPriority = document.getElementById('taskPriority');
+        let tPriority = taskDisplay.querySelector('#taskPriority');
         tPriority.value = '';
         tPriority.disabled = false;
 
-        let tDesc = document.getElementById('taskDesc');
+        let tDesc = taskDisplay.querySelector('#taskDesc');
         tDesc.value = '';
         tDesc.disabled = false;
 
@@ -430,21 +436,24 @@ export default function () {
         taskDisplay.querySelector('button.edit').classList.add('hidden');
         taskDisplay.querySelector('button.submit').classList.add('hidden');
         taskDisplay.querySelector('button.cancel').classList.add('hidden');
+
+        openPopper(taskDisplay);
     }
 
     /**
      * Enables task display input fields for editing
      */
     function editTaskDisplay() {
-        document.getElementById('taskCompleted').disabled = false;
-        document.getElementById('taskName').disabled = false;
-        document.getElementById('taskDueDate').disabled = false;
-        document.getElementById('taskPriority').disabled = false;
-        document.getElementById('taskDesc').disabled = false;
+        taskDisplay.querySelector('#taskCompleted').disabled = false;
+        taskDisplay.querySelector('#taskName').disabled = false;
+        taskDisplay.querySelector('#taskDueDate').disabled = false;
+        taskDisplay.querySelector('#taskPriority').disabled = false;
+        taskDisplay.querySelector('#taskDesc').disabled = false;
         taskDisplay.querySelector('button.edit').classList.add('hidden');
         taskDisplay.querySelector('button.submit').classList.remove('hidden');
         taskDisplay.querySelector('button.cancel').classList.add('hidden');
-        taskDisplay.classList.remove('hidden');
+
+        openPopper(taskDisplay);
     }
 
     function cancelTaskDisplay() {
@@ -527,22 +536,29 @@ export default function () {
      * Creates a new task using information from the task display
      */
     function createTask() {
+        taskDisplay.checkValidity();
 
+        let complete = document.getElementById('taskCompleted').value;
+        let name = document.getElementById('taskName').value;
+        let dueDate = document.getElementById('taskDueDate').value;
+        let priority = document.getElementById('taskPriority').value;
+        let desc = document.getElementById('taskDesc').value;
     }
 
     function viewTask(key) {
         if (populateTaskDisplay(key) === false) { return };
 
-        openPopper(taskDisplay);
-        document.getElementById('taskCompleted').disabled = true;
-        document.getElementById('taskName').disabled = true;
-        document.getElementById('taskDueDate').disabled = true;
-        document.getElementById('taskPriority').disabled = true;
-        document.getElementById('taskDesc').disabled = true;
+        taskDisplay.querySelector('#taskCompleted').disabled = true;
+        taskDisplay.querySelector('#taskName').disabled = true;
+        taskDisplay.querySelector('#taskDueDate').disabled = true;
+        taskDisplay.querySelector('#taskPriority').disabled = true;
+        taskDisplay.querySelector('#taskDesc').disabled = true;
         taskDisplay.querySelector('button.create').classList.add('hidden');
         taskDisplay.querySelector('button.edit').classList.remove('hidden');
         taskDisplay.querySelector('button.submit').classList.add('hidden');
         taskDisplay.querySelector('button.cancel').classList.add('hidden');
+
+        openPopper(taskDisplay);
     }
 
     /* Enable editing on the task display */
