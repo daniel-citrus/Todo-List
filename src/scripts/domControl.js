@@ -483,10 +483,7 @@ export default function () {
         let description = document.getElementById('taskDesc').value;
 
         let updated = brain.updateTask(key, title, description, dueDate, priority, completed);
-
-        if (!updated) {
-            return;
-        }
+        if (!updated) { return; }
 
         updateTaskElement(key);
         viewTask(key);
@@ -505,7 +502,7 @@ export default function () {
         if (!task) { return; }
 
         let { title = '', description = '', dueDate = '', priority = '', completed = '' } = task;
-        
+
         taskElem.dataset.priority = priority;
         taskElem.dataset.completed = completed;
         taskElem.querySelector('.title').textContent = title;
@@ -570,9 +567,12 @@ export default function () {
     function createTask() {
         taskDisplay.checkValidity();
 
+
         let complete = document.getElementById('taskCompleted').value;
-        let name = document.getElementById('taskName').value;
-        let dueDate = document.getElementById('taskDueDate').value;
+        let name = document.getElementById('taskName');
+        name.setCustomValidity('hi');
+        let dueDate = document.getElementById('taskDueDate');
+        dueDate.setCustomValidity('h123412i');
         let priority = document.getElementById('taskPriority').value;
         let desc = document.getElementById('taskDesc').value;
     }
