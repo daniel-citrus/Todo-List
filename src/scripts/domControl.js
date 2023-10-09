@@ -262,25 +262,25 @@ export default function () {
                 Completed:
             </label>
             <br/>
-            <input type="checkbox" id="taskCompleted" name="taskCompleted" disabled autocomplete='off'>
+            <input type="checkbox" id="taskCompleted" title='Completed' name="taskCompleted" disabled autocomplete='off'>
             <br/>
             <label for="taskName">
                 Task Name
             </label>
             <br/>
-            <input type="text" id="taskName" name="taskName" required disabled autocomplete='off'>
+            <input type="text" id="taskName" title="Task name" name="taskName" required disabled autocomplete='off'>
             <br/>
             <label for="taskDueDate">
                 Due Date
             </label>
             <br/>
-            <input type="date" id="taskDueDate" name="taskDueDate" required disabled autocomplete='off'>
+            <input type="date" id="taskDueDate" title="Due date" name="taskDueDate" required disabled autocomplete='off'>
             <br/>
             <label for="taskPriority">
                 Priority
             </label>
             <br/>
-            <select id="taskPriority" name="taskPriority">
+            <select id="taskPriority" title="Priority level" name="taskPriority">
                 <option value="" disabled>1 (High) - 5 (Low)</option>
                 <option value=1>1 - High</option>
                 <option value=2>2</option>
@@ -293,7 +293,7 @@ export default function () {
                 Description
             </label>
             <br/>
-            <input type="text" id="taskDesc" name="taskDesc" required disabled autocomplete='off'>
+            <input type="text" id="taskDesc" title="Task description" name="taskDesc" required disabled autocomplete='off'>
             <br/>
         `
 
@@ -301,6 +301,7 @@ export default function () {
 
         let createButton = buildElement('button', 'Create', 'create');
         createButton.type = 'button';
+        createButton.title = "Create";
         createButton.addEventListener('click', () => {
             createTask();
         })
@@ -308,21 +309,25 @@ export default function () {
 
         let editButton = buildElement('button', 'Edit', 'edit');
         editButton.type = 'button';
+        editButton.title = "Edit";
         editButton.addEventListener('click', () => { editTask(+taskDisplay.dataset.taskId); })
         buttons.appendChild(editButton);
 
         let submitEditButton = buildElement('button', 'Submit', 'submit', 'hidden');
         submitEditButton.type = 'button';
+        submitEditButton.title = 'Submit';
         submitEditButton.addEventListener('click', () => { submitTaskDetails(); })
         buttons.appendChild(submitEditButton);
 
         let cancelEditButton = buildElement('button', 'Cancel', 'cancel', 'hidden');
         cancelEditButton.type = 'button';
+        cancelEditButton.title = 'Cancel';
         cancelEditButton.addEventListener('click', () => { cancelTaskDisplay(); })
         buttons.appendChild(cancelEditButton);
 
         let closeButton = buildElement('button', 'Close', 'close');
         closeButton.type = 'button';
+        closeButton.title = 'Close';
         closeButton.addEventListener('click', () => { closePopper(); })
         buttons.appendChild(closeButton);
         display.appendChild(buttons);
