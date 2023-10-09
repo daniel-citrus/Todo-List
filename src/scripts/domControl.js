@@ -456,7 +456,7 @@ export default function () {
         taskDisplay.querySelector('#taskDesc').disabled = false;
         taskDisplay.querySelector('button.edit').classList.add('hidden');
         taskDisplay.querySelector('button.submit').classList.remove('hidden');
-        taskDisplay.querySelector('button.cancel').classList.add('hidden');
+        taskDisplay.querySelector('button.cancel').classList.remove('hidden');
 
         openPopper(taskDisplay);
     }
@@ -473,17 +473,44 @@ export default function () {
         viewTask(key);
     }
 
+    /* Use the task form to update task information in the brain */
     function submitTaskDetails() {
         let key = +taskDisplay.dataset.taskId;
-        let completed = document.getElementById('taskCompleted').value;
+        let completed = document.getElementById('taskCompleted').checked;
         let title = document.getElementById('taskName').value;
         let dueDate = document.getElementById('taskDueDate').value;
         let priority = document.getElementById('taskPriority').value;
         let description = document.getElementById('taskDesc').value;
 
-        brain.updateTask(key, title, description, dueDate, priority, completed);
-        if (populateTaskDisplay(key) === false) { return };
+        let updated = brain.updateTask(key, title, description, dueDate, priority, completed);
+
+        if (!updated) {
+            return;
+        }
+
+        updateTaskElement(key);
         viewTask(key);
+        closePopper();
+    }
+
+    /**
+     * Using the task ID, get task information from the brain. Use the information to update the task being displayed in the task container
+     * @param {*} taskID 
+     */
+    function updateTaskElement(taskID) {
+        let taskElem = document.querySelector(`.tasks .task[data-id="${taskID}"]`);
+        if (!taskElem) { return; };
+
+        let task = brain.getTaskDetails(taskID);
+        if (!task) { return; }
+
+        let { title = '', description = '', dueDate = '', priority = '', completed = '' } = task;
+        
+        taskElem.dataset.priority = priority;
+        taskElem.dataset.completed = completed;
+        taskElem.querySelector('.title').textContent = title;
+        taskElem.querySelector('.description').textContent = description;
+        taskElem.querySelector('.dueDate').textContent = dueDate;
     }
 
     /**
