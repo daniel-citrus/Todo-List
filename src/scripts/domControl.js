@@ -74,19 +74,18 @@ export default function () {
      * @returns project DOM element
      **/
     function createProjectElement(id, name) {
-        let projectNode = buildElement('div', '', 'project');
-        projectNode.dataset.id = id;
+        let project = buildElement('div', '', 'project');
+        project.dataset.id = id;
 
         let projectName = buildElement('div', name, 'name');
-        projectNode.appendChild(projectName);
-        projectNode.appendChild(projectOptionButton(id));
-        insertProject(projectNode);
-
-        projectNode.addEventListener('click', () => {
+        project.appendChild(projectName);
+        project.appendChild(projectOptionButton(id));
+        project.addEventListener('click', () => {
             displayProjectTasks(id);
             currentProject = id;
-            console.log(`Current Project ID: ${currentProject}`);
         })
+
+        return project;
     }
 
     /**
@@ -531,14 +530,14 @@ export default function () {
     }
 
     /* Create a task option button. When clicked, a list of task actions will appear. */
-    function taskOptionButton(key) {
+    function taskOptionButton(taskID) {
         let button = buildElement('button', 'Task Button', 'options');
 
         /* Insert task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', () => {
             // display task menu options
-            /* displayTaskDetails(key); */
-            deleteTask(key);
+            /* displayTaskDetails(taskID); */
+            deleteTask(taskID);
         })
 
         return button;
@@ -547,9 +546,9 @@ export default function () {
     /**
      * Returns a menu element that contains task options.
      * Call the brain and passes the task key to perform operations to the task database.
-     * @param {*} key task key
+     * @param {*} taskID task key
      */
-    function createTaskMenu(key) {
+    function createTaskMenu(taskID) {
         let menuContainer = buildElement('div', '', 'menuContainer');
         let menu = buildElement('div', '', 'taskMenu');
         menu.appendChild(menuContainer);
@@ -640,12 +639,13 @@ export default function () {
         return menu;
     }
 
-    function deleteTask(key) {
-        // brain stuff
-        let task = taskContainer.querySelector(`.task[data-id="${key}"]`);
+    function deleteTask(taskID) {
+        brain.deleteTask(currentProject, taskID);
+
+        let task = taskContainer.querySelector(`.task[data-id="${taskID}"]`);
 
         if (!task) {
-            console.error(`Task element does not exist - Key: ${key}`);
+            console.error(`Task element does not exist - Key: ${taskID}`);
             return;
         }
 

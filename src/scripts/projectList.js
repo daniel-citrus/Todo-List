@@ -50,8 +50,8 @@ export default function ProjectList() {
     }
 
     /* Delete task from a project */
-    function deleteTask(key, taskKey) {
-        let project = getProject(key);
+    function deleteTask(projectKey, taskKey) {
+        let project = getProject(projectKey);
 
         if (!project) {
             return;

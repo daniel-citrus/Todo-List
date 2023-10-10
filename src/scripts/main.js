@@ -62,11 +62,14 @@ let brain = (() => {
 
     function createProject(name) {
         let projectID = projects.addProject(name);
-        domControl.createProjectElement(projectID, name);
+        let projectElement = domControl.createProjectElement(projectID, name);
+
+        domControl.insertProject(projectElement);
         saveData();
     }
 
     /**
+     * Create a task and insert its details into a project, the task list, and display
      * 
      * @param {*} inputs Object containing task details (title, description, dueDate, priority, completed)
      * @param {*} projectKey Project that the key belongs to
@@ -74,11 +77,10 @@ let brain = (() => {
     function createTask(title, description, dueDate, priority, completed) {
         let inputs = { title, description, dueDate, priority, completed };
         let projectKey = domControl.getCurrentProject();
-        // add a new task in tasks
         let taskKey = tasks.addTask({ title, description, dueDate, priority, completed });
-        // insert task into project
+
         projects.addTask(projectKey, taskKey);
-        // insert a new task element in DOM
+
         if (domControl.getCurrentProject() === projectKey) {
             domControl.insertTask(domControl.createTaskElement(taskKey, inputs));
         }
@@ -86,18 +88,18 @@ let brain = (() => {
         saveData();
     }
 
-    function getProjectTasks(key) {
-        return projects.getTasks(key);
+    function getProjectTasks(projectKey) {
+        return projects.getTasks(projectKey);
     }
 
     /**
      * Delete a project and all tasks that it contains
-     * @param {*} key project key
+     * @param {*} projectKey project key
      */
-    function deleteProject(key) {
-        // use project key to delete it in projects
-        let tasksToDelete = projects.getTasks(key);
-        projects.deleteProject(key);
+    function deleteProject(projectKey) {
+        let tasksToDelete = projects.getTasks(projectKey);
+
+        projects.deleteProject(projectKey);
 
         if (tasksToDelete === false) {
             console.error('Project has no tasks');
@@ -120,9 +122,9 @@ let brain = (() => {
         tasks.deleteTask(taskKey);
     }
 
-    function getTaskDetails(key) {
-        if (tasks.taskExists(key) === false) { return false; }
-        return tasks.getTask(key);
+    function getTaskDetails(taskKey) {
+        if (tasks.taskExists(taskKey) === false) { return false; }
+        return tasks.getTask(taskKey);
     }
 
     function moveTask(projectKey, taskKey) {
@@ -138,7 +140,7 @@ let brain = (() => {
      * @param {*} completed 
      * @returns boolean indicating successful update
      */
-    function updateTask(key, title = undefined, description = undefined, dueDate = undefined, priority = undefined, completed = undefined) {
+    function updateTask(taskKey, title = undefined, description = undefined, dueDate = undefined, priority = undefined, completed = undefined) {
         let inputs = {
             title,
             description,
@@ -147,7 +149,7 @@ let brain = (() => {
             completed,
         };
 
-        let result = tasks.updateTask(key, inputs);
+        let result = tasks.updateTask(taskKey, inputs);
 
         if (!result) {
             console.error('Unable to update task');
@@ -160,12 +162,12 @@ let brain = (() => {
     }
 
     /**
-     * @param {*} key project key
+     * @param {*} projectKey project key
      * @param {*} name new project name
      * @returns boolean indicating successful update
      */
-    function updateProject(key, name) {
-        let result = projects.updateProjectName(key, name);
+    function updateProject(projectKey, name) {
+        let result = projects.updateProjectName(projectKey, name);
         saveData();
         return result;
     }
