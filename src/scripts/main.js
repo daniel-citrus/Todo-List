@@ -62,7 +62,7 @@ let brain = (() => {
 
     function createProject(name) {
         let projectID = projects.addProject(name);
-        domControl.buildProjectElement(projectID, name);
+        domControl.createProjectElement(projectID, name);
         saveData();
     }
 
@@ -80,7 +80,7 @@ let brain = (() => {
         projects.addTask(projectKey, taskKey);
         // insert a new task element in DOM
         if (domControl.getCurrentProject() === projectKey) {
-            domControl.insertTask(domControl.buildTask(taskKey, inputs));
+            domControl.insertTask(domControl.createTaskElement(taskKey, inputs));
         }
 
         saveData();

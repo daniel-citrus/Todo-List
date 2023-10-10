@@ -73,7 +73,7 @@ export default function () {
      * @param {*} name project name
      * @returns project DOM element
      **/
-    function buildProjectElement(id, name) {
+    function createProjectElement(id, name) {
         let projectNode = buildElement('div', '', 'project');
         projectNode.dataset.id = id;
 
@@ -106,7 +106,7 @@ export default function () {
 
             if (!task) { return false; }
 
-            taskContainer.appendChild(buildTask(taskID, task));
+            taskContainer.appendChild(createTaskElement(taskID, task));
         })
 
         return true;
@@ -211,7 +211,7 @@ export default function () {
      * @param {*} id task ID
      * @param {*} inputs task object containing title, description, dueDate, priority, completed
      **/
-    function buildTask(
+    function createTaskElement(
         id,
         {
             title,
@@ -445,7 +445,7 @@ export default function () {
     }
 
     /**
-     * Enables task display input fields for editing
+     * Enables editing on the task display and displays it on the popper
      */
     function editTaskDisplay() {
         taskDisplay.querySelector('#taskCompleted').disabled = false;
@@ -460,6 +460,9 @@ export default function () {
         openPopper(taskDisplay);
     }
 
+    /**
+     * Populates the taskDisplay with the original task data from the brain. Disables editing mode and reverts back to viewing the taskDisplay.
+     */
     function cancelTaskDisplay() {
         let key = taskDisplay.dataset.taskId;
 
@@ -469,7 +472,7 @@ export default function () {
         }
 
         if (populateTaskDisplay(+key) === false) { return };
-        viewTask(key);
+        displayTaskDetails(key);
     }
 
     /* Use the task form to update task information in the brain */
@@ -485,7 +488,7 @@ export default function () {
         if (!updated) { return; }
 
         updateTaskElement(key);
-        viewTask(key);
+        displayTaskDetails(key);
         closePopper();
     }
 
@@ -522,7 +525,7 @@ export default function () {
         taskDisplay.dataset.taskId = key;
         taskDisplay.querySelector('#taskCompleted').value = completed;
         taskDisplay.querySelector('#taskName').value = title;
-        taskDisplay.querySelector('#taskDueDate').value = dueDate;
+        taskDisplay.querySelector('#taskDueDate').valueAsDate = new Date(dueDate);
         taskDisplay.querySelector('#taskPriority').value = priority;
         taskDisplay.querySelector('#taskDesc').value = description;
     }
@@ -534,7 +537,7 @@ export default function () {
         /* Insert task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', () => {
             // display task menu options
-            viewTask(key);
+            displayTaskDetails(key);
             /* deleteTask(key); */
         })
 
@@ -594,7 +597,7 @@ export default function () {
         );
     }
 
-    function viewTask(key) {
+    function displayTaskDetails(key) {
         if (populateTaskDisplay(key) === false) { return };
 
         taskDisplay.querySelector('#taskCompleted').disabled = true;
@@ -650,8 +653,8 @@ export default function () {
     }
 
     return {
-        buildTask,
-        buildProjectElement,
+        createTaskElement,
+        createProjectElement,
         getCurrentProject,
         insertTask,
         insertProject,
