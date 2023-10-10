@@ -137,7 +137,7 @@ export default function () {
     }
 
     /* Create an element containing project options */
-    function projectOptions(key) {
+    function createProjectMenu(key) {
         let actions = [
             ['View', displayProjectTasks],
             ['Edit', updateProjectForm],
@@ -165,7 +165,7 @@ export default function () {
         button.addEventListener('click', (e) => {
             var rect = button.getBoundingClientRect();
             e.stopPropagation(); // prevent clicking project 
-            openPopper(projectOptions(key), rect.left, rect.top + button.offsetHeight);
+            openPopper(createProjectMenu(key), rect.left, rect.top + button.offsetHeight);
         })
 
         return button;
@@ -236,7 +236,11 @@ export default function () {
         task.appendChild(buildElement('div', dueDate, 'dueDate'));
         let options = buildElement('button', '', 'options');
         // generate option buttons and display
-        task.appendChild(taskOptionButton(id));
+        task.appendChild(createTaskOptionButton(id));
+
+        task.addEventListener('click', () => {
+            displayTaskDetails(id);
+        })
 
         return task;
     }
@@ -534,14 +538,19 @@ export default function () {
     }
 
     /* Create a task option button. When clicked, a list of task actions will appear. */
-    function taskOptionButton(taskID) {
+    function createTaskOptionButton(taskKey) {
         let button = buildElement('button', 'Task Button', 'options');
 
         /* Insert task menu as a child of the task option button and then toggles its visibility */
-        button.addEventListener('click', () => {
+        button.addEventListener('click', (e) => {
+            var rect = button.getBoundingClientRect();
+            e.stopPropagation(); // prevent clicking project 
+            openPopper(createTaskMenu(taskKey), rect.left, rect.top + button.offsetHeight);
+
             // display task menu options
-            /* displayTaskDetails(taskID); */
-            deleteTask(taskID);
+            /* displayTaskDetails(taskKey); */
+            /* deleteTask(taskKey); */
+
         })
 
         return button;
@@ -550,20 +559,28 @@ export default function () {
     /**
      * Returns a menu element that contains task options.
      * Call the brain and passes the task key to perform operations to the task database.
-     * @param {*} taskID task key
+     * @param {*} taskKey task key
      */
-    function createTaskMenu(taskID) {
-        let menuContainer = buildElement('div', '', 'menuContainer');
-        let menu = buildElement('div', '', 'taskMenu');
-        menu.appendChild(menuContainer);
+    function createTaskMenu(taskKey) {
+        let actions = [
+            ['View', displayTaskDetails],
+            ['Edit', editTask],
+            /* ['Move', moveTask], */
+            ['Delete', deleteTask],
+        ]
 
-        let buttons = []
-        // view task
-        // edit task
-        // move task to a new project
-        // delete task
+        let buttons = buildElement('div', '', 'taskMenuButtons');
 
-        return menuContainer;
+        actions.forEach((action) => {
+            let button = buildElement('button', action[0], action[0].toLowerCase());
+            button.addEventListener('click', () => {
+                closePopper();
+                action[1](taskKey);
+            })
+            buttons.appendChild(button);
+        })
+
+        return buttons;
     }
 
     /**

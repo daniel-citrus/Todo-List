@@ -114,10 +114,10 @@ To setup this project locally you must have Node Package Manager ([npm](https://
     * [x] Rename project
     * [x] Delete Project
   * [ ] Task 
-    * [ ] Create task
+    * [] Create task
     * [ ] Complete task
     * [x] Edit task
-    * [ ] Delete task
+    * [x] Delete task
 
 
 See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
