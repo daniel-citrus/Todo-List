@@ -114,7 +114,7 @@ To setup this project locally you must have Node Package Manager ([npm](https://
     * [x] Rename project
     * [x] Delete Project
   * [ ] Task 
-    * [] Create task
+    * [ ] Create task
     * [ ] Complete task
     * [x] Edit task
     * [x] Delete task
@@ -137,15 +137,6 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [![LinkedIn][linkedin-shield]][linkedin-url]
 <br />
 Project Link: [https://github.com/daniel-citrus/Task-List](https://github.com/daniel-citrus/Task-List)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

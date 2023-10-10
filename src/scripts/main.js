@@ -11,7 +11,7 @@ let brain = (() => {
     let task1 = {
         title: 'Pull Ups',
         description: 'Quality reps',
-        dueDate: new Date('2023-09-04'),
+        dueDate: new Date(2023, 8, 4),
         priority: 2,
         completed: true,
     };
@@ -19,14 +19,14 @@ let brain = (() => {
     let task2 = {
         title: 'Dips',
         description: 'Heavy weight',
-        dueDate: new Date('2023-9-3'),
+        dueDate: new Date(2023, 8, 3),
         priority: 3,
     }
 
     let task3 = {
         title: 'Eat',
         description: 'Healthy meals',
-        dueDate: new Date('2023-9-2'),
+        dueDate: new Date(2023, 8, 2),
         priority: 1
     }
 
@@ -35,14 +35,14 @@ let brain = (() => {
         description: `Good sleep improves your brain performance, mood, and health.
                 Not getting enough quality sleep regularly raises the risk of many diseases and disorders. These range from heart disease and stroke to obesity and dementia.
                 There’s more to good sleep than just the hours spent in bed, says Dr. Marishka Brown, a sleep expert at NIH. “Healthy sleep encompasses three major things,” she explains. “One is how much sleep you get. Another is sleep quality—that you get uninterrupted and refreshing sleep. The last is a consistent sleep schedule.”`,
-        dueDate: new Date('2023-9-2'),
+        dueDate: new Date(2023, 8, 2),
         priority: 1
     }
 
     let task5 = {
         title: 'Study',
         description: 'Regular session',
-        dueDate: new Date('2023-9-6'),
+        dueDate: new Date(2023, 8, 6),
         priority: 1,
     }
 
@@ -70,9 +70,11 @@ let brain = (() => {
 
     /**
      * Create a task and insert its details into a project, the task list, and display
-     * 
-     * @param {*} inputs Object containing task details (title, description, dueDate, priority, completed)
-     * @param {*} projectKey Project that the key belongs to
+     * @param {string} title 
+     * @param {string} description 
+     * @param {Date} dueDate 
+     * @param {integer} priority 
+     * @param {boolean} completed 
      */
     function createTask(title, description, dueDate, priority, completed) {
         let inputs = { title, description, dueDate, priority, completed };
@@ -134,12 +136,12 @@ let brain = (() => {
     }
 
     /**
-     * @param {*} key 
-     * @param {*} title 
-     * @param {*} description 
-     * @param {*} dueDate 
-     * @param {*} priority 
-     * @param {*} completed 
+     * @param {*} key
+     * @param {*} title
+     * @param {*} description
+     * @param {*} dueDate
+     * @param {*} priority
+     * @param {*} completed
      * @returns boolean indicating successful update
      */
     function updateTask(taskKey, title = undefined, description = undefined, dueDate = undefined, priority = undefined, completed = undefined) {

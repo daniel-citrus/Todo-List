@@ -309,7 +309,11 @@ export default function () {
         createButton.type = 'button';
         createButton.title = "Create";
         createButton.addEventListener('click', () => {
-            createTask();
+            if (!createTask()) {
+                return;
+            }
+
+            closePopper();
         })
         buttons.appendChild(createButton);
 
@@ -424,7 +428,7 @@ export default function () {
      */
     function openTaskDisplayCreate() {
         let tComplete = taskDisplay.querySelector('#taskCompleted');
-        tComplete.value = '';
+        tComplete.checked = false;
         tComplete.disabled = false;
 
         let tName = taskDisplay.querySelector('#taskName');
@@ -460,6 +464,7 @@ export default function () {
         taskDisplay.querySelector('#taskDueDate').disabled = false;
         taskDisplay.querySelector('#taskPriority').disabled = false;
         taskDisplay.querySelector('#taskDesc').disabled = false;
+        taskDisplay.querySelector('button.create').classList.add('hidden');
         taskDisplay.querySelector('button.edit').classList.add('hidden');
         taskDisplay.querySelector('button.submit').classList.remove('hidden');
         taskDisplay.querySelector('button.cancel').classList.remove('hidden');
@@ -527,12 +532,15 @@ export default function () {
         let task = brain.getTaskDetails(key);
         if (!task) { return false; }
 
-        let { title = '', description = '', dueDate = '', priority = '', completed = '' } = task;
+        let { title = '', description = '', dueDate = '', priority = '', completed = false } = task;
 
         taskDisplay.dataset.taskId = key;
-        taskDisplay.querySelector('#taskCompleted').value = completed;
+        taskDisplay.querySelector('#taskCompleted').checked = completed;
         taskDisplay.querySelector('#taskName').value = title;
-        taskDisplay.querySelector('#taskDueDate').valueAsDate = new Date(dueDate);
+
+        let date = new Date(dueDate);
+        taskDisplay.querySelector('#taskDueDate').valueAsDate = new Date(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
+
         taskDisplay.querySelector('#taskPriority').value = priority;
         taskDisplay.querySelector('#taskDesc').value = description;
     }
@@ -550,7 +558,6 @@ export default function () {
             // display task menu options
             /* displayTaskDetails(taskKey); */
             /* deleteTask(taskKey); */
-
         })
 
         return button;
@@ -584,7 +591,8 @@ export default function () {
     }
 
     /**
-     * Creates a new task using information from the task display. Create new task in the brain and also in the currently selected project.
+     * Command the brain to create a new task using information from the task display.
+     * @returns if successful
      */
     function createTask() {
         let complete = document.getElementById('taskCompleted');
@@ -595,29 +603,31 @@ export default function () {
 
         if (!title.checkValidity()) {
             title.reportValidity();
-            return;
+            return false;
         }
 
         if (isNaN(new Date(dueDate.value))) {
             dueDate.setCustomValidity('Please enter a valid date.');
             dueDate.reportValidity();
-            return;
+            return false;
         }
 
         let priorityValue = +priority.value;
         if (isNaN(priorityValue) || priorityValue < 1 || priorityValue > 5) {
             priority.setCustomValidity('Please enter a valid priority level (1 - 5).');
             priority.reportValidity();
-            return;
+            return false;
         }
 
         brain.createTask(
             title.value,
             desc.value,
-            new Date(dueDate.value).toString(),
+            new Date(dueDate.value.split('-')),
             priorityValue,
             complete.value
         );
+
+        return true;
     }
 
     function displayTaskDetails(key) {
