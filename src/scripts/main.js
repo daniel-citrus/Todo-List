@@ -111,9 +111,13 @@ let brain = (() => {
         saveData();
     }
 
-    function deleteTask(key, taskKey) {
-        // pass project key and task key to delete task from projects
-        // delete task from tasks
+    /**
+     * @param {*} projectKey 
+     * @param {*} taskKey 
+     */
+    function deleteTask(projectKey, taskKey) {
+        projects.deleteTask(projectKey, taskKey);
+        tasks.deleteTask(taskKey);
     }
 
     function getTaskDetails(key) {
@@ -185,6 +189,7 @@ let brain = (() => {
         createProject,
         createTask,
         deleteProject,
+        deleteTask,
         getTaskDetails,
         getProjectTasks,
         updateTask,

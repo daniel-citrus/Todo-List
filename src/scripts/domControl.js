@@ -537,8 +537,8 @@ export default function () {
         /* Insert task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', () => {
             // display task menu options
-            displayTaskDetails(key);
-            /* deleteTask(key); */
+            /* displayTaskDetails(key); */
+            deleteTask(key);
         })
 
         return button;
