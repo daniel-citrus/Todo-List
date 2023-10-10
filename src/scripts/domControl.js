@@ -2,14 +2,14 @@ import { brain } from './barrel';
 
 export default function () {
     let mainContainer,
-        projectContainer, // Displays projects
-        taskContainer,    // Displays tasks for selected project
-        projectButtons,   // All buttons for creating projects
+        projectContainer,   // Displays projects
+        taskContainer,      // Displays tasks for selected project
+        projectButtons,     // All buttons for creating projects
         projectDisplay,     // Modal containing form to create/edit project
-        popperOverlay,    // Mouse click catcher for pop up menus
-        taskButtons,      // All buttons for creating buttons
-        taskDisplay,      // Displays task details (also serves as a form)
-        currentProject;   // Current project selected
+        popperOverlay,      // Mouse click catcher for pop up menus
+        taskButtons,        // All buttons for creating buttons
+        taskDisplay,        // Displays task details (also serves as a form)
+        currentProject = 0; // Current project selected, 0 by default
 
     /* Initializer */
     (() => {
@@ -106,7 +106,7 @@ export default function () {
 
             if (!task) { return false; }
 
-            taskContainer.appendChild(buildTask(task));
+            taskContainer.appendChild(buildTask(taskID, task));
         })
 
         return true;
@@ -208,20 +208,19 @@ export default function () {
 
     /**
      * Creates a task DOM element that has a custom data set called data-id. The element contains the task name, completion checkbox, and options button.
-     * @param {*} key task id
-     * @param {*} task task object
+     * @param {*} id task ID
+     * @param {*} inputs task object containing title, description, dueDate, priority, completed
      **/
-    function buildTask(taskObj) {
-        let {
-            id = undefined,
-            title = '',
-            description = '',
-            dueDate = '',
-            priority = '',
-            completed = false,
-        } = taskObj;
+    function buildTask(
+        id,
+        {
+            title,
+            description,
+            dueDate,
+            priority,
+            completed
+        } = inputs) {
 
-        if (id === undefined) { return; }
         /* Store Key, priority level, completed status */
         let task = buildElement('div', '', 'task');
         task.dataset.id = id;
@@ -523,7 +522,7 @@ export default function () {
         taskDisplay.dataset.taskId = key;
         taskDisplay.querySelector('#taskCompleted').value = completed;
         taskDisplay.querySelector('#taskName').value = title;
-        taskDisplay.querySelector('#taskDueDate').valueAsDate = dueDate;
+        taskDisplay.querySelector('#taskDueDate').value = dueDate;
         taskDisplay.querySelector('#taskPriority').value = priority;
         taskDisplay.querySelector('#taskDesc').value = description;
     }
@@ -562,19 +561,37 @@ export default function () {
     }
 
     /**
-     * Creates a new task using information from the task display
+     * Creates a new task using information from the task display. Create new task in the brain and also in the currently selected project.
      */
     function createTask() {
-        taskDisplay.checkValidity();
-
-
-        let complete = document.getElementById('taskCompleted').value;
-        let name = document.getElementById('taskName');
-        name.setCustomValidity('hi');
+        let complete = document.getElementById('taskCompleted');
+        let title = document.getElementById('taskName');
         let dueDate = document.getElementById('taskDueDate');
-        dueDate.setCustomValidity('h123412i');
-        let priority = document.getElementById('taskPriority').value;
-        let desc = document.getElementById('taskDesc').value;
+        let priority = document.getElementById('taskPriority');
+        let desc = document.getElementById('taskDesc');
+
+        if (isNaN(new Date(dueDate.value))) {
+            dueDate.setCustomValidity('Please enter a valid date.');
+            dueDate.reportValidity();
+        }
+
+        if (isNaN(priority.value) || priority.value < 0 || priority.value > 5) {
+            priority.setCustomValidity('Please enter a valid priority level (1 - 5).');
+            priority.reportValidity();
+        }
+
+        if (!taskDisplay.checkValidity()) {
+            console.log(`Invalid taskDisplay input`);
+            return;
+        }
+
+        brain.createTask(
+            title.value,
+            desc.value,
+            new Date(dueDate.value).toString(),
+            priority.value,
+            complete.value
+        );
     }
 
     function viewTask(key) {
