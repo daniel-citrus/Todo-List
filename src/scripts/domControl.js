@@ -30,17 +30,21 @@ export default function () {
         mainContainer.appendChild(popperOverlay);
     })();
 
+    let displayData = document.querySelector('button.showData');
+    displayData.addEventListener('click', () => {
+        brain.showData();
+    })
+
     projectButtons.forEach((button) => {
         button.addEventListener('click', () => {
-            /* openPopper(projectDisplay);
-            projectFormCreateMode(); */
-            brain.showData();
+            openPopper(projectDisplay);
+            projectFormCreateMode();
         })
     })
 
     taskButtons.forEach((button) => {
         button.addEventListener('click', () => {
-            createModeTaskDisplay();
+            openTaskDisplayCreate();
         })
     })
 
@@ -115,7 +119,7 @@ export default function () {
      * Build a DOM Element
      * @param {*} tagName element tag
      * @param {*} content text content
-     * @param  {...any} classList class names
+     * @param {strings} classList class names
      * @returns DOM element
      */
     function buildElement(tagName, content = '', ...classList) {
@@ -135,6 +139,7 @@ export default function () {
     /* Create an element containing project options */
     function projectOptions(key) {
         let actions = [
+            ['View', displayProjectTasks],
             ['Edit', updateProjectForm],
             ['Delete', deleteProject],
         ];
@@ -278,20 +283,19 @@ export default function () {
                 Priority
             </label>
             <br/>
-            <select id="taskPriority" title="Priority level" name="taskPriority">
-                <option value="" disabled>1 (High) - 5 (Low)</option>
-                <option value=1>1 - High</option>
-                <option value=2>2</option>
-                <option value=3>3 - Medium</option>
-                <option value=4>4</option>
-                <option select value=5>5 - Low</option>
+            <select id="taskPriority" title="Priority level" name="taskPriority" required>
+                <option value="1">1 - High</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5 - Low</option>
             </select>
             <br/>
             <label for="taskDesc">
                 Description
             </label>
             <br/>
-            <input type="text" id="taskDesc" title="Task description" name="taskDesc" required disabled autocomplete='off'>
+            <input type="text" id="taskDesc" title="Task description" name="taskDesc" autocomplete='off'>
             <br/>
         `
 
@@ -414,7 +418,7 @@ export default function () {
     /**
      * Open the taskDisplay in creation mode using the popper overlay
      */
-    function createModeTaskDisplay() {
+    function openTaskDisplayCreate() {
         let tComplete = taskDisplay.querySelector('#taskCompleted');
         tComplete.value = '';
         tComplete.disabled = false;
@@ -424,7 +428,7 @@ export default function () {
         tName.disabled = false;
 
         let tDue = taskDisplay.querySelector('#taskDueDate');
-        tDue.value = '';
+        tDue.valueAsDate = new Date();
         tDue.disabled = false;
 
         let tPriority = taskDisplay.querySelector('#taskPriority');
@@ -446,7 +450,7 @@ export default function () {
     /**
      * Enables editing on the task display and displays it on the popper
      */
-    function editTaskDisplay() {
+    function openTaskDisplayEdit() {
         taskDisplay.querySelector('#taskCompleted').disabled = false;
         taskDisplay.querySelector('#taskName').disabled = false;
         taskDisplay.querySelector('#taskDueDate').disabled = false;
@@ -572,18 +576,21 @@ export default function () {
         let priority = document.getElementById('taskPriority');
         let desc = document.getElementById('taskDesc');
 
+        if (!title.checkValidity()) {
+            title.reportValidity();
+            return;
+        }
+
         if (isNaN(new Date(dueDate.value))) {
             dueDate.setCustomValidity('Please enter a valid date.');
             dueDate.reportValidity();
+            return;
         }
 
-        if (isNaN(priority.value) || priority.value < 0 || priority.value > 5) {
+        let priorityValue = +priority.value;
+        if (isNaN(priorityValue) || priorityValue < 1 || priorityValue > 5) {
             priority.setCustomValidity('Please enter a valid priority level (1 - 5).');
             priority.reportValidity();
-        }
-
-        if (!taskDisplay.checkValidity()) {
-            console.log(`Invalid taskDisplay input`);
             return;
         }
 
@@ -591,7 +598,7 @@ export default function () {
             title.value,
             desc.value,
             new Date(dueDate.value).toString(),
-            priority.value,
+            priorityValue,
             complete.value
         );
     }
@@ -615,7 +622,7 @@ export default function () {
     /* Enable editing on the task display */
     function editTask(key) {
         if (populateTaskDisplay(key) === false) { return };
-        editTaskDisplay();
+        openTaskDisplayEdit();
     }
 
     /* Opens menu that lists out project names that the task can be moved to */

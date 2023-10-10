@@ -118,8 +118,10 @@ let brain = (() => {
      * @param {*} taskKey 
      */
     function deleteTask(projectKey, taskKey) {
-        projects.deleteTask(projectKey, taskKey);
-        tasks.deleteTask(taskKey);
+        if (!tasks.deleteTask(taskKey)) { return false; }
+        if (!projects.deleteTask(projectKey, taskKey)) { return false; }
+
+        return true;
     }
 
     function getTaskDetails(taskKey) {
