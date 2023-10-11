@@ -7,6 +7,7 @@ export default function () {
         projectButtons,     // All buttons for creating projects
         projectDisplay,     // Modal containing form to create/edit project
         popperOverlay,      // Mouse click catcher for pop up menus
+        defaultButtons,     // Default buttons (eg. All Tasks, This Week, etc.)
         taskButtons,        // All buttons for creating buttons
         taskDisplay,        // Displays task details (also serves as a form)
         currentProject = 0; // Current project selected, 0 by default
@@ -18,6 +19,8 @@ export default function () {
         taskButtons = document.querySelectorAll("button.taskCreator");
 
         projectContainer = buildElement('div', '', 'projects');
+        defaultButtons = buildElement('div', '', 'defaultButtons');
+        projectContainer.appendChild(defaultButtons);
         mainContainer.appendChild(projectContainer);
 
         taskContainer = buildElement('div', '', 'tasks');
@@ -71,6 +74,10 @@ export default function () {
         popperOverlay.classList.remove('hidden');
     }
 
+    function createDefaultButtons() {
+        
+    }
+
     /**
      * Creates a project DOM element and inserts it into the project list element
      * @param {*} id project id
@@ -113,6 +120,13 @@ export default function () {
         })
 
         return true;
+    }
+
+    function selectProject(projectKey) {
+        let project = projectContainer.querySelector(`.project[data-id="${projectKey}"]`);
+        if (!project) { return; }
+        console.log(project);
+        project.click();
     }
 
     /**
@@ -188,14 +202,22 @@ export default function () {
         openPopper(projectDisplay);
     }
 
-    function deleteProject(key) {
-        brain.deleteProject(key);
+    function deleteProject(projectKey) {
+        brain.deleteProject(projectKey);
 
-        let project = document.querySelector(`.projects .project[data-id="${key}"]`);
+        let project = document.querySelector(`.projects .project[data-id="${projectKey}"]`);
 
         if (!project) {
-            console.error(`Project element does not exist - Key: ${key}`)
+            console.error(`Project element does not exist - Project Key: ${projectKey}`)
             return false;
+        }
+
+        if (projectKey == currentProject) {
+            let lastProject = projectContainer.lastChild;
+
+            if (lastProject !== null) {
+                lastProject.click();
+            }
         }
 
         project.remove();
@@ -653,18 +675,13 @@ export default function () {
     }
 
     function toggleTaskComplete(taskKey) {
-        // get task element
         let task = taskContainer.querySelector(`.task[data-id="${taskKey}"`);
-        // check if element exists
         if (!task) {
             return;
         }
 
-        // change task status
         task.dataset.completed = (task.dataset.completed == "true") ? false : true;
-
-        // update task
-        /* brain.toggleTaskComplete(taskKey); */
+        brain.toggleTaskComplete(taskKey);
     }
 
     /* Enable editing on the task display */
@@ -684,7 +701,7 @@ export default function () {
     /**
      * Generates a menu that lists all avaialble projects that the task can be moved to.
     */
-    function createMoveTaskMenu(key) {
+    function createMoveTaskMenu(taskKey) {
         let menu = buildElement('div', '', 'moveTaskMenu');
 
         menu.appendChild(buildElement('button', 'Move to Project', 'moveTask'));
@@ -713,5 +730,6 @@ export default function () {
         getCurrentProject,
         insertTask,
         insertProject,
+        selectProject,
     }
 }

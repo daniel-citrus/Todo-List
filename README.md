@@ -108,14 +108,14 @@ To setup this project locally you must have Node Package Manager ([npm](https://
   * [x] Get tasks that belong to a project
   * [x] Save projects to localStorage
   * [x] Load projects from localStorage
-* [ ] DOM Features
+* [x] DOM Features
   * [x] Project
     * [x] Create project
     * [x] Rename project
     * [x] Delete Project
-  * [ ] Task 
+  * [x] Task 
     * [x] Create task
-    * [ ] Complete task
+    * [x] Complete task
     * [x] Edit task
     * [x] Delete task
 

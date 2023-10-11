@@ -32,9 +32,7 @@ let brain = (() => {
 
     let task4 = {
         title: 'Sleep',
-        description: `Good sleep improves your brain performance, mood, and health.
-                Not getting enough quality sleep regularly raises the risk of many diseases and disorders. These range from heart disease and stroke to obesity and dementia.
-                There’s more to good sleep than just the hours spent in bed, says Dr. Marishka Brown, a sleep expert at NIH. “Healthy sleep encompasses three major things,” she explains. “One is how much sleep you get. Another is sleep quality—that you get uninterrupted and refreshing sleep. The last is a consistent sleep schedule.”`,
+        description: `Good sleep improves your brain performance, mood, and health.`,
         dueDate: new Date(2023, 8, 2),
         priority: 1
     }
@@ -46,6 +44,20 @@ let brain = (() => {
         priority: 1,
     }
 
+    let task6 = {
+        title: 'Walk',
+        description: 'Regular walk',
+        dueDate: new Date(2024, 2, 6),
+        priority: 1,
+    }
+
+    let task7 = {
+        title: 'Run',
+        description: 'Regular walk',
+        dueDate: new Date(2023, 8, 20),
+        priority: 2,
+    }
+
     createProject('Tasks');
     createProject('Health');
     createProject('Fitness');
@@ -55,6 +67,8 @@ let brain = (() => {
     projects.addTask(1, tasks.addTask(task3));
     projects.addTask(1, tasks.addTask(task4));
     projects.addTask(2, tasks.addTask(task5));
+    projects.addTask(2, tasks.addTask(task6));
+    projects.addTask(2, tasks.addTask(task7));
     console.clear();
     projects.showProjects();
     tasks.showTasks();
@@ -65,6 +79,7 @@ let brain = (() => {
         let projectElement = domControl.createProjectElement(projectID, name);
 
         domControl.insertProject(projectElement);
+        domControl.selectProject(projectID);
         saveData();
     }
 
@@ -131,6 +146,10 @@ let brain = (() => {
         return tasks.getTask(taskKey);
     }
 
+    function sortTasksByDate() {
+
+    }
+
     function moveTask(projectKey, taskKey) {
 
     }
@@ -191,6 +210,11 @@ let brain = (() => {
         projects.showProjects();
         tasks.showTasks();
     }
+
+    function toggleTaskComplete(taskKey) {
+        return tasks.toggleTaskComplete(taskKey);
+    }
+    
     return {
         createProject,
         createTask,
@@ -201,6 +225,7 @@ let brain = (() => {
         updateTask,
         updateProject,
         showData,
+        toggleTaskComplete,
     }
 })();
 

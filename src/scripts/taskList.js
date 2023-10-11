@@ -177,13 +177,14 @@ export default function TaskList() {
         return true;
     }
 
-
     function toggleTaskComplete(taskKey) {
         let task = getTask(taskKey);
 
-        if (!task) { return; }
+        if (!task) { return false; }
 
         task.completed = task.completed ? false : true;
+
+        return true;
     }
 
     return {
