@@ -146,6 +146,15 @@ export default function TaskList() {
         return tasks[index];
     }
 
+    /**
+     * Use all tasks on callback function
+     */
+    function processAllTasks(callback) {
+        tasks.forEach((task) => {
+            callback(task);
+        });
+    }
+
     function getTaskIndex(key) {
         for (let taskIndex in tasks) {
             let taskID = tasks[taskIndex].id;
@@ -192,6 +201,7 @@ export default function TaskList() {
         deleteTask,
         loadData,
         getTask,
+        processAllTasks,
         saveData,
         showTasks,
         taskExists,

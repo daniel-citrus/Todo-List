@@ -19,7 +19,7 @@ export default function () {
         taskButtons = document.querySelectorAll("button.taskCreator");
 
         projectContainer = buildElement('div', '', 'projects');
-        defaultButtons = buildElement('div', '', 'defaultButtons');
+        defaultButtons = createDefaultButtons();
         projectContainer.appendChild(defaultButtons);
         mainContainer.appendChild(projectContainer);
 
@@ -75,7 +75,34 @@ export default function () {
     }
 
     function createDefaultButtons() {
-        
+        let buttons = [
+            ['All Tasks', () => {
+                brain.displayAllTasks();
+            }],
+            /* ['Today', () => {
+
+            }],
+            ['This Week', () => {
+
+            }], */
+        ]
+
+        let defaultButtons = buildElement('div', '', 'defaultButtons');
+
+        buttons.forEach((button) => {
+            let className = button[0].charAt(0).toLowerCase() + button[0].slice(1);
+            className = className.replaceAll(' ', '');
+
+            let buttonElem = buildElement('button', button[0], className);
+
+            defaultButtons.appendChild(buttonElem);
+
+            buttonElem.addEventListener('click', () => {
+                button[1]();
+            })
+        })
+
+        return defaultButtons;
     }
 
     /**
@@ -229,6 +256,10 @@ export default function () {
      */
     function getCurrentProject() {
         return currentProject;
+    }
+
+    function clearTaskDisplay() {
+        taskContainer.innerHTML = ``;
     }
 
 
@@ -727,6 +758,7 @@ export default function () {
     return {
         createTaskElement,
         createProjectElement,
+        clearTaskDisplay,
         getCurrentProject,
         insertTask,
         insertProject,

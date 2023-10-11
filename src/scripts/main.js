@@ -214,6 +214,14 @@ let brain = (() => {
     function toggleTaskComplete(taskKey) {
         return tasks.toggleTaskComplete(taskKey);
     }
+
+    function displayAllTasks() {
+        domControl.clearTaskDisplay();
+
+        tasks.processAllTasks((task)=> {
+            domControl.insertTask(domControl.createTaskElement(task.id, task));
+        })
+    }
     
     return {
         createProject,
@@ -221,6 +229,7 @@ let brain = (() => {
         deleteProject,
         deleteTask,
         getTaskDetails,
+        displayAllTasks,
         getProjectTasks,
         updateTask,
         updateProject,
