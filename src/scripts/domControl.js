@@ -231,12 +231,18 @@ export default function () {
         task.dataset.priority = priority;
         task.dataset.completed = completed;
 
+        let completeTaskButton = buildElement('button', '', 'completeTask');
+        completeTaskButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleTaskComplete(id);
+        });
+
+        task.appendChild(completeTaskButton);
         task.appendChild(buildElement('div', title, 'title'));
         task.appendChild(buildElement('div', description, 'description'));
         task.appendChild(buildElement('div', dueDate, 'dueDate'));
-        let options = buildElement('button', '', 'options');
-        // generate option buttons and display
         task.appendChild(createTaskOptionButton(id));
+
 
         task.addEventListener('click', () => {
             displayTaskDetails(id);
@@ -624,7 +630,7 @@ export default function () {
             desc.value,
             new Date(dueDate.value.split('-')),
             priorityValue,
-            complete.value
+            complete.checked
         );
 
         return true;
@@ -646,24 +652,39 @@ export default function () {
         openPopper(taskDisplay);
     }
 
+    function toggleTaskComplete(taskKey) {
+        // get task element
+        let task = taskContainer.querySelector(`.task[data-id="${taskKey}"`);
+        // check if element exists
+        if (!task) {
+            return;
+        }
+
+        // change task status
+        task.dataset.completed = (task.dataset.completed == "true") ? false : true;
+
+        // update task
+        /* brain.toggleTaskComplete(taskKey); */
+    }
+
     /* Enable editing on the task display */
-    function editTask(key) {
-        if (populateTaskDisplay(key) === false) { return };
+    function editTask(taskKey) {
+        if (populateTaskDisplay(taskKey) === false) { return };
         openTaskDisplayEdit();
     }
 
     /* Opens menu that lists out project names that the task can be moved to */
-    function moveTask(key) {
+    function moveTask(taskKey) {
         // brain stuff
-        // get all project names except key's current project
+        // get all project names except taskKey's current project
         // event listener on each object option
         // move task to the project selected
     }
 
     /**
-     * Generates a task move dropdown menu. This menu will list all avaialble projects that the task can be moved to.
+     * Generates a menu that lists all avaialble projects that the task can be moved to.
     */
-    function moveTaskMenu(key) {
+    function createMoveTaskMenu(key) {
         let menu = buildElement('div', '', 'moveTaskMenu');
 
         menu.appendChild(buildElement('button', 'Move to Project', 'moveTask'));

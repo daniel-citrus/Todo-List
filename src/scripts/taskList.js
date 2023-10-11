@@ -177,6 +177,15 @@ export default function TaskList() {
         return true;
     }
 
+
+    function toggleTaskComplete(taskKey) {
+        let task = getTask(taskKey);
+
+        if (!task) { return; }
+
+        task.completed = task.completed ? false : true;
+    }
+
     return {
         addTask,
         deleteTask,
@@ -186,5 +195,6 @@ export default function TaskList() {
         showTasks,
         taskExists,
         updateTask,
+        toggleTaskComplete,
     }
 };

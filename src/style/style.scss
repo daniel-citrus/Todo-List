@@ -138,6 +138,7 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
 /* End CSS Reset */
 
 #projectModal {
@@ -222,4 +223,8 @@ table {
     grid-area: tasks;
     border: 1px solid orange;
     position: relative;
+
+    .task[data-completed="true"] {
+        background: rgba(0, 128, 0, 0.253);
+    }
 }
