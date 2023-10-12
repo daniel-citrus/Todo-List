@@ -33,6 +33,8 @@ export default function () {
         mainContainer.appendChild(popperOverlay);
     })();
 
+    clearSelectedProject();
+
     let displayData = document.querySelector('button.showData');
     displayData.addEventListener('click', () => {
         brain.showData();
@@ -78,6 +80,10 @@ export default function () {
         let buttons = [
             ['All Tasks', () => {
                 brain.displayAllTasks();
+                currentProject = 0;
+            }],
+            ['Inbox', () => {
+                brain.displayProjectTasks(0)
             }],
             /* ['Today', () => {
 
@@ -98,11 +104,20 @@ export default function () {
             defaultButtons.appendChild(buttonElem);
 
             buttonElem.addEventListener('click', () => {
+                clearSelectedProject();
+                buttonElem.classList.add('selected');
                 button[1]();
             })
         })
 
         return defaultButtons;
+    }
+
+    function clearSelectedProject() {
+        let selected = projectContainer.querySelectorAll('.selected');
+        selected.forEach((item) => {
+            item.classList.remove('selected');
+        })
     }
 
     /**
@@ -119,40 +134,19 @@ export default function () {
         project.appendChild(projectName);
         project.appendChild(projectOptionButton(id));
         project.addEventListener('click', () => {
-            displayProjectTasks(id);
+            clearSelectedProject();
+            project.classList.add('selected');
+
+            brain.displayProjectTasks(id);
             currentProject = id;
         })
 
         return project;
     }
 
-    /**
-     * Get all tasks from a project and display it into the taskContainer
-     * @param {*} projectID 
-     * @returns boolean
-     */
-    function displayProjectTasks(projectID) {
-        taskContainer.innerHTML = '';
-
-        let tasks = brain.getProjectTasks(projectID);
-
-        if (tasks === false || tasks.length === 0) { return false; }
-
-        tasks.forEach((taskID) => {
-            let task = brain.getTaskDetails(taskID);
-
-            if (!task) { return false; }
-
-            taskContainer.appendChild(createTaskElement(taskID, task));
-        })
-
-        return true;
-    }
-
     function selectProject(projectKey) {
         let project = projectContainer.querySelector(`.project[data-id="${projectKey}"]`);
         if (!project) { return; }
-        console.log(project);
         project.click();
     }
 
@@ -180,7 +174,7 @@ export default function () {
     /* Create an element containing project options */
     function createProjectMenu(key) {
         let actions = [
-            ['View', displayProjectTasks],
+            ['View', brain.displayProjectTasks],
             ['Edit', updateProjectForm],
             ['Delete', deleteProject],
         ];
@@ -239,15 +233,9 @@ export default function () {
             return false;
         }
 
-        if (projectKey == currentProject) {
-            let lastProject = projectContainer.lastChild;
-
-            if (lastProject !== null) {
-                lastProject.click();
-            }
-        }
-
         project.remove();
+        defaultButtons.firstChild.click();
+
         return true;
     }
 

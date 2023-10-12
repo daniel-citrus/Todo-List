@@ -8,7 +8,13 @@ let brain = (() => {
     let projects = ProjectList();
     let domControl = DomControl();
 
-    let task1 = {
+    // Initializer
+    (()=>{
+        loadData();
+        projects.addProject('Inbox'); // Default project that can't be deleted.
+    })();
+
+    /* let task1 = {
         title: 'Pull Ups',
         description: 'Quality reps',
         dueDate: new Date(2023, 8, 4),
@@ -56,10 +62,9 @@ let brain = (() => {
         description: 'Regular walk',
         dueDate: new Date(2023, 8, 20),
         priority: 2,
-    }
+    } */
 
-    createProject('Tasks');
-    createProject('Health');
+    /* createProject('Health');
     createProject('Fitness');
 
     projects.addTask(2, tasks.addTask(task1));
@@ -71,15 +76,14 @@ let brain = (() => {
     projects.addTask(2, tasks.addTask(task7));
     console.clear();
     projects.showProjects();
-    tasks.showTasks();
-    /* localStorage.clear(); */
+    tasks.showTasks(); */
+    /* localStorage.clear();*/
 
     function createProject(name) {
         let projectID = projects.addProject(name);
         let projectElement = domControl.createProjectElement(projectID, name);
 
         domControl.insertProject(projectElement);
-        domControl.selectProject(projectID);
         saveData();
     }
 
@@ -115,7 +119,6 @@ let brain = (() => {
      */
     function deleteProject(projectKey) {
         let tasksToDelete = projects.getTasks(projectKey);
-
         projects.deleteProject(projectKey);
 
         if (tasksToDelete === false) {
@@ -178,7 +181,6 @@ let brain = (() => {
             console.error('Unable to update task');
         }
 
-        tasks.showTasks();
         saveData();
 
         return result;
@@ -218,11 +220,32 @@ let brain = (() => {
     function displayAllTasks() {
         domControl.clearTaskDisplay();
 
-        tasks.processAllTasks((task)=> {
+        tasks.processAllTasks((task) => {
             domControl.insertTask(domControl.createTaskElement(task.id, task));
         })
     }
-    
+
+    /**
+     * Get all tasks from a project and display it into the taskContainer
+     * @param {*} projectID 
+     * @returns boolean
+     */
+    function displayProjectTasks(projectID) {
+        domControl.clearTaskDisplay();
+
+        let tasks = getProjectTasks(projectID);
+
+        if (tasks === false || tasks.length === 0) { return false; }
+
+        tasks.forEach((taskID) => {
+            let task = getTaskDetails(taskID);
+            if (!task) { return false; }
+            domControl.insertTask(domControl.createTaskElement(taskID, task))
+        })
+
+        return true;
+    }
+
     return {
         createProject,
         createTask,
@@ -230,7 +253,7 @@ let brain = (() => {
         deleteTask,
         getTaskDetails,
         displayAllTasks,
-        getProjectTasks,
+        displayProjectTasks,
         updateTask,
         updateProject,
         showData,
