@@ -11,9 +11,9 @@ export default function () {
         taskButtons,        // All buttons for creating buttons
         taskDisplay,        // Displays task details (also serves as a form)
         currentProject = 0; // Current project selected, 0 by default
-
     /* Initializer */
     (() => {
+
         mainContainer = document.querySelector('.main');
         projectButtons = document.querySelectorAll("button.projectCreator");
         taskButtons = document.querySelectorAll("button.taskCreator");
@@ -33,8 +33,6 @@ export default function () {
         mainContainer.appendChild(popperOverlay);
     })();
 
-    clearSelectedProject();
-
     let displayData = document.querySelector('button.showData');
     displayData.addEventListener('click', () => {
         brain.showData();
@@ -43,7 +41,7 @@ export default function () {
     projectButtons.forEach((button) => {
         button.addEventListener('click', () => {
             openPopper(projectDisplay);
-            projectFormCreateMode();
+            displayProjectFormCreate();
         })
     })
 
@@ -175,7 +173,7 @@ export default function () {
     function createProjectMenu(key) {
         let actions = [
             ['View', brain.displayProjectTasks],
-            ['Edit', updateProjectForm],
+            ['Edit', displayProjectFormEdit],
             ['Delete', deleteProject],
         ];
 
@@ -206,11 +204,15 @@ export default function () {
         return button;
     }
 
-    function updateProjectForm(key) {
-        let projectName = document.querySelector(`.projects .project[data-id="${key}"] .name`).textContent;
+    /**
+     * Open the project form in edit mode
+     * @param {*} key 
+     */
+    function displayProjectFormEdit(projectKey) {
+        let projectName = document.querySelector(`.projects .project[data-id="${projectKey}"] .name`).textContent;
 
         if (!projectName) {
-            console.error(`Project element does not exist - Key: ${key}`)
+            console.error(`Project element does not exist - Key: ${projectKey}`)
             return;
         }
 
@@ -218,7 +220,7 @@ export default function () {
         projectDisplay.querySelector('button.create').classList.add('hidden');
         projectDisplay.querySelector('button.submit').classList.remove('hidden');
         projectDisplay.querySelector('button.cancel').classList.remove('hidden');
-        projectDisplay.dataset.id = key;
+        projectDisplay.dataset.id = projectKey;
 
         openPopper(projectDisplay);
     }
@@ -393,7 +395,7 @@ export default function () {
     }
 
     /* Displays the project display in creation mode */
-    function projectFormCreateMode() {
+    function displayProjectFormCreate() {
         document.getElementById('projectName').value = '';
         projectDisplay.querySelector('button.create').classList.remove('hidden');
         projectDisplay.querySelector('button.submit').classList.add('hidden');

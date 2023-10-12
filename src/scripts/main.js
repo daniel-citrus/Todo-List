@@ -4,14 +4,20 @@ import { ProjectList } from './barrel'
 import { TaskList } from './barrel'
 
 let brain = (() => {
-    let tasks = TaskList();
-    let projects = ProjectList();
-    let domControl = DomControl();
+    let tasks;
+    let projects;
+    let domControl;
 
     // Initializer
-    (()=>{
+    (() => {
+        tasks = TaskList();
+        projects = ProjectList();
+        domControl = DomControl();
+
         loadData();
-        projects.addProject('Inbox'); // Default project that can't be deleted.
+        displayAllProjects();
+        //display projects
+        //select all tasks
     })();
 
     /* let task1 = {
@@ -62,9 +68,10 @@ let brain = (() => {
         description: 'Regular walk',
         dueDate: new Date(2023, 8, 20),
         priority: 2,
-    } */
+    }
 
-    /* createProject('Health');
+    createProject('Health');
+    createProject('Health');
     createProject('Fitness');
 
     projects.addTask(2, tasks.addTask(task1));
@@ -140,7 +147,7 @@ let brain = (() => {
     function deleteTask(projectKey, taskKey) {
         if (!tasks.deleteTask(taskKey)) { return false; }
         if (!projects.deleteTask(projectKey, taskKey)) { return false; }
-
+        saveData();
         return true;
     }
 
@@ -198,8 +205,8 @@ let brain = (() => {
     }
 
     function loadData() {
-        console.log(`Projects: ${projects.loadData()}`);
-        console.log(`Tasks: ${tasks.loadData()}`);
+        console.log(`Projects: ${(projects.loadData() == true) ? `SUCCESS` : `FAILED`}`);
+        console.log(`Tasks: ${(tasks.loadData() == true) ? `SUCCESS` : `FAILED`}`);
     }
 
     function saveData() {
@@ -214,7 +221,9 @@ let brain = (() => {
     }
 
     function toggleTaskComplete(taskKey) {
-        return tasks.toggleTaskComplete(taskKey);
+        let result = tasks.toggleTaskComplete(taskKey);
+        saveData();
+        return result;
     }
 
     function displayAllTasks() {
@@ -222,6 +231,12 @@ let brain = (() => {
 
         tasks.processAllTasks((task) => {
             domControl.insertTask(domControl.createTaskElement(task.id, task));
+        })
+    }
+
+    function displayAllProjects() {
+        projects.processAllProjects((project)=>{
+            domControl.insertProject(domControl.createProjectElement(project.id, project.name));
         })
     }
 
@@ -262,3 +277,4 @@ let brain = (() => {
 })();
 
 export default brain;
+document.querySelector('button.allTasks').click();

@@ -177,12 +177,13 @@ export default function TaskList() {
     }
 
     function loadData() {
-        tasks = JSON.parse(localStorage.getItem('Tasks'));
+        let taskData = localStorage.getItem('Tasks');
 
-        if (tasks === null) {
+        if (taskData === null) {
             return false;
         }
-
+        
+        tasks = JSON.parse(taskData);
         return true;
     }
 

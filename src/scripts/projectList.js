@@ -146,12 +146,13 @@ export default function ProjectList() {
     }
 
     function loadData() {
-        projects = JSON.parse(localStorage.getItem('Projects'));
+        let projectData = localStorage.getItem('Projects');
 
-        if (projects === null) {
+        if (projectData === null) {
             return false;
         }
 
+        projects = JSON.parse(projectData);
         return true;
     }
 
@@ -183,6 +184,12 @@ export default function ProjectList() {
         return +projectCount;
     }
 
+    function processAllProjects(callback) {
+        projects.forEach((project)=> {
+            callback(project);
+        })
+    }
+
     return {
         addProject,
         deleteProject,
@@ -194,5 +201,6 @@ export default function ProjectList() {
         saveData,
         loadData,
         showProjects,
+        processAllProjects,
     }
 }
