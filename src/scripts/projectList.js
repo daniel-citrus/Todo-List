@@ -128,7 +128,11 @@ export default function ProjectList() {
      * Return all tasks that belong to a project 
      * @returns array
     */
-    function getTasks(key) {
+    function getTasks(key = -1) {
+        if (key == -1) {
+            return inbox;
+        }
+
         let project = getProject(key);
 
         if (project === false) {
