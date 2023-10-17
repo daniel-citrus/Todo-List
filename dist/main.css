@@ -153,27 +153,8 @@ table {
   border: 1px solid red;
 }
 
-.controls {
-  grid-area: controls;
-  border: 1px solid green;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-.controls button {
-  font-size: 1.4rem;
-}
-
 .hidden {
   display: none;
-}
-
-.main {
-  display: grid;
-  grid-template: "controls tasks" "projects tasks"/minmax(300px, 300px) auto;
-  height: 100%;
 }
 
 .popperOverlay {

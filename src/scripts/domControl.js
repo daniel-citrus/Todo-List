@@ -2,6 +2,7 @@ import { brain } from './barrel';
 
 export default function () {
     let mainContainer,
+        header,
         projectContainer,      // Displays projects
         taskContainer,         // Displays tasks for selected project
         projectButtons,        // All buttons for creating projects
@@ -14,50 +15,71 @@ export default function () {
 
     /* Initializer */
     (() => {
+        projectDisplay = createProjectForm();
+        taskDisplay = createTaskDisplay();
 
         mainContainer = document.querySelector('.main');
-        projectButtons = document.querySelectorAll("button.projectCreator");
-        taskButtons = document.querySelectorAll("button.taskCreator");
+
+        header = createHeader();
+        mainContainer.appendChild(header);
 
         projectContainer = buildElement('div', '', 'projects');
         defaultButtons = createDefaultButtons();
-        projectContainer.appendChild(defaultButtons);
+        projectContainer.appendChild(createDefaultButtons());
+        projectContainer.appendChild(createProjectCreatorButton());
         mainContainer.appendChild(projectContainer);
 
         taskContainer = buildElement('div', '', 'tasks');
         mainContainer.appendChild(taskContainer);
 
-        projectDisplay = createProjectForm();
-        taskDisplay = createTaskDisplay();
-
         popperOverlay = buildElement('div', '', 'popperOverlay', 'hidden');
+        popperOverlay.addEventListener('click', (e) => {
+            if (e.target !== popperOverlay) { return; }
+
+            closePopper();
+        })
         mainContainer.appendChild(popperOverlay);
     })();
 
-    let displayData = document.querySelector('button.showData');
-    displayData.addEventListener('click', () => {
-        brain.showData();
-    })
+    function createHeader() {
+        let header = buildElement('header', 'Header');
 
-    projectButtons.forEach((button) => {
+        header.appendChild(createMobileNavSwitch());
+
+        return header;
+    }
+
+    function createProjectCreatorButton() {
+        let button = buildElement('button', 'Create Project', 'projectCreator');
+
         button.addEventListener('click', () => {
             openPopper(projectDisplay);
             displayProjectFormCreate();
         })
-    })
 
-    taskButtons.forEach((button) => {
+        return button;
+    }
+
+    function createMobileNavSwitch() {
+        let button = buildElement('button', '', 'mobileNavSwitch');
+
+        button.addEventListener('click', () => {
+
+        })
+
+        return button;
+    }
+
+    function createTaskCreatorButton() {
+        let button = buildElement('button', 'Create Task', 'taskCreator');
+
         button.addEventListener('click', () => {
             if (currentProject == null) { return; }
             openTaskDisplayCreate();
         })
-    })
 
-    popperOverlay.addEventListener('click', (e) => {
-        if (e.target !== popperOverlay) { return; }
-
-        closePopper();
-    })
+        return button;
+    }
 
     function closePopper() {
         popperOverlay.classList.add('hidden');
@@ -235,7 +257,14 @@ export default function () {
         }
 
         project.remove();
-        defaultButtons.firstChild.click();
+
+        if (currentProject !== projectKey) { return true; }
+
+        let projectButton = document.querySelector(`.projects .defaultButtons button`);
+
+        if (projectButton) {
+            projectButton.click();
+        }
 
         return true;
     }
@@ -730,7 +759,7 @@ export default function () {
     }
 
     function deleteTask(taskID) {
-        if (!brain.deleteTask(taskID)) {return};
+        if (!brain.deleteTask(taskID)) { return };
 
         let task = taskContainer.querySelector(`.task[data-id="${taskID}"]`);
 
