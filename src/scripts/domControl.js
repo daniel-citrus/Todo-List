@@ -2,15 +2,16 @@ import { brain } from './barrel';
 
 export default function () {
     let mainContainer,
-        projectContainer,   // Displays projects
-        taskContainer,      // Displays tasks for selected project
-        projectButtons,     // All buttons for creating projects
-        projectDisplay,     // Modal containing form to create/edit project
-        popperOverlay,      // Mouse click catcher for pop up menus
-        defaultButtons,     // Default buttons (eg. All Tasks, This Week, etc.)
-        taskButtons,        // All buttons for creating buttons
-        taskDisplay,        // Displays task details (also serves as a form)
-        currentProject = 0; // Current project selected, 0 by default
+        projectContainer,      // Displays projects
+        taskContainer,         // Displays tasks for selected project
+        projectButtons,        // All buttons for creating projects
+        projectDisplay,        // Modal containing form to create/edit project
+        popperOverlay,         // Mouse click catcher for pop up menus
+        defaultButtons,        // Default buttons (eg. All Tasks, This Week, etc.)
+        taskButtons,           // All buttons for creating buttons
+        taskDisplay,           // Displays task details (also serves as a form)
+        currentProject = null; // Current selected project
+
     /* Initializer */
     (() => {
 
@@ -47,6 +48,7 @@ export default function () {
 
     taskButtons.forEach((button) => {
         button.addEventListener('click', () => {
+            if (currentProject == null) { return; }
             openTaskDisplayCreate();
         })
     })
@@ -78,16 +80,13 @@ export default function () {
         let buttons = [
             ['All Tasks', () => {
                 brain.displayAllTasks();
-                currentProject = 0;
-            }],
-            ['Inbox', () => {
-                brain.displayProjectTasks(0)
+                currentProject = null;
             }],
             /* ['Today', () => {
-
+                currentProject = null;
             }],
             ['This Week', () => {
-
+                currentProject = null;
             }], */
         ]
 

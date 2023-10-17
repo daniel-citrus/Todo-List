@@ -16,9 +16,17 @@ let brain = (() => {
 
         loadData();
         displayAllProjects();
+        saveData();
         //display projects
         //select all tasks
     })();
+
+    projects.addInboxTask(3);
+    projects.addInboxTask(1);
+    projects.addInboxTask(5);
+    projects.addInboxTask(6);
+    projects.addInboxTask(2);
+    projects.addInboxTask(4);
 
     /* let task1 = {
         title: 'Pull Ups',
@@ -277,4 +285,4 @@ let brain = (() => {
 })();
 
 export default brain;
-document.querySelector('button.allTasks').click();
+/* document.querySelector('button.allTasks').click(); */

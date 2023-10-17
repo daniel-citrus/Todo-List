@@ -8,6 +8,7 @@
     ]
 */
 export default function ProjectList() {
+    let inbox = []; // Default project
     let projects = [];
 
     function createProject(name) {
@@ -185,18 +186,45 @@ export default function ProjectList() {
     }
 
     function processAllProjects(callback) {
-        projects.forEach((project)=> {
+        projects.forEach((project) => {
             callback(project);
         })
     }
 
+    function addInboxTask(taskID) {
+        if (inbox.includes(taskID)) { return; }
+
+        let inboxLength = inbox.length;
+
+        if (inboxLength === 0) {
+            inbox.push(taskID);
+            return;
+        }
+
+        for (let i in inbox) {
+            if (taskID < inbox[i]) {
+                inbox.splice(i, 0, taskID);
+                console.log(inbox);
+                return;
+            }
+        }
+
+        inbox.push(taskID);
+
+        console.log(inbox);
+    }
+
     return {
         addProject,
+        createProject,
         deleteProject,
         updateProjectName,
         addTask,
+        addInboxTask,
+        /* deleteInboxTask, */
         deleteTask,
         getName,
+        getProject,
         getTasks,
         saveData,
         loadData,
