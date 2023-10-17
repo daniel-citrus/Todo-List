@@ -3,6 +3,7 @@ export default function TaskList() {
 
     function createTask(inputs) {
         let {
+            projectKey,
             title = '',
             description = '',
             dueDate = '',
@@ -12,6 +13,7 @@ export default function TaskList() {
 
         return {
             id: generateID(),
+            projectKey,
             title,
             description,
             dueDate,
@@ -182,7 +184,7 @@ export default function TaskList() {
         if (taskData === null) {
             return false;
         }
-        
+
         tasks = JSON.parse(taskData);
         return true;
     }
@@ -197,11 +199,20 @@ export default function TaskList() {
         return true;
     }
 
+    function getProjectKey(taskKey) {
+        let task = getTask(taskKey);
+
+        if (!task) { return null; };
+
+        return task.projectKey;
+    }
+
     return {
         addTask,
         deleteTask,
         loadData,
         getTask,
+        getProjectKey,
         processAllTasks,
         saveData,
         showTasks,

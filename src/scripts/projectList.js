@@ -8,7 +8,6 @@
     ]
 */
 export default function ProjectList() {
-    let inbox = []; // Default project
     let projects = [];
 
     function createProject(name) {
@@ -43,7 +42,7 @@ export default function ProjectList() {
     function addTask(key = 0, taskKey) {
         let project = getProject(key);
 
-        if (!project) {
+        if (project === false) {
             return
         }
 
@@ -53,19 +52,19 @@ export default function ProjectList() {
     /* Delete task from a project */
     function deleteTask(projectKey, taskKey) {
         let project = getProject(projectKey);
-
         if (!project) {
-            return;
+            return false;
         }
-
+        
         for (let t in project.tasks) {
             if (taskKey == project.tasks[t]) {
                 project.tasks.splice(t, 1);
-                return;
+                return true;
             }
         }
-
+        
         console.error('Invalid task key');
+        return false;
     }
 
     function updateProjectName(key, name) {
@@ -117,7 +116,7 @@ export default function ProjectList() {
     function getName(key) {
         let project = getProject(key);
 
-        if (!project) {
+        if (project === false) {
             return;
         }
 
@@ -128,11 +127,7 @@ export default function ProjectList() {
      * Return all tasks that belong to a project 
      * @returns array
     */
-    function getTasks(key = -1) {
-        if (key == -1) {
-            return inbox;
-        }
-
+    function getTasks(key) {
         let project = getProject(key);
 
         if (project === false) {
@@ -195,37 +190,12 @@ export default function ProjectList() {
         })
     }
 
-    function addInboxTask(taskID) {
-        if (inbox.includes(taskID)) { return; }
-
-        let inboxLength = inbox.length;
-
-        if (inboxLength === 0) {
-            inbox.push(taskID);
-            return;
-        }
-
-        for (let i in inbox) {
-            if (taskID < inbox[i]) {
-                inbox.splice(i, 0, taskID);
-                console.log(inbox);
-                return;
-            }
-        }
-
-        inbox.push(taskID);
-
-        console.log(inbox);
-    }
-
     return {
         addProject,
         createProject,
         deleteProject,
         updateProjectName,
         addTask,
-        addInboxTask,
-        /* deleteInboxTask, */
         deleteTask,
         getName,
         getProject,

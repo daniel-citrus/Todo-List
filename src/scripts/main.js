@@ -21,13 +21,6 @@ let brain = (() => {
         //select all tasks
     })();
 
-    projects.addInboxTask(3);
-    projects.addInboxTask(1);
-    projects.addInboxTask(5);
-    projects.addInboxTask(6);
-    projects.addInboxTask(2);
-    projects.addInboxTask(4);
-
     /* let task1 = {
         title: 'Pull Ups',
         description: 'Quality reps',
@@ -111,9 +104,15 @@ let brain = (() => {
      * @param {boolean} completed 
      */
     function createTask(title, description, dueDate, priority, completed) {
-        let inputs = { title, description, dueDate, priority, completed };
-        let projectKey = domControl.getCurrentProject();
-        let taskKey = tasks.addTask({ title, description, dueDate, priority, completed });
+        let projectKey = +domControl.getCurrentProject();
+
+        if (projectKey == NaN || projectKey === false || projectKey === null) {
+            console.log(`Invalid Project ID`);
+            return;
+        }
+
+        let inputs = { projectKey, title, description, dueDate, priority, completed };
+        let taskKey = tasks.addTask(inputs);
 
         projects.addTask(projectKey, taskKey);
 
@@ -152,9 +151,12 @@ let brain = (() => {
      * @param {*} projectKey 
      * @param {*} taskKey 
      */
-    function deleteTask(projectKey, taskKey) {
-        if (!tasks.deleteTask(taskKey)) { return false; }
-        if (!projects.deleteTask(projectKey, taskKey)) { return false; }
+    function deleteTask(taskKey) {
+        let projectKey = tasks.getProjectKey(taskKey);
+        
+        if (projectKey === null) {console.log('asd1'); return false; }
+        if (!tasks.deleteTask(taskKey)) {console.log('asd2'); return false; }
+        if (!projects.deleteTask(projectKey, taskKey)) {console.log('asd3'); return false; }
         saveData();
         return true;
     }
@@ -243,7 +245,7 @@ let brain = (() => {
     }
 
     function displayAllProjects() {
-        projects.processAllProjects((project)=>{
+        projects.processAllProjects((project) => {
             domControl.insertProject(domControl.createProjectElement(project.id, project.name));
         })
     }

@@ -260,6 +260,7 @@ export default function () {
     function createTaskElement(
         id,
         {
+            projectKey,
             title,
             description,
             dueDate,
@@ -272,6 +273,7 @@ export default function () {
         task.dataset.id = id;
         task.dataset.priority = priority;
         task.dataset.completed = completed;
+        task.dataset.projectKey = projectKey;
 
         let completeTaskButton = buildElement('button', '', 'completeTask');
         completeTaskButton.addEventListener('click', (e) => {
@@ -602,10 +604,6 @@ export default function () {
             var rect = button.getBoundingClientRect();
             e.stopPropagation(); // prevent clicking project 
             openPopper(createTaskMenu(taskKey), rect.left, rect.top + button.offsetHeight);
-
-            // display task menu options
-            /* displayTaskDetails(taskKey); */
-            /* deleteTask(taskKey); */
         })
 
         return button;
@@ -732,7 +730,7 @@ export default function () {
     }
 
     function deleteTask(taskID) {
-        brain.deleteTask(currentProject, taskID);
+        if (!brain.deleteTask(taskID)) {return};
 
         let task = taskContainer.querySelector(`.task[data-id="${taskID}"]`);
 
