@@ -96,7 +96,7 @@ video {
 
 html,
 body {
-  height: 100%;
+  height: 200%;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -142,6 +142,22 @@ table {
 }
 
 /* End CSS Reset */
+header {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  padding: 5px;
+}
+header .logo {
+  margin: 0 auto;
+  font-size: 2.3rem;
+}
+header .mobileNavSwitch {
+  justify-self: flex-start;
+  height: 50px;
+  width: 50px;
+}
+
 #projectModal {
   padding: 0;
 }
@@ -151,10 +167,6 @@ table {
 }
 #projectModal input.invalid {
   border: 1px solid red;
-}
-
-.hidden {
-  display: none;
 }
 
 .popperOverlay {
@@ -175,15 +187,19 @@ table {
   display: flex;
   flex-flow: column nowrap;
 }
+.popperOverlay .hidden {
+  display: none;
+}
 .popperOverlay.hidden {
   display: none;
 }
 
 .projects {
-  grid-area: projects;
   border: 1px solid blue;
   overflow-y: auto;
-  padding: 20px;
+  padding: 10px;
+  position: absolute;
+  width: calc(100% - 22px);
 }
 .projects .project {
   display: flex;
@@ -191,9 +207,11 @@ table {
   width: 100%;
   justify-content: space-between;
 }
+.projects.hidden {
+  display: none;
+}
 
 .tasks {
-  grid-area: tasks;
   border: 1px solid orange;
   position: relative;
 }

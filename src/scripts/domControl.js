@@ -42,9 +42,10 @@ export default function () {
     })();
 
     function createHeader() {
-        let header = buildElement('header', 'Header');
+        let header = buildElement('header', '');
 
         header.appendChild(createMobileNavSwitch());
+        header.appendChild(buildElement('div', 'LogoImage', 'logo'))
 
         return header;
     }
@@ -64,7 +65,7 @@ export default function () {
         let button = buildElement('button', '', 'mobileNavSwitch');
 
         button.addEventListener('click', () => {
-
+            projectContainer.classList.toggle('hidden');
         })
 
         return button;
