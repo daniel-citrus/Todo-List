@@ -3,6 +3,7 @@ import { brain } from './barrel';
 export default function () {
     let mainContainer,
         header,
+        contentContainer,
         projectContainer,      // Displays projects
         taskContainer,         // Displays tasks for selected project
         projectButtons,        // All buttons for creating projects
@@ -22,15 +23,18 @@ export default function () {
 
         header = createHeader();
         mainContainer.appendChild(header);
+        contentContainer = buildElement('div', '', 'content');
+        mainContainer.appendChild(contentContainer);
 
         projectContainer = buildElement('div', '', 'projects');
+        projectContainer.classList.add('hidden');
         defaultButtons = createDefaultButtons();
         projectContainer.appendChild(createDefaultButtons());
         projectContainer.appendChild(createProjectCreatorButton());
-        mainContainer.appendChild(projectContainer);
+        contentContainer.appendChild(projectContainer);
 
         taskContainer = buildElement('div', '', 'tasks');
-        mainContainer.appendChild(taskContainer);
+        contentContainer.appendChild(taskContainer);
 
         popperOverlay = buildElement('div', '', 'popperOverlay', 'hidden');
         popperOverlay.addEventListener('click', (e) => {
@@ -38,7 +42,7 @@ export default function () {
 
             closePopper();
         })
-        mainContainer.appendChild(popperOverlay);
+        contentContainer.appendChild(popperOverlay);
     })();
 
     function createHeader() {
@@ -75,7 +79,8 @@ export default function () {
         let button = buildElement('button', 'Create Task', 'taskCreator');
 
         button.addEventListener('click', () => {
-            if (currentProject == null) { return; }
+            if (currentProject == NaN) { return; }
+            console.log('hi');
             openTaskDisplayCreate();
         })
 
@@ -88,14 +93,15 @@ export default function () {
     }
 
     function openPopper(elem, xCoord = undefined, yCoord = undefined) {
+        if (!elem) { return; }
+        popperOverlay.appendChild(elem);
+
         if (xCoord !== undefined) {
-            elem.style.left = `${xCoord}px`;
+            /* elem.style.left = `${xCoord}px`; */
+            elem.style.right  = '20px';
             elem.style.top = `${yCoord}px`;
         }
-
-        if (!elem) { return; }
-
-        popperOverlay.appendChild(elem);
+        
         popperOverlay.classList.remove('hidden');
     }
 
@@ -450,7 +456,7 @@ export default function () {
     function createProjectForm() {
         let form = buildElement('form', '', 'projectDetails');
         form.innerHTML = `
-        <label for=projectName>Project Name: </label>
+        <label for=projectName>Project Name</label>
         <input type="text" id="projectName" name="projectName" required autocomplete='off'>
         <br>
         `;
@@ -775,6 +781,7 @@ export default function () {
     return {
         createTaskElement,
         createProjectElement,
+        createTaskCreatorButton,
         clearTaskDisplay,
         getCurrentProject,
         insertTask,

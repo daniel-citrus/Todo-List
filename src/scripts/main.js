@@ -238,6 +238,7 @@ let brain = (() => {
 
     function displayAllTasks() {
         domControl.clearTaskDisplay();
+        domControl.insertTask(domControl.createTaskCreatorButton());
 
         tasks.processAllTasks((task) => {
             domControl.insertTask(domControl.createTaskElement(task.id, task));
