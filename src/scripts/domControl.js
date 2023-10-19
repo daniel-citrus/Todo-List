@@ -3,38 +3,42 @@ import { brain } from './barrel';
 export default function () {
     let mainContainer,
         header,
-        contentContainer,
+        contentContainer,      // Contains project and task containers
         projectContainer,      // Displays projects
-        taskContainer,         // Displays tasks for selected project
+        taskContainer,         // Displays all task related items
+        taskList,              // Holds list of tasks
         projectButtons,        // All buttons for creating projects
-        projectDisplay,        // Modal containing form to create/edit project
         popperOverlay,         // Mouse click catcher for pop up menus
         defaultButtons,        // Default buttons (eg. All Tasks, This Week, etc.)
         taskButtons,           // All buttons for creating buttons
+
+        projectDisplay,        // Modal containing form to create/edit project
         taskDisplay,           // Displays task details (also serves as a form)
         currentProject = null; // Current selected project
 
     /* Initializer */
     (() => {
-        projectDisplay = createProjectForm();
-        taskDisplay = createTaskDisplay();
-
         mainContainer = document.querySelector('.main');
-
         header = createHeader();
-        mainContainer.appendChild(header);
+        mainContainer.appendChild(createHeader());
+
         contentContainer = buildElement('div', '', 'content');
         mainContainer.appendChild(contentContainer);
 
         projectContainer = buildElement('div', '', 'projects');
         projectContainer.classList.add('hidden');
         defaultButtons = createDefaultButtons();
-        projectContainer.appendChild(createDefaultButtons());
+        projectContainer.appendChild(defaultButtons);
         projectContainer.appendChild(createProjectCreatorButton());
         contentContainer.appendChild(projectContainer);
 
         taskContainer = buildElement('div', '', 'tasks');
+        taskList = buildElement('ul','','taskList');
+        taskContainer.appendChild(taskList);
         contentContainer.appendChild(taskContainer);
+
+        projectDisplay = createProjectForm();
+        taskDisplay = createTaskDisplay();
 
         popperOverlay = buildElement('div', '', 'popperOverlay', 'hidden');
         popperOverlay.addEventListener('click', (e) => {
@@ -49,7 +53,10 @@ export default function () {
         let header = buildElement('header', '');
 
         header.appendChild(createMobileNavSwitch());
-        header.appendChild(buildElement('div', 'LogoImage', 'logo'))
+
+        let logo = buildElement('img', '', 'logo');
+        logo.src = `https://placehold.co/300x50`;
+        header.appendChild(logo);
 
         return header;
     }
@@ -80,7 +87,6 @@ export default function () {
 
         button.addEventListener('click', () => {
             if (currentProject == NaN) { return; }
-            console.log('hi');
             openTaskDisplayCreate();
         })
 
@@ -97,11 +103,10 @@ export default function () {
         popperOverlay.appendChild(elem);
 
         if (xCoord !== undefined) {
-            /* elem.style.left = `${xCoord}px`; */
-            elem.style.right  = '20px';
+            elem.style.left = `${xCoord}px`;
             elem.style.top = `${yCoord}px`;
         }
-        
+
         popperOverlay.classList.remove('hidden');
     }
 
@@ -156,13 +161,12 @@ export default function () {
         let project = buildElement('div', '', 'project');
         project.dataset.id = id;
 
-        let projectName = buildElement('div', name, 'name');
+        let projectName = buildElement('button', name, 'name');
         project.appendChild(projectName);
         project.appendChild(projectOptionButton(id));
         project.addEventListener('click', () => {
             clearSelectedProject();
             project.classList.add('selected');
-
             brain.displayProjectTasks(id);
             currentProject = id;
         })
@@ -283,8 +287,8 @@ export default function () {
         return currentProject;
     }
 
-    function clearTaskDisplay() {
-        taskContainer.innerHTML = ``;
+    function clearTaskList() {
+        taskList.innerHTML = ``;
     }
 
 
@@ -782,7 +786,7 @@ export default function () {
         createTaskElement,
         createProjectElement,
         createTaskCreatorButton,
-        clearTaskDisplay,
+        clearTaskList,
         getCurrentProject,
         insertTask,
         insertProject,

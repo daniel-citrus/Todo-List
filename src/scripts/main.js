@@ -17,8 +17,6 @@ let brain = (() => {
         loadData();
         displayAllProjects();
         saveData();
-        //display projects
-        //select all tasks
     })();
 
     /* let task1 = {
@@ -153,10 +151,10 @@ let brain = (() => {
      */
     function deleteTask(taskKey) {
         let projectKey = tasks.getProjectKey(taskKey);
-        
-        if (projectKey === null) {console.log('asd1'); return false; }
-        if (!tasks.deleteTask(taskKey)) {console.log('asd2'); return false; }
-        if (!projects.deleteTask(projectKey, taskKey)) {console.log('asd3'); return false; }
+
+        if (projectKey === null) { console.log('asd1'); return false; }
+        if (!tasks.deleteTask(taskKey)) { console.log('asd2'); return false; }
+        if (!projects.deleteTask(projectKey, taskKey)) { console.log('asd3'); return false; }
         saveData();
         return true;
     }
@@ -237,8 +235,7 @@ let brain = (() => {
     }
 
     function displayAllTasks() {
-        domControl.clearTaskDisplay();
-        domControl.insertTask(domControl.createTaskCreatorButton());
+        domControl.clearTaskList();
 
         tasks.processAllTasks((task) => {
             domControl.insertTask(domControl.createTaskElement(task.id, task));
@@ -257,17 +254,21 @@ let brain = (() => {
      * @returns boolean
      */
     function displayProjectTasks(projectID) {
-        domControl.clearTaskDisplay();
-
+        domControl.clearTaskList();
         let tasks = getProjectTasks(projectID);
-
-        if (tasks === false || tasks.length === 0) { return false; }
-
+        
+        if (tasks === false || tasks.length === 0) { 
+            return false; }/*  */
+        
         tasks.forEach((taskID) => {
             let task = getTaskDetails(taskID);
-            if (!task) { return false; }
-            domControl.insertTask(domControl.createTaskElement(taskID, task))
+            if (!task) {
+                domControl.insertProject(domControl.createTaskCreator)
+                return false;
+            }
+            domControl.insertTask(domControl.createTaskElement(taskID, task));
         })
+        
 
         return true;
     }
