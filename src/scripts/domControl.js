@@ -339,7 +339,7 @@ export default function () {
      * Insert a task element into the task container
      **/
     function insertTask(taskNode) {
-        taskContainer.appendChild(taskNode);
+        taskList.appendChild(taskNode);
     }
 
     /**

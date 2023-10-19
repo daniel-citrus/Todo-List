@@ -256,19 +256,22 @@ let brain = (() => {
     function displayProjectTasks(projectID) {
         domControl.clearTaskList();
         let tasks = getProjectTasks(projectID);
-        
-        if (tasks === false || tasks.length === 0) { 
-            return false; }/*  */
-        
+
+        if (tasks === false || tasks.length === 0) {
+            domControl.insertTask(domControl.createTaskCreatorButton());
+            return false;
+        }
+
         tasks.forEach((taskID) => {
             let task = getTaskDetails(taskID);
             if (!task) {
-                domControl.insertProject(domControl.createTaskCreator)
                 return false;
             }
             domControl.insertTask(domControl.createTaskElement(taskID, task));
         })
-        
+
+        domControl.insertTask(domControl.createTaskCreatorButton());
+
 
         return true;
     }
