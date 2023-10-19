@@ -93,14 +93,19 @@ export default function () {
         return button;
     }
 
-    function closePopper() {
-        popperOverlay.classList.add('hidden');
-        popperOverlay.innerHTML = ``;
-    }
-
+    /**
+     * Open the popper overlay and insert elem. Move elem to X/Y coordinates if provided
+     * @param {*} elem 
+     * @param {*} xCoord 
+     * @param {*} yCoord 
+     * @returns 
+     */
     function openPopper(elem, xCoord = undefined, yCoord = undefined) {
         if (!elem) { return; }
         popperOverlay.appendChild(elem);
+
+        var rect = elem.getBoundingClientRect();
+        console.log(rect);
 
         if (xCoord !== undefined) {
             elem.style.left = `${xCoord}px`;
@@ -110,10 +115,16 @@ export default function () {
         popperOverlay.classList.remove('hidden');
     }
 
+    function closePopper() {
+        popperOverlay.classList.add('hidden');
+        popperOverlay.innerHTML = ``;
+    }
+
     function createDefaultButtons() {
         let buttons = [
             ['All Tasks', () => {
                 brain.displayAllTasks();
+                projectContainer.classList.add('hidden');
                 currentProject = null;
             }],
             /* ['Today', () => {
@@ -166,9 +177,10 @@ export default function () {
         project.appendChild(projectOptionButton(id));
         project.addEventListener('click', () => {
             clearSelectedProject();
-            project.classList.add('selected');
-            brain.displayProjectTasks(id);
             currentProject = id;
+            project.classList.add('selected');
+            projectContainer.classList.add('hidden');
+            brain.displayProjectTasks(id);
         })
 
         return project;

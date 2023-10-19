@@ -1,6 +1,7 @@
 /*!***************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/style/style.scss ***!
   \***************************************************************************************************************/
+@charset "UTF-8";
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -190,7 +191,7 @@ header .mobileNavSwitch {
 }
 .popperOverlay .projectMenuButtons,
 .popperOverlay .taskMenuButtons {
-  position: absolute;
+  /* position: absolute; */
   padding: 5px;
   background: green;
   display: flex;
@@ -228,4 +229,25 @@ header .mobileNavSwitch {
 }
 .tasks .task[data-completed=true] {
   background: rgba(0, 128, 0, 0.253);
+}
+
+/* 320px — 480px
+iPads, Tablets – 481px — 768px
+Small screens, laptops – 769px — 1024px
+Desktops, large screens – 1025px — 1200px
+Extra large screens, TV – 1201px, and more */
+@media screen and (min-width: 481px) {
+  body {
+    background: red;
+  }
+}
+@media screen and (min-width: 769px) {
+  body {
+    background: green;
+  }
+}
+@media screen and (min-width: 1025px) {
+  body {
+    background: orange;
+  }
 }
