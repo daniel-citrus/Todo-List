@@ -1,4 +1,5 @@
 import { brain } from './barrel';
+import threedots from '../style/media/threedots.svg';
 
 export default function () {
     let mainContainer,
@@ -237,13 +238,15 @@ export default function () {
     }
 
     function projectOptionButton(key) {
-        let button = buildElement('button', '...', 'options');
+        let button = buildElement('div', '...', 'options');
 
         button.addEventListener('click', (e) => {
             var rect = button.getBoundingClientRect();
             e.stopPropagation(); // prevent clicking project 
             openPopper(createProjectMenu(key), rect.left, rect.top + button.offsetHeight);
         })
+
+        button.innerHTML = threedots;
 
         return button;
     }
