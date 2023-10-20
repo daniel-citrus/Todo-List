@@ -167,8 +167,7 @@ header {
     }
 }
 
-.content {
-}
+.content {}
 
 .main {
     height: 100%;
@@ -196,7 +195,8 @@ header {
 
     .projectMenuButtons,
     .taskMenuButtons {
-        /* position: absolute; */ // remove for mobile view
+        /* position: absolute; */
+        // remove for mobile view
         padding: 5px;
         background: green;
         display: flex;
@@ -226,6 +226,16 @@ header {
         flex-flow: row nowrap;
         width: 100%;
         justify-content: space-between;
+    }
+
+    div.options {
+        height:45px;
+        width: 45px;
+        border-radius: var(--border-radius);
+        background-image: url('../style/media/threedots(64x64).png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
     }
 
     &.hidden {

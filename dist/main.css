@@ -219,6 +219,15 @@ header .mobileNavSwitch {
   width: 100%;
   justify-content: space-between;
 }
+.projects div.options {
+  height: 45px;
+  width: 45px;
+  border-radius: var(--border-radius);
+  background-image: url(c71a13054419fdc62d0b.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
 .projects.hidden {
   display: none;
 }

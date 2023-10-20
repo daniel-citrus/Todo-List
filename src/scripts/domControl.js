@@ -1,5 +1,4 @@
 import { brain } from './barrel';
-import threedots from '../style/media/threedots.svg';
 
 export default function () {
     let mainContainer,
@@ -34,7 +33,7 @@ export default function () {
         contentContainer.appendChild(projectContainer);
 
         taskContainer = buildElement('div', '', 'tasks');
-        taskList = buildElement('ul','','taskList');
+        taskList = buildElement('ul', '', 'taskList');
         taskContainer.appendChild(taskList);
         contentContainer.appendChild(taskContainer);
 
@@ -233,20 +232,17 @@ export default function () {
             buttons.appendChild(button);
         })
 
-
         return buttons;
     }
 
     function projectOptionButton(key) {
-        let button = buildElement('div', '...', 'options');
+        let button = buildElement('div', '', 'options');
 
         button.addEventListener('click', (e) => {
             var rect = button.getBoundingClientRect();
-            e.stopPropagation(); // prevent clicking project 
+            e.stopPropagation(); // prevent clicking project
             openPopper(createProjectMenu(key), rect.left, rect.top + button.offsetHeight);
         })
-
-        button.innerHTML = threedots;
 
         return button;
     }
