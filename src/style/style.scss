@@ -83,6 +83,7 @@ summary,
 time,
 mark,
 audio,
+button,
 video {
     margin: 0;
     padding: 0;
@@ -236,6 +237,9 @@ header {
     overflow-y: auto;
     transition: .2s linear;
     transform: translateX(0%);
+    display:flex;
+    flex-flow: column nowrap;
+    gap: 2px;
 
     &.hidden {
         transition: .2s linear;
@@ -248,6 +252,7 @@ header {
         flex-flow: column nowrap;
 
         &>* {
+            text-align: start;
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
@@ -259,8 +264,8 @@ header {
 
     .options {
         padding: 5px;
-        height: 35px;
-        width: 35px;
+        height: 100%;
+        width: 40px;
         border-radius: var(--border-radius);
 
         &:hover {
@@ -275,7 +280,7 @@ header {
             background-repeat: no-repeat;
             background-size: contain;
             height: 100%;
-            width: 100%;
+            width: auto;
         }
     }
 
@@ -283,8 +288,9 @@ header {
         display: flex;
         flex-flow: row nowrap;
         justify-content: space-between;
-        padding: 5px;
         border-radius: var(--border-radius);
+        border: 1px solid var(--grey-1);
+        align-items: center;
     }
 
     .selectable:hover {
