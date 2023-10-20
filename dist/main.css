@@ -145,8 +145,18 @@ table {
 /* End CSS Reset */
 :root {
   --background: white;
-  --border: 1px solid rgb(151, 151, 151);
+  --grey-0: #fafafa;
+  --grey-1: #e7e7e7;
+  --grey-2: #dddddd;
+  --grey-3: #cfcfcf;
+  --grey-4: #c2c2c2;
+  --border: 1px solid var(--grey-0);
   --border-radius: 5px;
+  --primary-color: #3289ef;
+}
+
+body {
+  overflow: hidden;
 }
 
 header {
@@ -157,6 +167,7 @@ header {
   padding: 8px;
   position: sticky;
   top: 0;
+  background: var(--primary-color);
 }
 header .logo {
   font-size: 2.3rem;
@@ -167,10 +178,15 @@ header .mobileNavSwitch {
   width: 40px;
 }
 
+.content {
+  position: relative;
+}
+
 .main {
   height: 100%;
   display: grid;
   grid-template: auto 1fr/auto;
+  overflow-y: hidden;
 }
 
 .popperOverlay {
@@ -183,6 +199,12 @@ header .mobileNavSwitch {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.popperOverlay.hidden {
+  display: none;
+}
+.popperOverlay .hidden {
+  display: none;
 }
 .popperOverlay .projectDetails {
   background: var(--background);
@@ -197,39 +219,66 @@ header .mobileNavSwitch {
   display: flex;
   flex-flow: column nowrap;
 }
-.popperOverlay .hidden {
-  display: none;
-}
-.popperOverlay.hidden {
-  display: none;
-}
 
 .projects {
+  position: absolute;
   padding: 8px;
+  width: calc(100% - 18px);
+  height: calc(100% - 16px);
   z-index: 1;
-  background: var(--background);
+  background: var(--grey-0);
   overflow-y: auto;
-  width: calc(100% - 20px);
-  height: calc(100% - 20px);
+  transition: 0.2s linear;
+  transform: translateX(0%);
+}
+.projects.hidden {
+  transition: 0.2s linear;
+  transform: translateX(-100%);
   position: fixed;
+}
+.projects .defaultButtons {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.projects .defaultButtons > * {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  background: none;
+}
+.projects .options {
+  padding: 5px;
+  height: 35px;
+  width: 35px;
+  border-radius: var(--border-radius);
+}
+.projects .options:hover {
+  background-color: var(--grey-1);
+}
+.projects .options .icon {
+  border-radius: var(--border-radius);
+  background-image: url(c71a13054419fdc62d0b.png);
+  background-origin: content-box;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+  width: 100%;
 }
 .projects .project {
   display: flex;
   flex-flow: row nowrap;
-  width: 100%;
   justify-content: space-between;
-}
-.projects div.options {
-  height: 45px;
-  width: 45px;
+  padding: 5px;
   border-radius: var(--border-radius);
-  background-image: url(c71a13054419fdc62d0b.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
 }
-.projects.hidden {
-  display: none;
+.projects .selectable:hover {
+  background: var(--grey-2);
+}
+.projects .selected,
+.projects .selected:hover {
+  background-color: var(--grey-3);
 }
 
 .tasks {
@@ -248,6 +297,9 @@ Extra large screens, TV – 1201px, and more */
 @media screen and (min-width: 481px) {
   body {
     background: red;
+  }
+  .projects {
+    max-width: 481px;
   }
 }
 @media screen and (min-width: 769px) {

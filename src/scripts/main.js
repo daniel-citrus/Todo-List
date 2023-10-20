@@ -19,7 +19,7 @@ let brain = (() => {
         saveData();
     })();
 
-    /* let task1 = {
+    let task1 = {
         title: 'Pull Ups',
         description: 'Quality reps',
         dueDate: new Date(2023, 8, 4),
@@ -69,20 +69,10 @@ let brain = (() => {
         priority: 2,
     }
 
-    createProject('Health');
-    createProject('Health');
-    createProject('Fitness');
 
-    projects.addTask(2, tasks.addTask(task1));
-    projects.addTask(0, tasks.addTask(task2));
-    projects.addTask(1, tasks.addTask(task3));
-    projects.addTask(1, tasks.addTask(task4));
-    projects.addTask(2, tasks.addTask(task5));
-    projects.addTask(2, tasks.addTask(task6));
-    projects.addTask(2, tasks.addTask(task7));
     console.clear();
     projects.showProjects();
-    tasks.showTasks(); */
+    tasks.showTasks();
     /* localStorage.clear();*/
 
     function createProject(name) {

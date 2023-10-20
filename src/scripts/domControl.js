@@ -29,7 +29,6 @@ export default function () {
         projectContainer.classList.add('hidden');
         defaultButtons = createDefaultButtons();
         projectContainer.appendChild(defaultButtons);
-        projectContainer.appendChild(createProjectCreatorButton());
         contentContainer.appendChild(projectContainer);
 
         taskContainer = buildElement('div', '', 'tasks');
@@ -54,8 +53,7 @@ export default function () {
 
         header.appendChild(createMobileNavSwitch());
 
-        let logo = buildElement('img', '', 'logo');
-        logo.src = `https://placehold.co/300x50`;
+        let logo = buildElement('div', 'TD', 'logo');
         header.appendChild(logo);
 
         return header;
@@ -141,7 +139,7 @@ export default function () {
             let className = button[0].charAt(0).toLowerCase() + button[0].slice(1);
             className = className.replaceAll(' ', '');
 
-            let buttonElem = buildElement('button', button[0], className);
+            let buttonElem = buildElement('button', button[0], className, 'selectable');
 
             defaultButtons.appendChild(buttonElem);
 
@@ -151,6 +149,8 @@ export default function () {
                 button[1]();
             })
         })
+
+        defaultButtons.appendChild(createProjectCreatorButton());
 
         return defaultButtons;
     }
@@ -169,10 +169,10 @@ export default function () {
      * @returns project DOM element
      **/
     function createProjectElement(id, name) {
-        let project = buildElement('div', '', 'project');
+        let project = buildElement('div', '', 'project', 'selectable');
         project.dataset.id = id;
 
-        let projectName = buildElement('button', name, 'name');
+        let projectName = buildElement('div', name, 'name');
         project.appendChild(projectName);
         project.appendChild(projectOptionButton(id));
         project.addEventListener('click', () => {
@@ -237,6 +237,7 @@ export default function () {
 
     function projectOptionButton(key) {
         let button = buildElement('div', '', 'options');
+        button.appendChild(buildElement('div', '','icon'));
 
         button.addEventListener('click', (e) => {
             var rect = button.getBoundingClientRect();
