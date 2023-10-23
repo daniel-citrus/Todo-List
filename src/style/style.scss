@@ -156,6 +156,7 @@ table {
 
 body {
     overflow: hidden;
+    font-size: 1.4rem;
 }
 
 header {
@@ -187,7 +188,6 @@ header {
     height: 100%;
     display: grid;
     grid-template: auto 1fr/auto;
-    overflow-y: hidden;
 }
 
 .popperOverlay {
@@ -305,11 +305,11 @@ header {
 }
 
 .tasks {
-    position: relative;
-    padding: 8px;
-
     .task[data-completed="true"] {
         background: rgba(0, 128, 0, 0.253);
+    }
+
+    .taskList {
     }
 }
 

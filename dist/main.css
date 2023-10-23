@@ -158,6 +158,7 @@ table {
 
 body {
   overflow: hidden;
+  font-size: 1.4rem;
 }
 
 header {
@@ -187,7 +188,6 @@ header .mobileNavSwitch {
   height: 100%;
   display: grid;
   grid-template: auto 1fr/auto;
-  overflow-y: hidden;
 }
 
 .popperOverlay {
@@ -288,14 +288,9 @@ header .mobileNavSwitch {
   background-color: var(--grey-3);
 }
 
-.tasks {
-  position: relative;
-  padding: 8px;
-}
 .tasks .task[data-completed=true] {
   background: rgba(0, 128, 0, 0.253);
 }
-
 /* 320px — 480px
 iPads, Tablets – 481px — 768px
 Small screens, laptops – 769px — 1024px
