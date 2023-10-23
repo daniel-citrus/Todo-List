@@ -235,14 +235,14 @@ header {
     z-index: 1;
     background: var(--grey-0);
     overflow-y: auto;
-    transition: .2s linear;
+    transition: .2s ease-out;
     transform: translateX(0%);
-    display:flex;
+    display: flex;
     flex-flow: column nowrap;
     gap: 2px;
 
     &.hidden {
-        transition: .2s linear;
+        transition: .2s ease-out;
         transform: translateX(-100%);
         position: fixed;
     }
@@ -257,16 +257,17 @@ header {
             -moz-appearance: none;
             appearance: none;
 
-            border: none;
+            border-radius: var(--border-radius);
+            padding: 15px 10px;
             background: none;
         }
     }
 
     .options {
-        padding: 5px;
         height: 100%;
         width: 40px;
         border-radius: var(--border-radius);
+        padding: 12px 5px;
 
         &:hover {
             background-color: var(--grey-1);
@@ -289,8 +290,8 @@ header {
         flex-flow: row nowrap;
         justify-content: space-between;
         border-radius: var(--border-radius);
-        border: 1px solid var(--grey-1);
         align-items: center;
+        padding: 15px 10px;
     }
 
     .selectable:hover {

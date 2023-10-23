@@ -216,7 +216,10 @@ export default function () {
     /* Create an element containing project options */
     function createProjectMenu(key) {
         let actions = [
-            ['View', brain.displayProjectTasks],
+            ['View', (projectID)=>{
+                brain.displayProjectTasks(projectID);
+                projectContainer.classList.add('hidden');
+            }],
             ['Edit', displayProjectFormEdit],
             ['Delete', deleteProject],
         ];
