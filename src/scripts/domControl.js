@@ -102,9 +102,6 @@ export default function () {
         if (!elem) { return; }
         popperOverlay.appendChild(elem);
 
-        var rect = elem.getBoundingClientRect();
-        console.log(rect);
-
         if (xCoord !== undefined) {
             elem.style.left = `${xCoord}px`;
             elem.style.top = `${yCoord}px`;
@@ -216,7 +213,7 @@ export default function () {
     /* Create an element containing project options */
     function createProjectMenu(key) {
         let actions = [
-            ['View', (projectID)=>{
+            ['View', (projectID) => {
                 brain.displayProjectTasks(projectID);
                 projectContainer.classList.add('hidden');
             }],
@@ -240,7 +237,7 @@ export default function () {
 
     function projectOptionButton(key) {
         let button = buildElement('div', '', 'options');
-        button.appendChild(buildElement('div', '','icon'));
+        button.appendChild(buildElement('div', '', 'icon'));
 
         button.addEventListener('click', (e) => {
             var rect = button.getBoundingClientRect();
@@ -352,9 +349,29 @@ export default function () {
 
     /**
      * Insert a task element into the task container
-     **/
+     * @param {*} taskNode 
+     */
     function insertTask(taskNode) {
         taskList.appendChild(taskNode);
+    }
+
+    /**
+     * Insert task as the list item on the taskList before the task creator button
+     * @param {*} task 
+     */
+    function insertLastTask(task) {
+        let createTaskButton = taskList.querySelectorAll('button.taskCreator');
+        let length = createTaskCreatorButton.length;
+
+        createTaskButton = createTaskButton[length];
+
+        if (!createTaskButton) {
+            insertTask(task);
+            insertTask(createTaskCreatorButton());
+            return;
+        }
+
+        taskList.insertBefore(task, createTaskButton);
     }
 
     /**
@@ -804,6 +821,7 @@ export default function () {
         clearTaskList,
         getCurrentProject,
         insertTask,
+        insertLastTask,
         insertProject,
         selectProject,
     }
