@@ -26,7 +26,6 @@ export default function () {
         mainContainer.appendChild(contentContainer);
 
         projectContainer = buildElement('div', '', 'projects');
-        projectContainer.classList.add('hidden');
         defaultButtons = createDefaultButtons();
         projectContainer.appendChild(defaultButtons);
         contentContainer.appendChild(projectContainer);
@@ -74,7 +73,12 @@ export default function () {
         let button = buildElement('button', '', 'mobileNavSwitch');
 
         button.addEventListener('click', () => {
-            projectContainer.classList.toggle('hidden');
+            if (popperOverlay.classList.contains('hidden')) {
+                openPopper(projectContainer, 0, 0);
+            }
+            else {
+                closePopper();
+            }
         })
 
         return button;
@@ -119,7 +123,7 @@ export default function () {
         let buttons = [
             ['All Tasks', () => {
                 brain.displayAllTasks();
-                projectContainer.classList.add('hidden');
+                closePopper();
                 currentProject = null;
             }],
             /* ['Today', () => {
@@ -176,7 +180,7 @@ export default function () {
             clearSelectedProject();
             currentProject = id;
             project.classList.add('selected');
-            projectContainer.classList.add('hidden');
+            closePopper();
             brain.displayProjectTasks(id);
         })
 
@@ -215,7 +219,7 @@ export default function () {
         let actions = [
             ['View', (projectID) => {
                 brain.displayProjectTasks(projectID);
-                projectContainer.classList.add('hidden');
+                closePopper();
             }],
             ['Edit', displayProjectFormEdit],
             ['Delete', deleteProject],

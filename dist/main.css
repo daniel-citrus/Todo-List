@@ -254,10 +254,12 @@ header .mobileNavSwitch {
   background: none;
 }
 .projects .options {
-  height: 100%;
-  width: 40px;
+  height: 50px;
+  width: 50px;
   border-radius: var(--border-radius);
-  padding: 12px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .projects .options:hover {
   background-color: var(--grey-1);
@@ -269,8 +271,8 @@ header .mobileNavSwitch {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  height: 100%;
-  width: auto;
+  height: 25px;
+  width: 40px;
 }
 .projects .project {
   display: flex;
@@ -278,7 +280,7 @@ header .mobileNavSwitch {
   justify-content: space-between;
   border-radius: var(--border-radius);
   align-items: center;
-  padding: 15px 10px;
+  padding: 10px;
 }
 .projects .selectable:hover {
   background: var(--grey-2);
@@ -288,6 +290,12 @@ header .mobileNavSwitch {
   background-color: var(--grey-3);
 }
 
+.tasks {
+  position: absolute;
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+}
 .tasks .task[data-completed=true] {
   background: rgba(0, 128, 0, 0.253);
 }
