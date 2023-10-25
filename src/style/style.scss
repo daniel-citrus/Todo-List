@@ -228,7 +228,7 @@ header {
 .projects {
     position: absolute;
     padding: 8px;
-    width: calc(100%);
+    width: calc(100% - 16px);
     height: calc(100% - 16px);
     z-index: 1;
     background: var(--grey-0);
@@ -347,10 +347,37 @@ Extra large screens, TV – 1201px, and more */
             display: none;
         }
     }
+
+    .main {
+        grid-template: 50px calc(100% - 50px)/auto;
+    }
+
+    .content {
+        display: grid;
+        grid-template: auto / minmax(100px, 1fr) 2fr;
+    }
+
+    .projects {
+        position: static;
+
+        &.hidden {
+            position: static;
+            transform: none;
+        }
+    }
+
+    .tasks {
+        position: static;
+    }
 }
 
 @media screen and (min-width: 1025px) {
     body {
         background: orange;
+    }
+
+    .content {
+        display: grid;
+        grid-template: auto/minmax(300px, 1fr) 5fr;
     }
 }
