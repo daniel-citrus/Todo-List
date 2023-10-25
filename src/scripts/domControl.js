@@ -28,7 +28,6 @@ export default function () {
         projectContainer = buildElement('div', '', 'projects');
         defaultButtons = createDefaultButtons();
         projectContainer.appendChild(defaultButtons);
-        contentContainer.appendChild(projectContainer);
 
         taskContainer = buildElement('div', '', 'tasks');
         taskList = buildElement('ul', '', 'taskList');
@@ -45,6 +44,19 @@ export default function () {
             closePopper();
         })
         contentContainer.appendChild(popperOverlay);
+
+        addEventListener('resize', (e)=> {
+            if (window.innerWidth >= 481) {
+                contentContainer.removeChild(projectContainer);
+                projectContainer.classList.remove('hidden');
+
+            }
+            else {
+                closePopper();
+                contentContainer.appendChild(projectContainer);
+                projectContainer.classList.add('hidden');
+            }
+        })
     })();
 
     function createHeader() {
@@ -104,6 +116,8 @@ export default function () {
      */
     function openPopper(elem, xCoord = undefined, yCoord = undefined) {
         if (!elem) { return; }
+
+        elem.classList.remove('hidden');
         popperOverlay.appendChild(elem);
 
         if (xCoord !== undefined) {

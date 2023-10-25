@@ -229,11 +229,11 @@ header .mobileNavSwitch {
   z-index: 1;
   background: var(--grey-0);
   overflow-y: auto;
-  transition: 0.2s ease-out;
-  transform: translateX(0%);
   display: flex;
   flex-flow: column nowrap;
   gap: 2px;
+  transition: 0.2s ease-out;
+  transform: translateX(0%);
 }
 .projects.hidden {
   transition: 0.2s ease-out;

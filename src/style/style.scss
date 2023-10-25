@@ -235,11 +235,11 @@ header {
     z-index: 1;
     background: var(--grey-0);
     overflow-y: auto;
-    transition: .2s ease-out;
-    transform: translateX(0%);
     display: flex;
     flex-flow: column nowrap;
     gap: 2px;
+    transition: .2s ease-out;
+    transform: translateX(0%);
 
     &.hidden {
         transition: .2s ease-out;
