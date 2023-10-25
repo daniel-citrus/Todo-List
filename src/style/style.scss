@@ -191,7 +191,7 @@ header {
 }
 
 .popperOverlay {
-    z-index: 999;
+    z-index: 100;
     position: absolute;
     top: 0;
     height: 100%;
@@ -218,8 +218,6 @@ header {
 
     .projectMenuButtons,
     .taskMenuButtons {
-        /* position: absolute; */
-        // remove for mobile view
         padding: 5px;
         background: green;
         display: flex;
@@ -230,7 +228,7 @@ header {
 .projects {
     position: absolute;
     padding: 8px;
-    width: calc(100% - 18px);
+    width: calc(100%);
     height: calc(100% - 16px);
     z-index: 1;
     background: var(--grey-0);
@@ -330,14 +328,24 @@ Extra large screens, TV – 1201px, and more */
         background: red;
     }
 
-    .projects {
-        max-width: 481px;
+    .popperOverlay {
+
+        .projectMenuButtons,
+        .taskMenuButtons {
+            position: absolute;
+        }
     }
 }
 
 @media screen and (min-width: 769px) {
     body {
         background: green;
+    }
+
+    header {
+        .mobileNavSwitch {
+            display: none;
+        }
     }
 }
 

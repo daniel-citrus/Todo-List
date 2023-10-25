@@ -142,9 +142,9 @@ let brain = (() => {
     function deleteTask(taskKey) {
         let projectKey = tasks.getProjectKey(taskKey);
 
-        if (projectKey === null) { console.log('asd1'); return false; }
-        if (!tasks.deleteTask(taskKey)) { console.log('asd2'); return false; }
-        if (!projects.deleteTask(projectKey, taskKey)) { console.log('asd3'); return false; }
+        if (projectKey === null) { return false; }
+        if (!tasks.deleteTask(taskKey)) { return false; }
+        if (!projects.deleteTask(projectKey, taskKey)) { return false; }
         saveData();
         return true;
     }
