@@ -256,8 +256,11 @@ header {
             appearance: none;
 
             border-radius: var(--border-radius);
-            padding: 15px 10px;
+
             background: none;
+            padding: 10px;
+            height: 50px;
+            box-sizing: content-box;
         }
     }
 
@@ -310,11 +313,26 @@ header {
     height: 100%;
     width: 100%;
 
+    .completeTask {
+        height: 50px;
+        width: 50px;
+    }
+
+    .options {
+        height: 50px;
+        width: 50px;
+    }
+
+    .task {
+        display: grid;
+        grid-template: auto / auto 1fr auto;
+        gap: 10px;
+        padding: 10px;
+    }
+
     .task[data-completed="true"] {
         background: rgba(0, 128, 0, 0.253);
     }
-
-    .taskList {}
 }
 
 /* 320px — 480px

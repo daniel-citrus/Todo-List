@@ -249,8 +249,10 @@ header .mobileNavSwitch {
   -moz-appearance: none;
   appearance: none;
   border-radius: var(--border-radius);
-  padding: 15px 10px;
   background: none;
+  padding: 10px;
+  height: 50px;
+  box-sizing: content-box;
 }
 .projects .options {
   height: 50px;
@@ -295,9 +297,24 @@ header .mobileNavSwitch {
   height: 100%;
   width: 100%;
 }
+.tasks .completeTask {
+  height: 50px;
+  width: 50px;
+}
+.tasks .options {
+  height: 50px;
+  width: 50px;
+}
+.tasks .task {
+  display: grid;
+  grid-template: auto/auto 1fr auto;
+  gap: 10px;
+  padding: 10px;
+}
 .tasks .task[data-completed=true] {
   background: rgba(0, 128, 0, 0.253);
 }
+
 /* 320px — 480px
 iPads, Tablets – 481px — 768px
 Small screens, laptops – 769px — 1024px
