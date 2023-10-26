@@ -316,6 +316,9 @@ Extra large screens, TV – 1201px, and more */
   body {
     background: green;
   }
+  header {
+    grid-template: auto/auto;
+  }
   header .mobileNavSwitch {
     display: none;
   }

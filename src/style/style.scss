@@ -343,6 +343,8 @@ Extra large screens, TV – 1201px, and more */
     }
 
     header {
+        grid-template: auto / auto;
+
         .mobileNavSwitch {
             display: none;
         }

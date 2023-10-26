@@ -91,22 +91,28 @@ export default function () {
     }
 
     /**
-     * Open the popper overlay and insert elem. Move elem to X/Y coordinates if provided
+     * Open the popper overlay and insert elem. Adjust element position using CSS attributes either left/top or right/bottom. 
      * @param {*} elem 
-     * @param {*} xCoord 
-     * @param {*} yCoord 
+     * @param {*} left 
+     * @param {*} top 
      * @returns 
      */
-    function openPopper(elem, xCoord = undefined, yCoord = undefined) {
+    function openPopper(elem, left = undefined, top = undefined, right = undefined, bottom = undefined) {
         popperOverlay.innerHTML = ``;
         if (!elem) { return; }
 
         elem.classList.remove('hidden');
         popperOverlay.appendChild(elem);
 
-        if (xCoord !== undefined) {
-            elem.style.left = `${xCoord}px`;
-            elem.style.top = `${yCoord}px`;
+        if (left !== undefined) {
+            console.log(`left: ${left}\ntop: ${top}`);
+            elem.style.left = `${left}px`;
+            elem.style.top = `${top - 100}px`;
+        }
+        else if (right !== undefined) {
+            console.log(`right: ${right}\nbottom: ${bottom}`);
+            elem.style.right = `${right}px`;
+            elem.style.bottom = `${bottom}px`;
         }
 
         popperOverlay.classList.remove('hidden');
@@ -220,10 +226,10 @@ export default function () {
                 projectContainer.classList.add('hidden');
                 closePopper();
             }],
-            ['Edit', (projectID)=> {
+            ['Edit', (projectID) => {
                 displayProjectFormEdit(projectID);
             }],
-            ['Delete', (projectID)=> {
+            ['Delete', (projectID) => {
                 closePopper();
                 deleteProject(projectID);
             }],
@@ -249,7 +255,7 @@ export default function () {
         button.addEventListener('click', (e) => {
             var rect = button.getBoundingClientRect();
             e.stopPropagation(); // prevent clicking project
-            openPopper(createProjectMenu(key), rect.left, rect.top + button.offsetHeight);
+            openPopper(createProjectMenu(key), rect.left, rect.top);
         })
 
         return button;
@@ -674,13 +680,13 @@ export default function () {
 
     /* Create a task option button. When clicked, a list of task actions will appear. */
     function createTaskOptionButton(taskKey) {
-        let button = buildElement('button', 'Task Button', 'options');
+        let button = buildElement('button', '', 'options');
 
         /* Insert task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', (e) => {
             var rect = button.getBoundingClientRect();
             e.stopPropagation(); // prevent clicking project 
-            openPopper(createTaskMenu(taskKey), rect.left, rect.top + button.offsetHeight);
+            openPopper(createTaskMenu(taskKey), rect.left, rect.top);
         })
 
         return button;
