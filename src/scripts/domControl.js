@@ -339,19 +339,21 @@ export default function () {
         task.dataset.priority = priority;
         task.dataset.completed = completed;
         task.dataset.projectKey = projectKey;
-
+        
         let completeTaskButton = buildElement('button', '', 'completeTask');
         completeTaskButton.addEventListener('click', (e) => {
             e.stopPropagation();
             toggleTaskComplete(id);
         });
-
         task.appendChild(completeTaskButton);
-        task.appendChild(buildElement('div', title, 'title'));
-        task.appendChild(buildElement('div', description, 'description'));
-        task.appendChild(buildElement('div', dueDate, 'dueDate'));
-        task.appendChild(createTaskOptionButton(id));
 
+        let taskInformation = buildElement('div', '', 'information');
+        taskInformation.appendChild(buildElement('div', title, 'title'));
+        taskInformation.appendChild(buildElement('div', description, 'description'));
+        taskInformation.appendChild(buildElement('div', dueDate, 'dueDate'));
+        task.appendChild(taskInformation);
+        
+        task.appendChild(createTaskOptionButton(id));
 
         task.addEventListener('click', () => {
             displayTaskDetails(id);
@@ -789,14 +791,6 @@ export default function () {
     function editTask(taskKey) {
         if (populateTaskDisplay(taskKey) === false) { return };
         openTaskDisplayEdit();
-    }
-
-    /* Opens menu that lists out project names that the task can be moved to */
-    function moveTask(taskKey) {
-        // brain stuff
-        // get all project names except taskKey's current project
-        // event listener on each object option
-        // move task to the project selected
     }
 
     /**
