@@ -151,7 +151,7 @@ button {
   border-radius: var(--border-radius);
   background: var(--grey-0);
   padding: 10px;
-  height: 50px;
+  /* height: 50px; */
   box-sizing: content-box;
 }
 
@@ -201,6 +201,9 @@ header .mobileNavSwitch {
   display: grid;
   grid-template: auto 1fr/auto;
 }
+.main button:hover {
+  background: var(--grey-2);
+}
 
 .popperOverlay {
   z-index: 100;
@@ -219,7 +222,8 @@ header .mobileNavSwitch {
 .popperOverlay .hidden {
   display: none;
 }
-.popperOverlay .projectDetails {
+.popperOverlay .projectDetails,
+.popperOverlay .taskDetails {
   background: var(--background);
   padding: 15px 10px;
   border-radius: var(--border-radius);
@@ -227,7 +231,7 @@ header .mobileNavSwitch {
 .popperOverlay .projectMenuButtons,
 .popperOverlay .taskMenuButtons {
   padding: 5px;
-  background: green;
+  background: var(--background);
   display: flex;
   flex-flow: column nowrap;
 }
@@ -242,9 +246,21 @@ header .mobileNavSwitch {
   overflow-y: auto;
   display: flex;
   flex-flow: column nowrap;
-  gap: 2px;
+  gap: 3px;
   transition: 0.2s ease-out;
   transform: translateX(0%);
+}
+.projects button:hover {
+  background: var(--grey-2);
+}
+.projects button:hover .options {
+  background: var(--grey-2);
+}
+.projects button:hover .options:hover {
+  background-color: var(--grey-1);
+}
+.projects .options {
+  background: var(--grey-0);
 }
 .projects.hidden {
   transition: 0.2s ease-out;
@@ -254,6 +270,7 @@ header .mobileNavSwitch {
 .projects .defaultButtons {
   display: flex;
   flex-flow: column nowrap;
+  gap: 3px;
 }
 .projects .options {
   height: auto;
@@ -292,15 +309,6 @@ header .mobileNavSwitch {
   height: 50px;
   box-sizing: content-box;
 }
-.project:hover {
-  background: var(--grey-2);
-}
-.project:hover .options {
-  background: var(--grey-2);
-}
-.project:hover .options:hover {
-  background-color: var(--grey-1);
-}
 
 .tasks {
   position: absolute;
@@ -317,10 +325,15 @@ header .mobileNavSwitch {
   display: grid;
   grid-template: auto/auto 1fr auto;
   gap: 10px;
-  padding: 10px;
 }
 .tasks .task[data-completed=true] {
   background: rgba(0, 128, 0, 0.253);
+}
+.tasks .taskList {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 10px;
+  padding: 10px;
 }
 
 /* 320px — 480px
