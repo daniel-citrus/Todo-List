@@ -151,7 +151,6 @@ button {
 
     background: var(--grey-0);
     padding: 10px;
-    /* height: 50px; */
     box-sizing: content-box;
 }
 
@@ -238,6 +237,7 @@ header {
 
     .projectMenuButtons,
     .taskMenuButtons {
+        position: fixed;
         padding: 5px;
         background: var(--background);
         display: flex;
@@ -374,7 +374,6 @@ Extra large screens, TV – 1201px, and more */
 
         .projectMenuButtons,
         .taskMenuButtons {
-            position: absolute;
         }
     }
 }

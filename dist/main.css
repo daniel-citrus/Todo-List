@@ -151,7 +151,6 @@ button {
   border-radius: var(--border-radius);
   background: var(--grey-0);
   padding: 10px;
-  /* height: 50px; */
   box-sizing: content-box;
 }
 
@@ -230,6 +229,7 @@ header .mobileNavSwitch {
 }
 .popperOverlay .projectMenuButtons,
 .popperOverlay .taskMenuButtons {
+  position: fixed;
   padding: 5px;
   background: var(--background);
   display: flex;
@@ -344,10 +344,6 @@ Extra large screens, TV – 1201px, and more */
 @media screen and (min-width: 481px) {
   body {
     background: red;
-  }
-  .popperOverlay .projectMenuButtons,
-  .popperOverlay .taskMenuButtons {
-    position: absolute;
   }
 }
 @media screen and (min-width: 769px) {

@@ -104,15 +104,15 @@ export default function () {
         elem.classList.remove('hidden');
         popperOverlay.appendChild(elem);
 
-        if (left !== undefined) {
+        if (left) {
             console.log(`left: ${left}\ntop: ${top}`);
             elem.style.left = `${left}px`;
-            elem.style.top = `${top - 100}px`;
+            elem.style.top = `${top}px`;
         }
-        else if (right !== undefined) {
+        else if (right) {
             console.log(`right: ${right}\nbottom: ${bottom}`);
-            elem.style.right = `${right}px`;
-            elem.style.bottom = `${bottom}px`;
+            elem.style.right = `${window.innerWidth - right}px`;
+            elem.style.top = `${bottom}px`;
         }
 
         popperOverlay.classList.remove('hidden');
@@ -255,7 +255,8 @@ export default function () {
         button.addEventListener('click', (e) => {
             var rect = button.getBoundingClientRect();
             e.stopPropagation(); // prevent clicking project
-            openPopper(createProjectMenu(key), rect.left, rect.top);
+            console.log(rect.top)
+            openPopper(createProjectMenu(key), '', '', rect.right, rect.bottom /* rect.left, rect.top */);
         })
 
         return button;
@@ -316,7 +317,6 @@ export default function () {
         taskList.innerHTML = ``;
     }
 
-
     /**
      * Creates a task DOM element that has a custom data set called data-id. The element contains the task name, completion checkbox, and options button.
      * @param {*} id task ID
@@ -339,7 +339,7 @@ export default function () {
         task.dataset.priority = priority;
         task.dataset.completed = completed;
         task.dataset.projectKey = projectKey;
-        
+
         let completeTaskButton = buildElement('button', '', 'completeTask');
         completeTaskButton.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -352,7 +352,7 @@ export default function () {
         taskInformation.appendChild(buildElement('div', description, 'description'));
         taskInformation.appendChild(buildElement('div', dueDate, 'dueDate'));
         task.appendChild(taskInformation);
-        
+
         task.appendChild(createTaskOptionButton(id));
 
         task.addEventListener('click', () => {
@@ -688,7 +688,7 @@ export default function () {
         button.addEventListener('click', (e) => {
             var rect = button.getBoundingClientRect();
             e.stopPropagation(); // prevent clicking project 
-            openPopper(createTaskMenu(taskKey), rect.left, rect.top);
+            openPopper(createTaskMenu(taskKey), '', '', rect.right, rect.bottom);
         })
 
         return button;
