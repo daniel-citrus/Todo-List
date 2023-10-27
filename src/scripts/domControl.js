@@ -1,4 +1,5 @@
 import { brain } from './barrel';
+let moment = require('moment');
 
 export default function () {
     let mainContainer,
@@ -350,7 +351,7 @@ export default function () {
         let taskInformation = buildElement('div', '', 'information');
         taskInformation.appendChild(buildElement('div', title, 'title'));
         taskInformation.appendChild(buildElement('div', description, 'description'));
-        taskInformation.appendChild(buildElement('div', dueDate, 'dueDate'));
+        taskInformation.appendChild(buildElement('div', formatDate(dueDate), 'dueDate'));
         task.appendChild(taskInformation);
 
         task.appendChild(createTaskOptionButton(id));
@@ -360,6 +361,27 @@ export default function () {
         })
 
         return task;
+    }
+
+    /**
+     * Format date, exclude year if the same as current year
+     * @param {*} date 
+     * @returns formatted date 'MMMM DD, YYYY'
+     */
+    function formatDate(date) {
+        let currentDate = new Date();
+        date = new Date(date);
+
+        let format;
+
+        if (date.getFullYear() == currentDate.getFullYear()) {
+            format = 'MMMM DD';
+        }
+        else {
+            format = 'MMMM DD, YYYY';
+        }
+
+        return moment(new Date(date)).format(format);
     }
 
     /**
@@ -656,7 +678,7 @@ export default function () {
         taskElem.dataset.completed = completed;
         taskElem.querySelector('.title').textContent = title;
         taskElem.querySelector('.description').textContent = description;
-        taskElem.querySelector('.dueDate').textContent = dueDate;
+        taskElem.querySelector('.dueDate').textContent = formatDate(dueDate);
     }
 
     /**
