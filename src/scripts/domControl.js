@@ -174,7 +174,7 @@ export default function () {
      * @returns project DOM element
      **/
     function createProjectElement(id, name) {
-        let project = buildElement('div', '', 'project', 'selectable');
+        let project = buildElement('button', '', 'project', 'selectable');
         project.dataset.id = id;
 
         let projectName = buildElement('div', name, 'name');
@@ -249,7 +249,7 @@ export default function () {
     }
 
     function projectOptionButton(key) {
-        let button = buildElement('div', '', 'options');
+        let button = buildElement('button', '', 'options');
         button.appendChild(buildElement('div', '', 'icon'));
 
         button.addEventListener('click', (e) => {

@@ -143,6 +143,18 @@ table {
   border-spacing: 0;
 }
 
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-align: start;
+  border-radius: var(--border-radius);
+  background: var(--grey-0);
+  padding: 10px;
+  height: 50px;
+  box-sizing: content-box;
+}
+
 /* End CSS Reset */
 :root {
   --background: white;
@@ -243,27 +255,13 @@ header .mobileNavSwitch {
   display: flex;
   flex-flow: column nowrap;
 }
-.projects .defaultButtons > * {
-  text-align: start;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border-radius: var(--border-radius);
-  background: none;
-  padding: 10px;
-  height: 50px;
-  box-sizing: content-box;
-}
 .projects .options {
-  height: 50px;
-  width: 50px;
+  height: auto;
+  width: auto;
   border-radius: var(--border-radius);
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.projects .options:hover {
-  background-color: var(--grey-1);
 }
 .projects .options .icon {
   border-radius: var(--border-radius);
@@ -275,20 +273,33 @@ header .mobileNavSwitch {
   height: 25px;
   width: 40px;
 }
-.projects .project {
+.projects .selected,
+.projects .selected:hover {
+  background-color: var(--grey-3);
+}
+.projects .selected .options,
+.projects .selected:hover .options {
+  background-color: var(--grey-3);
+}
+
+.project {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   border-radius: var(--border-radius);
   align-items: center;
   padding: 10px;
+  height: 50px;
+  box-sizing: content-box;
 }
-.projects .selectable:hover {
+.project:hover {
   background: var(--grey-2);
 }
-.projects .selected,
-.projects .selected:hover {
-  background-color: var(--grey-3);
+.project:hover .options {
+  background: var(--grey-2);
+}
+.project:hover .options:hover {
+  background-color: var(--grey-1);
 }
 
 .tasks {
@@ -297,10 +308,7 @@ header .mobileNavSwitch {
   height: 100%;
   width: 100%;
 }
-.tasks .completeTask {
-  height: 50px;
-  width: 50px;
-}
+.tasks .completeTask,
 .tasks .options {
   height: 50px;
   width: 50px;

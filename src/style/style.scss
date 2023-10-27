@@ -140,6 +140,21 @@ table {
     border-spacing: 0;
 }
 
+button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    text-align: start;
+
+    border-radius: var(--border-radius);
+
+    background: var(--grey-0);
+    padding: 10px;
+    height: 50px;
+    box-sizing: content-box;
+}
+
 /* End CSS Reset */
 
 :root {
@@ -248,33 +263,15 @@ header {
     .defaultButtons {
         display: flex;
         flex-flow: column nowrap;
-
-        &>* {
-            text-align: start;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-
-            border-radius: var(--border-radius);
-
-            background: none;
-            padding: 10px;
-            height: 50px;
-            box-sizing: content-box;
-        }
     }
 
     .options {
-        height: 50px;
-        width: 50px;
+        height: auto;
+        width: auto;
         border-radius: var(--border-radius);
         display: flex;
         justify-content: center;
         align-items: center;
-
-        &:hover {
-            background-color: var(--grey-1);
-        }
 
         .icon {
             border-radius: var(--border-radius);
@@ -288,22 +285,36 @@ header {
         }
     }
 
-    .project {
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: space-between;
-        border-radius: var(--border-radius);
-        align-items: center;
-        padding: 10px;
-    }
-
-    .selectable:hover {
-        background: var(--grey-2);
-    }
-
     .selected,
     .selected:hover {
         background-color: var(--grey-3);
+        
+        .options {
+            background-color: var(--grey-3);
+        }
+    }
+}
+
+.project {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    border-radius: var(--border-radius);
+    align-items: center;
+    padding: 10px;
+    height: 50px;
+    box-sizing: content-box;
+
+    &:hover {
+        background: var(--grey-2);
+
+        .options {
+            background: var(--grey-2);
+        }
+
+        .options:hover {
+            background-color: var(--grey-1);
+        }
     }
 }
 
@@ -313,11 +324,7 @@ header {
     height: 100%;
     width: 100%;
 
-    .completeTask {
-        height: 50px;
-        width: 50px;
-    }
-
+    .completeTask,
     .options {
         height: 50px;
         width: 50px;
