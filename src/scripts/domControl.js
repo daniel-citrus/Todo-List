@@ -251,12 +251,11 @@ export default function () {
 
     function projectOptionButton(key) {
         let button = buildElement('button', '', 'options');
-        button.appendChild(buildElement('div', '', 'icon'));
+        button.appendChild(buildElement('span', '', 'icon', 'threedots'));
 
         button.addEventListener('click', (e) => {
             var rect = button.getBoundingClientRect();
             e.stopPropagation(); // prevent clicking project
-            console.log(rect.top)
             openPopper(createProjectMenu(key), '', '', rect.right, rect.bottom /* rect.left, rect.top */);
         })
 
@@ -705,11 +704,12 @@ export default function () {
     /* Create a task option button. When clicked, a list of task actions will appear. */
     function createTaskOptionButton(taskKey) {
         let button = buildElement('button', '', 'options');
+        button.appendChild(buildElement('span', '', 'icon', 'threedots'));
 
         /* Insert task menu as a child of the task option button and then toggles its visibility */
         button.addEventListener('click', (e) => {
             var rect = button.getBoundingClientRect();
-            e.stopPropagation(); // prevent clicking project 
+            e.stopPropagation(); // prevent clicking task 
             openPopper(createTaskMenu(taskKey), '', '', rect.right, rect.bottom);
         })
 
@@ -813,19 +813,6 @@ export default function () {
     function editTask(taskKey) {
         if (populateTaskDisplay(taskKey) === false) { return };
         openTaskDisplayEdit();
-    }
-
-    /**
-     * Generates a menu that lists all avaialble projects that the task can be moved to.
-    */
-    function createMoveTaskMenu(taskKey) {
-        let menu = buildElement('div', '', 'moveTaskMenu');
-
-        menu.appendChild(buildElement('button', 'Move to Project', 'moveTask'));
-
-        let options;
-
-        return menu;
     }
 
     function deleteTask(taskID) {

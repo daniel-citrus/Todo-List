@@ -151,7 +151,6 @@ button {
   border-radius: var(--border-radius);
   background: var(--grey-0);
   padding: 10px;
-  box-sizing: content-box;
 }
 
 /* End CSS Reset */
@@ -272,24 +271,6 @@ header .mobileNavSwitch {
   flex-flow: column nowrap;
   gap: 3px;
 }
-.projects .options {
-  height: auto;
-  width: auto;
-  border-radius: var(--border-radius);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.projects .options .icon {
-  border-radius: var(--border-radius);
-  background-image: url(c71a13054419fdc62d0b.png);
-  background-origin: content-box;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 25px;
-  width: 40px;
-}
 .projects .selected,
 .projects .selected:hover {
   background-color: var(--grey-3);
@@ -310,14 +291,58 @@ header .mobileNavSwitch {
   box-sizing: content-box;
 }
 
+.project .options,
+.task .options {
+  border-radius: var(--border-radius);
+  height: 50px;
+  width: 50px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.project .options .threedots,
+.task .options .threedots {
+  position: absolute;
+  border-radius: 100%;
+  border: 2.5px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.project .options .threedots::before, .project .options .threedots::after,
+.task .options .threedots::before,
+.task .options .threedots::after {
+  content: "";
+  border-radius: 100%;
+  position: absolute;
+  border: 2.5px solid black;
+}
+.project .options .threedots::before,
+.task .options .threedots::before {
+  right: 5.5px;
+}
+.project .options .threedots::after,
+.task .options .threedots::after {
+  left: 5.5px;
+}
+.project:hover .threedots,
+.task:hover .threedots {
+  border-color: black;
+}
+.project:hover .threedots::before, .project:hover .threedots::after,
+.task:hover .threedots::before,
+.task:hover .threedots::after {
+  border-color: black;
+}
+
 .tasks {
   position: absolute;
   overflow-y: auto;
   height: 100%;
   width: 100%;
 }
-.tasks .completeTask,
-.tasks .options {
+.tasks .completeTask {
   height: 50px;
   width: 50px;
 }

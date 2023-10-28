@@ -146,12 +146,10 @@ button {
     appearance: none;
 
     text-align: start;
-
     border-radius: var(--border-radius);
 
     background: var(--grey-0);
     padding: 10px;
-    box-sizing: content-box;
 }
 
 /* End CSS Reset */
@@ -288,26 +286,6 @@ header {
         gap: 3px;
     }
 
-    .options {
-        height: auto;
-        width: auto;
-        border-radius: var(--border-radius);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .icon {
-            border-radius: var(--border-radius);
-            background-image: url('../style/media/threedots(64x64).png');
-            background-origin: content-box;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: contain;
-            height: 25px;
-            width: 40px;
-        }
-    }
-
     .selected,
     .selected:hover {
         background-color: var(--grey-3);
@@ -329,14 +307,62 @@ header {
     box-sizing: content-box;
 }
 
+.project,
+.task {
+    .options {
+        border-radius: var(--border-radius);
+        height: 50px;
+        width: 50px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .threedots {
+            position: absolute;
+            border-radius: 100%;
+            border: 2.5px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            &::before,
+            &::after {
+                content: '';
+                border-radius: 100%;
+                position: absolute;
+                border: 2.5px solid black;
+            }
+
+            &::before {
+                right: 5.5px;
+            }
+            
+            &::after {
+                left: 5.5px;
+            }
+        }
+    }
+
+    &:hover {
+        .threedots {
+            border-color: black;
+
+            &::before,
+            &::after {
+                border-color: black;
+            }
+        }
+    }
+}
+
 .tasks {
     position: absolute;
     overflow-y: auto;
     height: 100%;
     width: 100%;
 
-    .completeTask,
-    .options {
+    .completeTask {
         height: 50px;
         width: 50px;
     }
@@ -373,8 +399,7 @@ Extra large screens, TV – 1201px, and more */
     .popperOverlay {
 
         .projectMenuButtons,
-        .taskMenuButtons {
-        }
+        .taskMenuButtons {}
     }
 }
 
