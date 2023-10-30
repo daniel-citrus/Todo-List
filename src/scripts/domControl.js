@@ -470,13 +470,17 @@ export default function () {
             if (!createTask()) {
                 return;
             }
+            
+            closePopper();
         })
         buttons.appendChild(createButton);
 
         let editButton = buildElement('button', 'Edit', 'edit');
         editButton.type = 'button';
         editButton.title = "Edit";
-        editButton.addEventListener('click', () => { editTask(+taskDisplay.dataset.taskId); })
+        editButton.addEventListener('click', () => {
+            editTask(+taskDisplay.dataset.taskId);
+        })
         buttons.appendChild(editButton);
 
         let submitEditButton = buildElement('button', 'Submit', 'submit', 'hidden');

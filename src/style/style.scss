@@ -150,6 +150,7 @@ button {
 
     background: var(--grey-0);
     padding: 10px;
+    cursor: pointer;
 }
 
 /* End CSS Reset */
@@ -157,10 +158,14 @@ button {
 :root {
     --background: white;
     --grey-0: #fafafa;
-    --grey-1: #e7e7e7;
-    --grey-2: #dddddd;
-    --grey-3: #cfcfcf;
-    --grey-4: #c2c2c2;
+    --grey-1: #eeeeee;
+    --grey-2: #e2e2e2;
+    --grey-3: #d4d4d4;
+    --grey-4: #c9c9c9;
+    --grey-5: #b6b6b6;
+    --grey-6: #a3a3a3;
+    --grey-7: #929292;
+    --grey-8: #797979;
     --border: 1px solid var(--grey-0);
     --border-radius: 5px;
     --primary-color: #3289ef;
@@ -168,12 +173,13 @@ button {
 
 body {
     overflow: hidden;
+    background-color: red;
     font-size: 1.4rem;
 }
 
 header {
     display: grid;
-    grid-template: auto /auto 1fr;
+    grid-template: auto / auto 1fr;
     justify-items: center;
     align-items: center;
     padding: 8px;
@@ -202,7 +208,7 @@ header {
     grid-template: auto 1fr/auto;
 
     button:hover {
-        background: var(--grey-2);
+        background: var(--grey-1);
     }
 }
 
@@ -249,7 +255,6 @@ header {
     width: calc(100% - 16px);
     height: calc(100% - 16px);
     z-index: 1;
-    background: var(--grey-0);
     overflow-y: auto;
     display: flex;
     flex-flow: column nowrap;
@@ -257,22 +262,32 @@ header {
     transition: .2s ease-out;
     transform: translateX(0%);
 
-    button:hover {
-        background: var(--grey-2);
-
-        .options {
+    .project {
+        &:hover {
             background: var(--grey-2);
+
+            button.options {
+                background: var(--grey-2);
+            }
+
+            button.options:hover {
+                background-color: var(--grey-1);
+            }
         }
 
-        .options:hover {
-            background-color: var(--grey-1);
+        &.selected,
+        &.selected:hover {
+            background-color: var(--grey-3);
+
+            .options {
+                background-color: var(--grey-3);
+            }
+
+            .options:hover {
+                background: var(--grey-2);
+            }
         }
     }
-
-    .options {
-        background: var(--grey-0);
-    }
-
 
     &.hidden {
         transition: .2s ease-out;
@@ -284,15 +299,6 @@ header {
         display: flex;
         flex-flow: column nowrap;
         gap: 3px;
-    }
-
-    .selected,
-    .selected:hover {
-        background-color: var(--grey-3);
-
-        .options {
-            background-color: var(--grey-3);
-        }
     }
 }
 
@@ -307,8 +313,30 @@ header {
     box-sizing: content-box;
 }
 
+.projects,
+.tasks {
+    background: var(--grey-0);
+
+    .options {
+        background: var(--grey-0);
+    }
+}
+
 .project,
 .task {
+
+    &:hover {
+
+        .threedots {
+            border-color: black;
+
+            &::after,
+            &::before {
+                border-color: black;
+            }
+        }
+    }
+
     .options {
         border-radius: var(--border-radius);
         height: 50px;
@@ -317,40 +345,24 @@ header {
         display: flex;
         justify-content: center;
         align-items: center;
-
-        .threedots {
-            position: absolute;
-            border-radius: 100%;
-            border: 2.5px solid black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            
-            &::before,
-            &::after {
-                content: '';
-                border-radius: 100%;
-                position: absolute;
-                border: 2.5px solid black;
-            }
-
-            &::before {
-                right: 5.5px;
-            }
-            
-            &::after {
-                left: 5.5px;
-            }
-        }
     }
+}
+
+.task {
+    display: grid;
+    grid-template: auto / auto 1fr auto;
+    gap: 10px;
+    border-radius: var(--border-radius);
 
     &:hover {
-        .threedots {
-            border-color: black;
+        background: var(--grey-2);
 
-            &::before,
-            &::after {
-                border-color: black;
+        .completeTask,
+        .options {
+            background: var(--grey-2);
+
+            &:hover {
+                background: var(--grey-1);
             }
         }
     }
@@ -367,14 +379,12 @@ header {
         width: 50px;
     }
 
-    .task {
-        display: grid;
-        grid-template: auto / auto 1fr auto;
-        gap: 10px;
-    }
-
     .task[data-completed="true"] {
-        background: rgba(0, 128, 0, 0.253);
+
+        .completeTask,
+        .completeTask:hover {
+            background: rgba(0, 128, 0, 0.253);
+        }
     }
 
     .taskList {
@@ -385,6 +395,31 @@ header {
     }
 }
 
+.threedots {
+    position: absolute;
+    border-radius: 100%;
+    border: 2.5px solid var(--grey-6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &::before,
+    &::after {
+        content: '';
+        border: 2.5px solid var(--grey-6);
+        border-radius: 100%;
+        position: absolute;
+    }
+
+    &::before {
+        right: 5px;
+    }
+
+    &::after {
+        left: 5px;
+    }
+}
+
 /* 320px — 480px
 iPads, Tablets – 481px — 768px
 Small screens, laptops – 769px — 1024px
@@ -392,7 +427,7 @@ Desktops, large screens – 1025px — 1200px
 Extra large screens, TV – 1201px, and more */
 
 @media screen and (min-width: 481px) {
-    body {
+    .tasks {
         background: red;
     }
 
@@ -404,7 +439,7 @@ Extra large screens, TV – 1201px, and more */
 }
 
 @media screen and (min-width: 769px) {
-    body {
+    .tasks {
         background: green;
     }
 
@@ -440,7 +475,7 @@ Extra large screens, TV – 1201px, and more */
 }
 
 @media screen and (min-width: 1025px) {
-    body {
+    .tasks {
         background: orange;
     }
 

@@ -151,16 +151,21 @@ button {
   border-radius: var(--border-radius);
   background: var(--grey-0);
   padding: 10px;
+  cursor: pointer;
 }
 
 /* End CSS Reset */
 :root {
   --background: white;
   --grey-0: #fafafa;
-  --grey-1: #e7e7e7;
-  --grey-2: #dddddd;
-  --grey-3: #cfcfcf;
-  --grey-4: #c2c2c2;
+  --grey-1: #eeeeee;
+  --grey-2: #e2e2e2;
+  --grey-3: #d4d4d4;
+  --grey-4: #c9c9c9;
+  --grey-5: #b6b6b6;
+  --grey-6: #a3a3a3;
+  --grey-7: #929292;
+  --grey-8: #797979;
   --border: 1px solid var(--grey-0);
   --border-radius: 5px;
   --primary-color: #3289ef;
@@ -168,6 +173,7 @@ button {
 
 body {
   overflow: hidden;
+  background-color: red;
   font-size: 1.4rem;
 }
 
@@ -200,7 +206,7 @@ header .mobileNavSwitch {
   grid-template: auto 1fr/auto;
 }
 .main button:hover {
-  background: var(--grey-2);
+  background: var(--grey-1);
 }
 
 .popperOverlay {
@@ -241,7 +247,6 @@ header .mobileNavSwitch {
   width: calc(100% - 16px);
   height: calc(100% - 16px);
   z-index: 1;
-  background: var(--grey-0);
   overflow-y: auto;
   display: flex;
   flex-flow: column nowrap;
@@ -249,17 +254,23 @@ header .mobileNavSwitch {
   transition: 0.2s ease-out;
   transform: translateX(0%);
 }
-.projects button:hover {
+.projects .project:hover {
   background: var(--grey-2);
 }
-.projects button:hover .options {
+.projects .project:hover button.options {
   background: var(--grey-2);
 }
-.projects button:hover .options:hover {
+.projects .project:hover button.options:hover {
   background-color: var(--grey-1);
 }
-.projects .options {
-  background: var(--grey-0);
+.projects .project.selected, .projects .project.selected:hover {
+  background-color: var(--grey-3);
+}
+.projects .project.selected .options, .projects .project.selected:hover .options {
+  background-color: var(--grey-3);
+}
+.projects .project.selected .options:hover, .projects .project.selected:hover .options:hover {
+  background: var(--grey-2);
 }
 .projects.hidden {
   transition: 0.2s ease-out;
@@ -270,14 +281,6 @@ header .mobileNavSwitch {
   display: flex;
   flex-flow: column nowrap;
   gap: 3px;
-}
-.projects .selected,
-.projects .selected:hover {
-  background-color: var(--grey-3);
-}
-.projects .selected .options,
-.projects .selected:hover .options {
-  background-color: var(--grey-3);
 }
 
 .project {
@@ -291,6 +294,24 @@ header .mobileNavSwitch {
   box-sizing: content-box;
 }
 
+.projects,
+.tasks {
+  background: var(--grey-0);
+}
+.projects .options,
+.tasks .options {
+  background: var(--grey-0);
+}
+
+.project:hover .threedots,
+.task:hover .threedots {
+  border-color: black;
+}
+.project:hover .threedots::after, .project:hover .threedots::before,
+.task:hover .threedots::after,
+.task:hover .threedots::before {
+  border-color: black;
+}
 .project .options,
 .task .options {
   border-radius: var(--border-radius);
@@ -301,39 +322,23 @@ header .mobileNavSwitch {
   justify-content: center;
   align-items: center;
 }
-.project .options .threedots,
-.task .options .threedots {
-  position: absolute;
-  border-radius: 100%;
-  border: 2.5px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.task {
+  display: grid;
+  grid-template: auto/auto 1fr auto;
+  gap: 10px;
+  border-radius: var(--border-radius);
 }
-.project .options .threedots::before, .project .options .threedots::after,
-.task .options .threedots::before,
-.task .options .threedots::after {
-  content: "";
-  border-radius: 100%;
-  position: absolute;
-  border: 2.5px solid black;
+.task:hover {
+  background: var(--grey-2);
 }
-.project .options .threedots::before,
-.task .options .threedots::before {
-  right: 5.5px;
+.task:hover .completeTask,
+.task:hover .options {
+  background: var(--grey-2);
 }
-.project .options .threedots::after,
-.task .options .threedots::after {
-  left: 5.5px;
-}
-.project:hover .threedots,
-.task:hover .threedots {
-  border-color: black;
-}
-.project:hover .threedots::before, .project:hover .threedots::after,
-.task:hover .threedots::before,
-.task:hover .threedots::after {
-  border-color: black;
+.task:hover .completeTask:hover,
+.task:hover .options:hover {
+  background: var(--grey-1);
 }
 
 .tasks {
@@ -346,12 +351,8 @@ header .mobileNavSwitch {
   height: 50px;
   width: 50px;
 }
-.tasks .task {
-  display: grid;
-  grid-template: auto/auto 1fr auto;
-  gap: 10px;
-}
-.tasks .task[data-completed=true] {
+.tasks .task[data-completed=true] .completeTask,
+.tasks .task[data-completed=true] .completeTask:hover {
   background: rgba(0, 128, 0, 0.253);
 }
 .tasks .taskList {
@@ -361,18 +362,39 @@ header .mobileNavSwitch {
   padding: 10px;
 }
 
+.threedots {
+  position: absolute;
+  border-radius: 100%;
+  border: 2.5px solid var(--grey-6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.threedots::before, .threedots::after {
+  content: "";
+  border: 2.5px solid var(--grey-6);
+  border-radius: 100%;
+  position: absolute;
+}
+.threedots::before {
+  right: 5px;
+}
+.threedots::after {
+  left: 5px;
+}
+
 /* 320px — 480px
 iPads, Tablets – 481px — 768px
 Small screens, laptops – 769px — 1024px
 Desktops, large screens – 1025px — 1200px
 Extra large screens, TV – 1201px, and more */
 @media screen and (min-width: 481px) {
-  body {
+  .tasks {
     background: red;
   }
 }
 @media screen and (min-width: 769px) {
-  body {
+  .tasks {
     background: green;
   }
   header {
@@ -400,7 +422,7 @@ Extra large screens, TV – 1201px, and more */
   }
 }
 @media screen and (min-width: 1025px) {
-  body {
+  .tasks {
     background: orange;
   }
   .content {
