@@ -53,7 +53,7 @@ export default function () {
 
         header.appendChild(createMobileNavSwitch());
 
-        let logo = buildElement('div', 'TD', 'logo');
+        let logo = buildElement('div', 'Todo List', 'logo');
         header.appendChild(logo);
 
         return header;
@@ -72,6 +72,8 @@ export default function () {
 
     function createMobileNavSwitch() {
         let button = buildElement('button', '', 'mobileNavSwitch');
+
+        button.appendChild(buildElement('div', '', 'navSwitchIcon'));
 
         button.addEventListener('click', () => {
             projectContainer.classList.toggle('hidden')
@@ -470,7 +472,7 @@ export default function () {
             if (!createTask()) {
                 return;
             }
-            
+
             closePopper();
         })
         buttons.appendChild(createButton);

@@ -199,6 +199,32 @@ header .mobileNavSwitch {
   justify-self: start;
   height: 40px;
   width: 40px;
+  padding: 10px 9px;
+}
+header .navSwitchIcon {
+  --line-height: 3px;
+  --line-width: 100%;
+  --line-background: black;
+  --line-border-radius: 1px;
+  position: relative;
+  height: var(--line-height);
+  width: var(--line-width);
+  background: var(--line-background);
+  border-radius: var(--line-border-radius);
+}
+header .navSwitchIcon::before, header .navSwitchIcon::after {
+  content: "";
+  position: absolute;
+  height: var(--line-height);
+  width: var(--line-width);
+  background: var(--line-background);
+  border-radius: var(--line-border-radius);
+}
+header .navSwitchIcon::before {
+  top: -6px;
+}
+header .navSwitchIcon::after {
+  top: 6px;
 }
 
 .content {
@@ -281,13 +307,13 @@ header .mobileNavSwitch {
   height: 50px;
   box-sizing: content-box;
 }
-.projects .project.selected, .projects .project.selected:hover {
+.projects button.selected, .projects button.selected:hover {
   background-color: var(--grey-3);
 }
-.projects .project.selected .options, .projects .project.selected:hover .options {
+.projects button.selected button.options, .projects button.selected:hover button.options {
   background-color: var(--grey-3);
 }
-.projects .project.selected .options:hover, .projects .project.selected:hover .options:hover {
+.projects button.selected button.options:hover, .projects button.selected:hover button.options:hover {
   background: var(--grey-2);
 }
 .projects .project:hover {

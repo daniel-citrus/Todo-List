@@ -201,6 +201,38 @@ header {
         justify-self: start;
         height: 40px;
         width: 40px;
+        padding: 10px 9px;
+    }
+
+    .navSwitchIcon {
+        --line-height: 3px;
+        --line-width: 100%;
+        --line-background: black;
+        --line-border-radius: 1px;
+
+        position: relative;
+        height: var(--line-height);
+        width: var(--line-width);
+        background: var(--line-background);
+        border-radius: var(--line-border-radius);
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            height: var(--line-height);
+            width: var(--line-width);
+            background: var(--line-background);
+            border-radius: var(--line-border-radius);
+        }
+
+        &::before {
+            top: -6px;
+        }
+
+        &::after {
+            top: 6px;
+        }
     }
 }
 
@@ -294,21 +326,23 @@ header {
         }
     }
 
-    .project {
+    button {
 
         &.selected,
         &.selected:hover {
             background-color: var(--grey-3);
 
-            .options {
+            button.options {
                 background-color: var(--grey-3);
             }
 
-            .options:hover {
+            button.options:hover {
                 background: var(--grey-2);
             }
         }
+    }
 
+    .project {
         &:hover {
             background: var(--grey-2);
 
