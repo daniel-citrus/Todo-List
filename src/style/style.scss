@@ -171,10 +171,16 @@ button {
     --primary-color: #3289ef;
 }
 
+@font-face {
+    font-family: poppins_regular;
+    src: url(../style/fonts/Poppins/Poppins-Regular.ttf);
+}
+
 body {
     overflow: hidden;
     background-color: red;
     font-size: 1.4rem;
+    font-family: poppins_regular, Verdana, sans-serif;
 }
 
 header {
@@ -208,7 +214,8 @@ header {
     grid-template: auto 1fr/auto;
 
     button:hover {
-        background: var(--grey-1);
+        background: var(--grey-2);
+        transition: all 0.5s ease-out;
     }
 }
 
@@ -251,7 +258,7 @@ header {
 
 .projects {
     position: absolute;
-    padding: 8px;
+    padding: 10px;
     width: calc(100% - 16px);
     height: calc(100% - 16px);
     z-index: 1;
@@ -262,18 +269,32 @@ header {
     transition: .2s ease-out;
     transform: translateX(0%);
 
-    .project {
-        &:hover {
-            background: var(--grey-2);
+    &>button {
+        padding: 10px;
+        height: 50px;
+        box-sizing: content-box;
+    }
 
-            button.options {
-                background: var(--grey-2);
-            }
+    &.hidden {
+        transition: .2s ease-out;
+        transform: translateX(-100%);
+        position: fixed;
+    }
 
-            button.options:hover {
-                background-color: var(--grey-1);
-            }
+    .defaultButtons {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 3px;
+        transition: all 0.5s ease-out;
+
+        button {
+            padding: 10px;
+            height: 50px;
+            box-sizing: content-box;
         }
+    }
+
+    .project {
 
         &.selected,
         &.selected:hover {
@@ -287,18 +308,24 @@ header {
                 background: var(--grey-2);
             }
         }
+
+        &:hover {
+            background: var(--grey-2);
+
+            button.options {
+                background: var(--grey-2);
+            }
+
+            button.options:hover {
+                background-color: var(--grey-1);
+            }
+        }
+
     }
 
-    &.hidden {
-        transition: .2s ease-out;
-        transform: translateX(-100%);
-        position: fixed;
-    }
-
-    .defaultButtons {
-        display: flex;
-        flex-flow: column nowrap;
-        gap: 3px;
+    &>button,
+    .defaultButtons button {
+        font-size: 1.2rem;
     }
 }
 
@@ -308,30 +335,34 @@ header {
     justify-content: space-between;
     border-radius: var(--border-radius);
     align-items: center;
-    padding: 10px;
-    height: 50px;
-    box-sizing: content-box;
 }
 
 .projects,
 .tasks {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
     background: var(--grey-0);
 
     .options {
+        transition: all 0.5s ease-out;
         background: var(--grey-0);
     }
 }
 
 .project,
 .task {
+    user-select: none;
+    transition: all 0.5s ease-out;
 
     &:hover {
 
         .threedots {
+            transition: all 0.5s ease-out;
             border-color: black;
 
             &::after,
             &::before {
+                transition: all 0.5s ease-out;
                 border-color: black;
             }
         }
@@ -353,6 +384,9 @@ header {
     grid-template: auto / auto 1fr auto;
     gap: 10px;
     border-radius: var(--border-radius);
+    cursor: pointer;
+    align-items: center;
+    padding: 5px 10px;
 
     &:hover {
         background: var(--grey-2);
@@ -366,6 +400,29 @@ header {
             }
         }
     }
+
+    .description {
+        color: #555;
+        font-size: 0.9rem;
+    }
+
+    .description,
+    .title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .dueDate {
+        color: var(--primary-color);
+        font-size: 0.9rem;
+    }
+
+    .information {
+        display: flex;
+        flex-flow: column nowrap;
+        overflow: hidden;
+    }
 }
 
 .tasks {
@@ -377,6 +434,7 @@ header {
     .completeTask {
         height: 50px;
         width: 50px;
+        transition: all 0.5s ease-out;
     }
 
     .task[data-completed="true"] {

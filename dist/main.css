@@ -171,10 +171,15 @@ button {
   --primary-color: #3289ef;
 }
 
+@font-face {
+  font-family: poppins_regular;
+  src: url(35d26b781dc5fda684cc.ttf);
+}
 body {
   overflow: hidden;
   background-color: red;
   font-size: 1.4rem;
+  font-family: poppins_regular, Verdana, sans-serif;
 }
 
 header {
@@ -206,7 +211,8 @@ header .mobileNavSwitch {
   grid-template: auto 1fr/auto;
 }
 .main button:hover {
-  background: var(--grey-1);
+  background: var(--grey-2);
+  transition: all 0.5s ease-out;
 }
 
 .popperOverlay {
@@ -243,7 +249,7 @@ header .mobileNavSwitch {
 
 .projects {
   position: absolute;
-  padding: 8px;
+  padding: 10px;
   width: calc(100% - 16px);
   height: calc(100% - 16px);
   z-index: 1;
@@ -254,23 +260,10 @@ header .mobileNavSwitch {
   transition: 0.2s ease-out;
   transform: translateX(0%);
 }
-.projects .project:hover {
-  background: var(--grey-2);
-}
-.projects .project:hover button.options {
-  background: var(--grey-2);
-}
-.projects .project:hover button.options:hover {
-  background-color: var(--grey-1);
-}
-.projects .project.selected, .projects .project.selected:hover {
-  background-color: var(--grey-3);
-}
-.projects .project.selected .options, .projects .project.selected:hover .options {
-  background-color: var(--grey-3);
-}
-.projects .project.selected .options:hover, .projects .project.selected:hover .options:hover {
-  background: var(--grey-2);
+.projects > button {
+  padding: 10px;
+  height: 50px;
+  box-sizing: content-box;
 }
 .projects.hidden {
   transition: 0.2s ease-out;
@@ -281,6 +274,34 @@ header .mobileNavSwitch {
   display: flex;
   flex-flow: column nowrap;
   gap: 3px;
+  transition: all 0.5s ease-out;
+}
+.projects .defaultButtons button {
+  padding: 10px;
+  height: 50px;
+  box-sizing: content-box;
+}
+.projects .project.selected, .projects .project.selected:hover {
+  background-color: var(--grey-3);
+}
+.projects .project.selected .options, .projects .project.selected:hover .options {
+  background-color: var(--grey-3);
+}
+.projects .project.selected .options:hover, .projects .project.selected:hover .options:hover {
+  background: var(--grey-2);
+}
+.projects .project:hover {
+  background: var(--grey-2);
+}
+.projects .project:hover button.options {
+  background: var(--grey-2);
+}
+.projects .project:hover button.options:hover {
+  background-color: var(--grey-1);
+}
+.projects > button,
+.projects .defaultButtons button {
+  font-size: 1.2rem;
 }
 
 .project {
@@ -289,27 +310,34 @@ header .mobileNavSwitch {
   justify-content: space-between;
   border-radius: var(--border-radius);
   align-items: center;
-  padding: 10px;
-  height: 50px;
-  box-sizing: content-box;
 }
 
 .projects,
 .tasks {
+  font-size: 1.2rem;
+  line-height: 1.6rem;
   background: var(--grey-0);
 }
 .projects .options,
 .tasks .options {
+  transition: all 0.5s ease-out;
   background: var(--grey-0);
 }
 
+.project,
+.task {
+  user-select: none;
+  transition: all 0.5s ease-out;
+}
 .project:hover .threedots,
 .task:hover .threedots {
+  transition: all 0.5s ease-out;
   border-color: black;
 }
 .project:hover .threedots::after, .project:hover .threedots::before,
 .task:hover .threedots::after,
 .task:hover .threedots::before {
+  transition: all 0.5s ease-out;
   border-color: black;
 }
 .project .options,
@@ -328,6 +356,9 @@ header .mobileNavSwitch {
   grid-template: auto/auto 1fr auto;
   gap: 10px;
   border-radius: var(--border-radius);
+  cursor: pointer;
+  align-items: center;
+  padding: 5px 10px;
 }
 .task:hover {
   background: var(--grey-2);
@@ -340,6 +371,25 @@ header .mobileNavSwitch {
 .task:hover .options:hover {
   background: var(--grey-1);
 }
+.task .description {
+  color: #555;
+  font-size: 0.9rem;
+}
+.task .description,
+.task .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.task .dueDate {
+  color: var(--primary-color);
+  font-size: 0.9rem;
+}
+.task .information {
+  display: flex;
+  flex-flow: column nowrap;
+  overflow: hidden;
+}
 
 .tasks {
   position: absolute;
@@ -350,6 +400,7 @@ header .mobileNavSwitch {
 .tasks .completeTask {
   height: 50px;
   width: 50px;
+  transition: all 0.5s ease-out;
 }
 .tasks .task[data-completed=true] .completeTask,
 .tasks .task[data-completed=true] .completeTask:hover {
