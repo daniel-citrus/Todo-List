@@ -303,7 +303,7 @@ header {
 
     &>button {
         padding: 10px;
-        height: 50px;
+        height: 40px;
         box-sizing: content-box;
     }
 
@@ -321,7 +321,7 @@ header {
 
         button {
             padding: 10px;
-            height: 50px;
+            height: 40px;
             box-sizing: content-box;
         }
     }
@@ -477,6 +477,21 @@ header {
         .completeTask:hover {
             background: rgba(0, 128, 0, 0.253);
         }
+    }
+
+    &:hover {
+        .taskCreator {
+            opacity: 1;
+        }
+    }
+
+    .taskCreator {
+        transition: all 0.5s ease-out;
+        opacity: 0;
+        text-align: center;
+
+        &::before,
+        &::after {}
     }
 
     .taskList {
