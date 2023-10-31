@@ -80,6 +80,7 @@ export default function () {
 
         button.addEventListener('click', () => {
             projectContainer.classList.toggle('hidden')
+            closePopper();
         })
 
         return button;
@@ -463,7 +464,7 @@ export default function () {
                 Description
             </label>
             <br/>
-            <input type="text" id="taskDesc" title="Task description" name="taskDesc" autocomplete='off'>
+            <textarea type="text" id="taskDesc" title="Task description" name="taskDesc" autocomplete='off' maxlength="1000"></textarea>
             <br/>
         `
 

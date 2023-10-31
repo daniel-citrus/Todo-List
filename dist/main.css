@@ -154,6 +154,12 @@ button {
   cursor: pointer;
 }
 
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 /* End CSS Reset */
 :root {
   --background: white;
@@ -174,6 +180,7 @@ button {
   --primary-color: #3289ef;
   --primary-color-hover: #2566af;
   --success: rgb(114, 191, 114);
+  --font-stack: poppins_regular, Verdana, sans-serif;
 }
 
 @font-face {
@@ -183,7 +190,7 @@ button {
 body {
   overflow: hidden;
   font-size: 1.4rem;
-  font-family: poppins_regular, Verdana, sans-serif;
+  font-family: var(--font-stack);
 }
 
 header {
@@ -255,7 +262,6 @@ header .navSwitchIcon::after {
   top: 0;
   height: 100%;
   width: 100%;
-  background: rgba(255, 0, 0, 0.158);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -263,22 +269,61 @@ header .navSwitchIcon::after {
 .popperOverlay.hidden {
   display: none;
 }
+.popperOverlay > * {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.151);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--grey-2);
+  background: var(--grey-0);
+  position: fixed;
+  padding: 5px;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 5px;
+  font-size: 1rem;
+}
+.popperOverlay > * input,
+.popperOverlay > * select,
+.popperOverlay > * textarea {
+  font-family: var(--font-stack);
+  font-size: 1.2rem;
+  border: 1px solid var(--grey-9);
+  background: none;
+  border-radius: var(--border-radius);
+  padding: 4px;
+}
+.popperOverlay > * input:disabled,
+.popperOverlay > * select:disabled,
+.popperOverlay > * textarea:disabled {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid var(--grey-1);
+}
+.popperOverlay > * #taskDesc {
+  height: 200px;
+}
 .popperOverlay .hidden {
   display: none;
 }
 .popperOverlay .projectDetails,
 .popperOverlay .taskDetails {
-  background: var(--background);
   padding: 15px 10px;
   border-radius: var(--border-radius);
 }
-.popperOverlay .projectMenuButtons,
-.popperOverlay .taskMenuButtons {
-  position: fixed;
-  padding: 5px;
-  background: var(--background);
+.popperOverlay .projectDetails button,
+.popperOverlay .taskDetails button {
+  border: 1px solid #0058bf;
+  color: #0058bf;
+  flex: 1 0 auto;
+  text-align: center;
+}
+.popperOverlay .projectDetails .buttons,
+.popperOverlay .taskDetails .buttons {
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
 }
 
 .projects,
@@ -423,6 +468,11 @@ header .navSwitchIcon::after {
 .task:hover .options:hover {
   background: var(--grey-1);
 }
+.task:hover .completeTask:hover .completeTaskIcon,
+.task:hover .completeTask:hover .completeTaskIcon::before {
+  content: "";
+  background: var(--grey-3);
+}
 .task .description {
   color: #555;
   font-size: 0.9rem;
@@ -475,9 +525,13 @@ header .navSwitchIcon::after {
   left: -4px;
   top: -4px;
 }
-.tasks .task[data-completed=true] .completeTask,
-.tasks .task[data-completed=true] .completeTask:hover {
+.tasks .task[data-completed=true] .completeTask {
   border-color: var(--success);
+}
+.tasks .task[data-completed=true] .completeTask:hover .completeTaskIcon,
+.tasks .task[data-completed=true] .completeTask:hover .completeTaskIcon::before {
+  content: "";
+  background: var(--success);
 }
 .tasks .task[data-completed=true] .completeTaskIcon {
   background-color: var(--success);
@@ -502,24 +556,31 @@ header .navSwitchIcon::after {
 }
 
 .threedots {
+  --dot-dimension: 3px;
+  --dot-position: 7px;
+  --dot-border-radius: 100%;
   position: absolute;
-  border-radius: 100%;
-  border: 2px solid black;
+  border-radius: var(--dot-border-radius);
+  height: var(--dot-dimension);
+  width: var(--dot-dimension);
+  background: black;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .threedots::before, .threedots::after {
   content: "";
-  border: 2px solid black;
-  border-radius: 100%;
+  height: var(--dot-dimension);
+  width: var(--dot-dimension);
+  background: black;
+  border-radius: var(--dot-border-radius);
   position: absolute;
 }
 .threedots::before {
-  right: 5px;
+  right: var(--dot-position);
 }
 .threedots::after {
-  left: 5px;
+  left: var(--dot-position);
 }
 
 /* 320px — 480px
@@ -528,41 +589,58 @@ Small screens, laptops – 769px — 1024px
 Desktops, large screens – 1025px — 1200px
 Extra large screens, TV – 1201px, and more */
 @media screen and (min-width: 769px) {
-  .tasks .taskCreator {
-    background-color: var(--grey-1);
-    opacity: 0;
-  }
   header {
     grid-template: auto/auto;
   }
   header .mobileNavSwitch {
     display: none;
   }
-  .main {
-    grid-template: 50px calc(100% - 50px)/auto;
-  }
   .content {
     display: grid;
     grid-template: auto/minmax(100px, 1fr) 2fr;
   }
+  .main {
+    grid-template: 50px calc(100% - 50px)/auto;
+  }
+  .project,
+  .task {
+    align-items: start;
+  }
+  .project .options,
+  .task .options {
+    height: 35px;
+    width: 35px;
+    padding: 5px;
+  }
+  .projects,
+  .tasks {
+    font-size: 1rem;
+  }
   .projects {
     position: static;
+    /* .options {
+        opacity: 0;
+        background-color: var(--grey-1);
+    }
+
+    .project {
+        &:hover {
+            .options {
+                opacity: 1;
+            }
+        }
+
+        &.selected,
+        &.selected:hover {
+            button.options {
+                background-color: var(--grey-3);
+            }
+        }
+    } */
   }
   .projects.hidden {
     position: static;
     transform: none;
-  }
-  .projects .options {
-    background-color: var(--grey-1);
-  }
-  .projects .projectsLabel button {
-    opacity: 0;
-    text-align: center;
-    transition: all 0.1s ease-out;
-    box-sizing: border-box;
-    height: 45px;
-    width: 45px;
-    background: var(--grey-1);
   }
   .projects:hover .projectsLabel button {
     opacity: 1;
@@ -570,8 +648,40 @@ Extra large screens, TV – 1201px, and more */
   .projects:hover .projectsLabel button:hover {
     background: var(--grey-0);
   }
+  .projects .projectsLabel button {
+    opacity: 0;
+    text-align: center;
+    transition: all 0.1s ease-out;
+    box-sizing: border-box;
+    height: 35px;
+    width: 35px;
+    padding: 5px;
+    background: var(--grey-1);
+  }
+  .task {
+    padding: 10px;
+  }
   .tasks {
     position: static;
+  }
+  .tasks .completeTask {
+    height: 25px;
+    width: 25px;
+    border: 2px solid var(--grey-3);
+  }
+  .tasks .completeTaskIcon {
+    height: 2px;
+    left: 8px;
+    top: 1px;
+  }
+  .tasks .completeTaskIcon::before {
+    height: 2px;
+    left: -3px;
+    top: -3px;
+  }
+  .tasks .taskCreator {
+    background-color: var(--grey-1);
+    opacity: 0;
   }
 }
 @media screen and (min-width: 1025px) {
