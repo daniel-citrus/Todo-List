@@ -166,9 +166,13 @@ button {
     --grey-6: #a3a3a3;
     --grey-7: #929292;
     --grey-8: #797979;
+    --grey-9: #6b6b6b;
     --border: 1px solid var(--grey-0);
     --border-radius: 5px;
     --primary-color: #3289ef;
+    --primary-color-hover: #2566af;
+    --success: rgb(114, 191, 114);
+    ;
 }
 
 @font-face {
@@ -178,7 +182,6 @@ button {
 
 body {
     overflow: hidden;
-    background-color: red;
     font-size: 1.4rem;
     font-family: poppins_regular, Verdana, sans-serif;
 }
@@ -197,23 +200,28 @@ header {
         font-size: 2.3rem;
     }
 
-    .mobileNavSwitch {
+    button.mobileNavSwitch {
         justify-self: start;
         height: 40px;
         width: 40px;
         padding: 10px 9px;
+        background: var(--primary-color);
+
+        &:hover {
+            background: var(--primary-color-hover);
+        }
     }
-
+    
     .navSwitchIcon {
-        --line-height: 3px;
+        --line-height: 2px;
         --line-width: 100%;
-        --line-background: black;
+        --line-color: var(--background);
         --line-border-radius: 1px;
-
+        
         position: relative;
         height: var(--line-height);
         width: var(--line-width);
-        background: var(--line-background);
+        background: var(--line-color);
         border-radius: var(--line-border-radius);
 
         &::before,
@@ -222,7 +230,7 @@ header {
             position: absolute;
             height: var(--line-height);
             width: var(--line-width);
-            background: var(--line-background);
+            background: var(--line-color);
             border-radius: var(--line-border-radius);
         }
 
@@ -247,7 +255,7 @@ header {
 
     button:hover {
         background: var(--grey-2);
-        transition: all 0.5s ease-out;
+        transition: all 0.1s ease-out;
     }
 }
 
@@ -291,15 +299,16 @@ header {
 .projects {
     position: absolute;
     padding: 10px;
-    width: calc(100% - 16px);
-    height: calc(100% - 16px);
+    width: 100%;
+    height: 100%;
     z-index: 1;
     overflow-y: auto;
     display: flex;
     flex-flow: column nowrap;
     gap: 3px;
-    transition: .2s ease-out;
+    transition: 0.2s ease-out;
     transform: translateX(0%);
+    box-sizing: border-box;
 
     &>button {
         padding: 10px;
@@ -317,7 +326,7 @@ header {
         display: flex;
         flex-flow: column nowrap;
         gap: 3px;
-        transition: all 0.5s ease-out;
+        transition: all 0.1s ease-out;
 
         button {
             padding: 10px;
@@ -378,7 +387,7 @@ header {
     background: var(--grey-0);
 
     .options {
-        transition: all 0.5s ease-out;
+        transition: all 0.1s ease-out;
         background: var(--grey-0);
     }
 }
@@ -386,17 +395,17 @@ header {
 .project,
 .task {
     user-select: none;
-    transition: all 0.5s ease-out;
+    transition: all 0.1s ease-out;
 
     &:hover {
 
         .threedots {
-            transition: all 0.5s ease-out;
+            transition: all 0.1s ease-out;
             border-color: black;
 
             &::after,
             &::before {
-                transition: all 0.5s ease-out;
+                transition: all 0.1s ease-out;
                 border-color: black;
             }
         }
@@ -404,8 +413,8 @@ header {
 
     .options {
         border-radius: var(--border-radius);
-        height: 50px;
-        width: 50px;
+        height: 45px;
+        width: 45px;
         position: relative;
         display: flex;
         justify-content: center;
@@ -466,16 +475,47 @@ header {
     width: 100%;
 
     .completeTask {
-        height: 50px;
-        width: 50px;
-        transition: all 0.5s ease-out;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        transition: all 0.1s ease-out;
+        border: 3px solid var(--grey-3);
+    }
+
+    .completeTaskIcon {
+        position: relative;
+        border-radius: 3px;
+        height: 3px;
+        width: 120%;
+        transform: rotate(-40deg);
+        left: 2px;
+        top: 1px;
+
+        &::before {
+            position: absolute;
+            height: 3px;
+            width: 60%;
+            border-radius: 3px;
+            transform: rotate(85deg);
+            left: -4px;
+            top: -4px;
+        }
     }
 
     .task[data-completed="true"] {
 
         .completeTask,
         .completeTask:hover {
-            background: rgba(0, 128, 0, 0.253);
+            border-color: var(--success);
+        }
+
+        .completeTaskIcon {
+            background-color: var(--success);
+
+            &::before {
+                content: "";
+                background-color: var(--success);
+            }
         }
     }
 
@@ -486,9 +526,9 @@ header {
     }
 
     .taskCreator {
-        transition: all 0.5s ease-out;
-        opacity: 0;
+        transition: all 0.1s ease-out;
         text-align: center;
+        background-color: var(--grey-1);
 
         &::before,
         &::after {}
@@ -505,7 +545,7 @@ header {
 .threedots {
     position: absolute;
     border-radius: 100%;
-    border: 2.5px solid var(--grey-6);
+    border: 2.5px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -513,7 +553,7 @@ header {
     &::before,
     &::after {
         content: '';
-        border: 2.5px solid var(--grey-6);
+        border: 2.5px solid black;
         border-radius: 100%;
         position: absolute;
     }
@@ -548,6 +588,14 @@ Extra large screens, TV – 1201px, and more */
 @media screen and (min-width: 769px) {
     .tasks {
         background: green;
+
+        .taskCreator {
+            background-color: var(--grey-0);
+            opacity: 0;
+
+            &::before,
+            &::after {}
+        }
     }
 
     header {

@@ -166,9 +166,12 @@ button {
   --grey-6: #a3a3a3;
   --grey-7: #929292;
   --grey-8: #797979;
+  --grey-9: #6b6b6b;
   --border: 1px solid var(--grey-0);
   --border-radius: 5px;
   --primary-color: #3289ef;
+  --primary-color-hover: #2566af;
+  --success: rgb(114, 191, 114);
 }
 
 @font-face {
@@ -177,7 +180,6 @@ button {
 }
 body {
   overflow: hidden;
-  background-color: red;
   font-size: 1.4rem;
   font-family: poppins_regular, Verdana, sans-serif;
 }
@@ -195,21 +197,25 @@ header {
 header .logo {
   font-size: 2.3rem;
 }
-header .mobileNavSwitch {
+header button.mobileNavSwitch {
   justify-self: start;
   height: 40px;
   width: 40px;
   padding: 10px 9px;
+  background: var(--primary-color);
+}
+header button.mobileNavSwitch:hover {
+  background: var(--primary-color-hover);
 }
 header .navSwitchIcon {
-  --line-height: 3px;
+  --line-height: 2px;
   --line-width: 100%;
-  --line-background: black;
+  --line-color: var(--background);
   --line-border-radius: 1px;
   position: relative;
   height: var(--line-height);
   width: var(--line-width);
-  background: var(--line-background);
+  background: var(--line-color);
   border-radius: var(--line-border-radius);
 }
 header .navSwitchIcon::before, header .navSwitchIcon::after {
@@ -217,7 +223,7 @@ header .navSwitchIcon::before, header .navSwitchIcon::after {
   position: absolute;
   height: var(--line-height);
   width: var(--line-width);
-  background: var(--line-background);
+  background: var(--line-color);
   border-radius: var(--line-border-radius);
 }
 header .navSwitchIcon::before {
@@ -238,7 +244,7 @@ header .navSwitchIcon::after {
 }
 .main button:hover {
   background: var(--grey-2);
-  transition: all 0.5s ease-out;
+  transition: all 0.1s ease-out;
 }
 
 .popperOverlay {
@@ -276,8 +282,8 @@ header .navSwitchIcon::after {
 .projects {
   position: absolute;
   padding: 10px;
-  width: calc(100% - 16px);
-  height: calc(100% - 16px);
+  width: 100%;
+  height: 100%;
   z-index: 1;
   overflow-y: auto;
   display: flex;
@@ -285,6 +291,7 @@ header .navSwitchIcon::after {
   gap: 3px;
   transition: 0.2s ease-out;
   transform: translateX(0%);
+  box-sizing: border-box;
 }
 .projects > button {
   padding: 10px;
@@ -300,7 +307,7 @@ header .navSwitchIcon::after {
   display: flex;
   flex-flow: column nowrap;
   gap: 3px;
-  transition: all 0.5s ease-out;
+  transition: all 0.1s ease-out;
 }
 .projects .defaultButtons button {
   padding: 10px;
@@ -346,31 +353,31 @@ header .navSwitchIcon::after {
 }
 .projects .options,
 .tasks .options {
-  transition: all 0.5s ease-out;
+  transition: all 0.1s ease-out;
   background: var(--grey-0);
 }
 
 .project,
 .task {
   user-select: none;
-  transition: all 0.5s ease-out;
+  transition: all 0.1s ease-out;
 }
 .project:hover .threedots,
 .task:hover .threedots {
-  transition: all 0.5s ease-out;
+  transition: all 0.1s ease-out;
   border-color: black;
 }
 .project:hover .threedots::after, .project:hover .threedots::before,
 .task:hover .threedots::after,
 .task:hover .threedots::before {
-  transition: all 0.5s ease-out;
+  transition: all 0.1s ease-out;
   border-color: black;
 }
 .project .options,
 .task .options {
   border-radius: var(--border-radius);
-  height: 50px;
-  width: 50px;
+  height: 45px;
+  width: 45px;
   position: relative;
   display: flex;
   justify-content: center;
@@ -424,21 +431,48 @@ header .navSwitchIcon::after {
   width: 100%;
 }
 .tasks .completeTask {
-  height: 50px;
-  width: 50px;
-  transition: all 0.5s ease-out;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  transition: all 0.1s ease-out;
+  border: 3px solid var(--grey-3);
+}
+.tasks .completeTaskIcon {
+  position: relative;
+  border-radius: 3px;
+  height: 3px;
+  width: 120%;
+  transform: rotate(-40deg);
+  left: 2px;
+  top: 1px;
+}
+.tasks .completeTaskIcon::before {
+  position: absolute;
+  height: 3px;
+  width: 60%;
+  border-radius: 3px;
+  transform: rotate(85deg);
+  left: -4px;
+  top: -4px;
 }
 .tasks .task[data-completed=true] .completeTask,
 .tasks .task[data-completed=true] .completeTask:hover {
-  background: rgba(0, 128, 0, 0.253);
+  border-color: var(--success);
+}
+.tasks .task[data-completed=true] .completeTaskIcon {
+  background-color: var(--success);
+}
+.tasks .task[data-completed=true] .completeTaskIcon::before {
+  content: "";
+  background-color: var(--success);
 }
 .tasks:hover .taskCreator {
   opacity: 1;
 }
 .tasks .taskCreator {
-  transition: all 0.5s ease-out;
-  opacity: 0;
+  transition: all 0.1s ease-out;
   text-align: center;
+  background-color: var(--grey-1);
 }
 .tasks .taskList {
   display: flex;
@@ -450,14 +484,14 @@ header .navSwitchIcon::after {
 .threedots {
   position: absolute;
   border-radius: 100%;
-  border: 2.5px solid var(--grey-6);
+  border: 2.5px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .threedots::before, .threedots::after {
   content: "";
-  border: 2.5px solid var(--grey-6);
+  border: 2.5px solid black;
   border-radius: 100%;
   position: absolute;
 }
@@ -481,6 +515,10 @@ Extra large screens, TV – 1201px, and more */
 @media screen and (min-width: 769px) {
   .tasks {
     background: green;
+  }
+  .tasks .taskCreator {
+    background-color: var(--grey-0);
+    opacity: 0;
   }
   header {
     grid-template: auto/auto;

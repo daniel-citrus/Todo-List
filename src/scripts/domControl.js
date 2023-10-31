@@ -343,6 +343,7 @@ export default function () {
         task.dataset.projectKey = projectKey;
 
         let completeTaskButton = buildElement('button', '', 'completeTask');
+        completeTaskButton.appendChild(buildElement('div', '', 'completeTaskIcon'));
         completeTaskButton.addEventListener('click', (e) => {
             e.stopPropagation();
             toggleTaskComplete(id);
