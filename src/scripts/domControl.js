@@ -53,21 +53,24 @@ export default function () {
 
         header.appendChild(createMobileNavSwitch());
 
-        let logo = buildElement('div', 'Todo List', 'logo');
+        let logo = buildElement('div', '', 'logo');
         header.appendChild(logo);
 
         return header;
     }
 
     function createProjectCreatorButton() {
-        let button = buildElement('button', 'Create Project', 'projectCreator');
+        let div = buildElement('div', 'Projects', 'projectsLabel');
+        let button = buildElement('button', '+', 'projectCreator');
+        button.ariaLabel = 'Create Project';
+        div.appendChild(button);
 
         button.addEventListener('click', () => {
             openPopper(projectDisplay);
             displayProjectFormCreate();
         })
 
-        return button;
+        return div;
     }
 
     function createMobileNavSwitch() {

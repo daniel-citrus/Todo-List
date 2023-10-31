@@ -167,6 +167,8 @@ button {
   --grey-7: #929292;
   --grey-8: #797979;
   --grey-9: #6b6b6b;
+  --grey-10: #5e5e5e;
+  --grey-11: #525252;
   --border: 1px solid var(--grey-0);
   --border-radius: 5px;
   --primary-color: #3289ef;
@@ -199,9 +201,9 @@ header .logo {
 }
 header button.mobileNavSwitch {
   justify-self: start;
-  height: 40px;
+  height: 35px;
   width: 40px;
-  padding: 10px 9px;
+  padding: 5px 8px;
   background: var(--primary-color);
 }
 header button.mobileNavSwitch:hover {
@@ -279,81 +281,10 @@ header .navSwitchIcon::after {
   flex-flow: column nowrap;
 }
 
-.projects {
-  position: absolute;
-  padding: 10px;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  overflow-y: auto;
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 3px;
-  transition: 0.2s ease-out;
-  transform: translateX(0%);
-  box-sizing: border-box;
-}
-.projects > button {
-  padding: 10px;
-  height: 40px;
-  box-sizing: content-box;
-}
-.projects.hidden {
-  transition: 0.2s ease-out;
-  transform: translateX(-100%);
-  position: fixed;
-}
-.projects .defaultButtons {
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 3px;
-  transition: all 0.1s ease-out;
-}
-.projects .defaultButtons button {
-  padding: 10px;
-  height: 40px;
-  box-sizing: content-box;
-}
-.projects button.selected, .projects button.selected:hover {
-  background-color: var(--grey-3);
-}
-.projects button.selected button.options, .projects button.selected:hover button.options {
-  background-color: var(--grey-3);
-}
-.projects button.selected button.options:hover, .projects button.selected:hover button.options:hover {
-  background: var(--grey-2);
-}
-.projects .project:hover {
-  background: var(--grey-2);
-}
-.projects .project:hover button.options {
-  background: var(--grey-2);
-}
-.projects .project:hover button.options:hover {
-  background-color: var(--grey-1);
-}
-.projects > button,
-.projects .defaultButtons button {
-  font-size: 1.2rem;
-}
-
-.project {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  border-radius: var(--border-radius);
-  align-items: center;
-}
-
 .projects,
 .tasks {
   font-size: 1.2rem;
   line-height: 1.6rem;
-  background: var(--grey-0);
-}
-.projects .options,
-.tasks .options {
-  transition: all 0.1s ease-out;
   background: var(--grey-0);
 }
 
@@ -375,13 +306,101 @@ header .navSwitchIcon::after {
 }
 .project .options,
 .task .options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: var(--border-radius);
   height: 45px;
   width: 45px;
   position: relative;
+  transition: all 0.1s ease-out;
+  background: var(--grey-0);
+  flex: 0 0 auto;
+}
+
+.projects {
+  position: absolute;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow-y: auto;
   display: flex;
-  justify-content: center;
+  flex-flow: column nowrap;
+  gap: 3px;
+  transition: 0.2s ease-out;
+  transform: translateX(0%);
+  box-sizing: border-box;
+  background-color: var(--grey-1);
+}
+.projects > button,
+.projects .defaultButtons > button {
+  padding: 10px;
+  height: 40px;
+  box-sizing: content-box;
+  background-color: var(--grey-1);
+}
+.projects.hidden {
+  transition: 0.2s ease-out;
+  transform: translateX(-100%);
+  position: fixed;
+}
+.projects button {
+  background: var(--grey-1);
+}
+.projects button:hover {
+  background: var(--grey-2);
+}
+.projects button:hover button.options {
+  background: var(--grey-2);
+}
+.projects button:hover button.options:hover {
+  background-color: var(--grey-1);
+}
+.projects button.selected, .projects button.selected:hover {
+  background-color: var(--grey-3);
+}
+.projects button.selected button.options, .projects button.selected:hover button.options {
+  background-color: var(--grey-1);
+}
+.projects button.selected button.options:hover, .projects button.selected:hover button.options:hover {
+  background: var(--grey-1);
+}
+.projects .defaultButtons {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 3px;
+  transition: all 0.1s ease-out;
+}
+.projects .projectsLabel {
+  padding: 10px 10px 10px 0;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
   align-items: center;
+  color: var(--grey-11);
+}
+.projects .projectsLabel button {
+  text-align: center;
+  opacity: 1;
+  transition: all 0.1s ease-out;
+  box-sizing: border-box;
+  height: 45px;
+  width: 45px;
+  background: var(--grey-0);
+}
+
+.project {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  border-radius: var(--border-radius);
+  align-items: center;
+}
+.project .name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .task {
@@ -436,14 +455,15 @@ header .navSwitchIcon::after {
   border-radius: 50%;
   transition: all 0.1s ease-out;
   border: 3px solid var(--grey-3);
+  padding: 0px;
 }
 .tasks .completeTaskIcon {
   position: relative;
   border-radius: 3px;
   height: 3px;
-  width: 120%;
+  width: 50%;
   transform: rotate(-40deg);
-  left: 2px;
+  left: 12px;
   top: 1px;
 }
 .tasks .completeTaskIcon::before {
@@ -484,14 +504,14 @@ header .navSwitchIcon::after {
 .threedots {
   position: absolute;
   border-radius: 100%;
-  border: 2.5px solid black;
+  border: 2px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .threedots::before, .threedots::after {
   content: "";
-  border: 2.5px solid black;
+  border: 2px solid black;
   border-radius: 100%;
   position: absolute;
 }
@@ -507,17 +527,9 @@ iPads, Tablets – 481px — 768px
 Small screens, laptops – 769px — 1024px
 Desktops, large screens – 1025px — 1200px
 Extra large screens, TV – 1201px, and more */
-@media screen and (min-width: 481px) {
-  .tasks {
-    background: red;
-  }
-}
 @media screen and (min-width: 769px) {
-  .tasks {
-    background: green;
-  }
   .tasks .taskCreator {
-    background-color: var(--grey-0);
+    background-color: var(--grey-1);
     opacity: 0;
   }
   header {
@@ -540,14 +552,29 @@ Extra large screens, TV – 1201px, and more */
     position: static;
     transform: none;
   }
+  .projects .options {
+    background-color: var(--grey-1);
+  }
+  .projects .projectsLabel button {
+    opacity: 0;
+    text-align: center;
+    transition: all 0.1s ease-out;
+    box-sizing: border-box;
+    height: 45px;
+    width: 45px;
+    background: var(--grey-1);
+  }
+  .projects:hover .projectsLabel button {
+    opacity: 1;
+  }
+  .projects:hover .projectsLabel button:hover {
+    background: var(--grey-0);
+  }
   .tasks {
     position: static;
   }
 }
 @media screen and (min-width: 1025px) {
-  .tasks {
-    background: orange;
-  }
   .content {
     display: grid;
     grid-template: auto/minmax(300px, 1fr) 5fr;
