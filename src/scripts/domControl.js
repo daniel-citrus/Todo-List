@@ -48,6 +48,11 @@ export default function () {
         contentContainer.appendChild(popperOverlay);
     })();
 
+    addEventListener('DOMContentLoaded', ()=> {
+        defaultButtons.querySelector('button.allTasks').click();
+        projectContainer.classList.remove('hidden');
+    })
+
     function createHeader() {
         let header = buildElement('header', '');
 
@@ -55,6 +60,10 @@ export default function () {
 
         let logo = buildElement('div', '', 'logo');
         header.appendChild(logo);
+
+        header.addEventListener('click', ()=> {
+            closePopper();
+        })
 
         return header;
     }
@@ -80,7 +89,6 @@ export default function () {
 
         button.addEventListener('click', () => {
             projectContainer.classList.toggle('hidden')
-            closePopper();
         })
 
         return button;
@@ -112,12 +120,10 @@ export default function () {
         popperOverlay.appendChild(elem);
 
         if (left) {
-            console.log(`left: ${left}\ntop: ${top}`);
             elem.style.left = `${left}px`;
             elem.style.top = `${top}px`;
         }
         else if (right) {
-            console.log(`right: ${right}\nbottom: ${bottom}`);
             elem.style.right = `${window.innerWidth - right}px`;
             elem.style.top = `${bottom}px`;
         }

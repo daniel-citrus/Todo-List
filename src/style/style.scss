@@ -326,6 +326,8 @@ header {
 
     .projectDetails,
     .taskDetails {
+        width: 70%;
+        max-width: 730px;
         padding: 15px 10px;
         border-radius: var(--border-radius);
 
@@ -467,7 +469,8 @@ header {
             box-sizing: border-box;
             height: 45px;
             width: 45px;
-            background: var(--grey-0)
+            background: var(--grey-0);
+            font-size: 1.2rem;
         }
     }
 }
@@ -610,9 +613,6 @@ header {
         transition: all 0.1s ease-out;
         text-align: center;
         background-color: var(--grey-1);
-
-        &::before,
-        &::after {}
     }
 
     .taskList {
@@ -684,13 +684,15 @@ Extra large screens, TV – 1201px, and more */
 
     .project,
     .task {
-        align-items: start;
-
         .options {
             height: 35px;
             width: 35px;
             padding: 5px;
         }
+    }
+
+    .task {
+        align-items: start;
     }
 
     .projects,
@@ -718,7 +720,7 @@ Extra large screens, TV – 1201px, and more */
             }
         }
 
-        /* .options {
+        .options {
             opacity: 0;
             background-color: var(--grey-1);
         }
@@ -736,7 +738,7 @@ Extra large screens, TV – 1201px, and more */
                     background-color: var(--grey-3);
                 }
             }
-        } */
+        }
 
         .projectsLabel {
             button {
@@ -762,7 +764,7 @@ Extra large screens, TV – 1201px, and more */
         .completeTask {
             height: 25px;
             width: 25px;
-            border: 2px solid var(--grey-3);
+            border: 1px solid var(--grey-3);
         }
 
         .completeTaskIcon {

@@ -307,6 +307,8 @@ header .navSwitchIcon::after {
 }
 .popperOverlay .projectDetails,
 .popperOverlay .taskDetails {
+  width: 70%;
+  max-width: 730px;
   padding: 15px 10px;
   border-radius: var(--border-radius);
 }
@@ -433,6 +435,7 @@ header .navSwitchIcon::after {
   height: 45px;
   width: 45px;
   background: var(--grey-0);
+  font-size: 1.2rem;
 }
 
 .project {
@@ -602,15 +605,14 @@ Extra large screens, TV – 1201px, and more */
   .main {
     grid-template: 50px calc(100% - 50px)/auto;
   }
-  .project,
-  .task {
-    align-items: start;
-  }
   .project .options,
   .task .options {
     height: 35px;
     width: 35px;
     padding: 5px;
+  }
+  .task {
+    align-items: start;
   }
   .projects,
   .tasks {
@@ -618,25 +620,6 @@ Extra large screens, TV – 1201px, and more */
   }
   .projects {
     position: static;
-    /* .options {
-        opacity: 0;
-        background-color: var(--grey-1);
-    }
-
-    .project {
-        &:hover {
-            .options {
-                opacity: 1;
-            }
-        }
-
-        &.selected,
-        &.selected:hover {
-            button.options {
-                background-color: var(--grey-3);
-            }
-        }
-    } */
   }
   .projects.hidden {
     position: static;
@@ -647,6 +630,16 @@ Extra large screens, TV – 1201px, and more */
   }
   .projects:hover .projectsLabel button:hover {
     background: var(--grey-0);
+  }
+  .projects .options {
+    opacity: 0;
+    background-color: var(--grey-1);
+  }
+  .projects .project:hover .options {
+    opacity: 1;
+  }
+  .projects .project.selected button.options, .projects .project.selected:hover button.options {
+    background-color: var(--grey-3);
   }
   .projects .projectsLabel button {
     opacity: 0;
@@ -667,7 +660,7 @@ Extra large screens, TV – 1201px, and more */
   .tasks .completeTask {
     height: 25px;
     width: 25px;
-    border: 2px solid var(--grey-3);
+    border: 1px solid var(--grey-3);
   }
   .tasks .completeTaskIcon {
     height: 2px;
