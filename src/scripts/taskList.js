@@ -62,6 +62,10 @@ export default function TaskList() {
         return taskID;
     }
 
+    function deleteAllTasks() {
+        tasks = [];
+    }
+
     /* Delete a task from task list */
     function deleteTask(key) {
         if (tasks.length == 0) {
@@ -210,6 +214,7 @@ export default function TaskList() {
 
     return {
         addTask,
+        deleteAllTasks,
         deleteTask,
         loadData,
         getTask,

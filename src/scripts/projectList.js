@@ -26,6 +26,10 @@ export default function ProjectList() {
         return key;
     }
 
+    function deleteAllProjects() {
+        projects = [];
+    }
+
     /* Delete an existing project and return the task keys that it contained */
     function deleteProject(key) {
         for (let p in projects) {
@@ -193,6 +197,7 @@ export default function ProjectList() {
     return {
         addProject,
         createProject,
+        deleteAllProjects,
         deleteProject,
         updateProjectName,
         addTask,

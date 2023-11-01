@@ -16,7 +16,6 @@ let brain = (() => {
 
         loadData();
         displayAllProjects();
-        saveData();
     })();
 
     let task1 = {
@@ -68,12 +67,6 @@ let brain = (() => {
         dueDate: new Date(2023, 8, 20),
         priority: 2,
     }
-
-
-    console.clear();
-    projects.showProjects();
-    tasks.showTasks();
-    /* localStorage.clear();*/
 
     function createProject(name) {
         let projectID = projects.addProject(name);
@@ -203,8 +196,15 @@ let brain = (() => {
     }
 
     function loadData() {
-        console.log(`Projects: ${(projects.loadData() == true) ? `SUCCESS` : `FAILED`}`);
-        console.log(`Tasks: ${(tasks.loadData() == true) ? `SUCCESS` : `FAILED`}`);
+        if (projects.loadData() && tasks.loadData()) {
+            console.log(`LOADING SUCCESSFUL`);
+        }
+        else {
+            deleteData();
+            console.log(`LOADING FAILED`);
+        }
+        
+        saveData();
     }
 
     function saveData() {
@@ -216,6 +216,11 @@ let brain = (() => {
         console.clear();
         projects.showProjects();
         tasks.showTasks();
+    }
+
+    function deleteData() {
+        projects.deleteAllProjects();
+        tasks.deleteAllTasks();
     }
 
     function toggleTaskComplete(taskKey) {
@@ -257,7 +262,7 @@ let brain = (() => {
         })
 
         domControl.insertTask(domControl.createTaskCreatorButton());
-
+        domControl.sortTasksByDate();
 
         return true;
     }
@@ -278,4 +283,3 @@ let brain = (() => {
 })();
 
 export default brain;
-/* document.querySelector('button.allTasks').click(); */

@@ -45,10 +45,10 @@ export default function () {
 
             closePopper();
         })
-        contentContainer.appendChild(popperOverlay);
+        mainContainer.appendChild(popperOverlay);
     })();
 
-    addEventListener('DOMContentLoaded', ()=> {
+    addEventListener('DOMContentLoaded', () => {
         defaultButtons.querySelector('button.allTasks').click();
         projectContainer.classList.remove('hidden');
     })
@@ -58,12 +58,8 @@ export default function () {
 
         header.appendChild(createMobileNavSwitch());
 
-        let logo = buildElement('div', '', 'logo');
+        let logo = buildElement('div', 'Todo', 'logo');
         header.appendChild(logo);
-
-        header.addEventListener('click', ()=> {
-            closePopper();
-        })
 
         return header;
     }
@@ -165,6 +161,7 @@ export default function () {
                 clearSelectedProject();
                 buttonElem.classList.add('selected');
                 button[1]();
+                sortTasksByDate();
             })
         })
 
@@ -248,7 +245,7 @@ export default function () {
             }],
         ];
 
-        let buttons = buildElement('div', '', 'projectMenuButtons');
+        let buttons = buildElement('div', '', 'projectMenuButtons', 'menuButtons');
 
         actions.forEach((action) => {
             let button = buildElement('button', action[0], action[0].toLowerCase());
@@ -351,6 +348,7 @@ export default function () {
         task.dataset.priority = priority;
         task.dataset.completed = completed;
         task.dataset.projectKey = projectKey;
+        task.dataset.date = new Date(dueDate).getTime();
 
         let completeTaskButton = buildElement('button', '', 'completeTask');
         completeTaskButton.appendChild(buildElement('div', '', 'completeTaskIcon'));
@@ -439,25 +437,24 @@ export default function () {
             <label for="taskCompleted">
                 Completed:
             </label>
-            <br/>
+            <br />
             <input type="checkbox" id="taskCompleted" title='Completed' name="taskCompleted" disabled autocomplete='off'>
-            <br/>
-            <label for="taskName">
-                Task Name
-            </label>
-            <br/>
-            <input type="text" id="taskName" title="Task name" name="taskName" required disabled autocomplete='off'>
-            <br/>
             <label for="taskDueDate">
                 Due Date
             </label>
-            <br/>
+            <br />
             <input type="date" id="taskDueDate" title="Due date" name="taskDueDate" required disabled autocomplete='off'>
-            <br/>
+        <br />
+            <label for="taskName">
+                Task Name
+            </label>
+            <br />
+            <input type="text" id="taskName" title="Task name" name="taskName" required disabled autocomplete='off'>
+        <br />
             <label for="taskPriority">
                 Priority
             </label>
-            <br/>
+            <br />
             <select id="taskPriority" title="Priority level" name="taskPriority" required>
                 <option value="1">1 - High</option>
                 <option value="2">2</option>
@@ -465,13 +462,12 @@ export default function () {
                 <option value="4">4</option>
                 <option value="5">5 - Low</option>
             </select>
-            <br/>
+        <br />
             <label for="taskDesc">
                 Description
             </label>
-            <br/>
+            <br />
             <textarea type="text" id="taskDesc" title="Task description" name="taskDesc" autocomplete='off' maxlength="1000"></textarea>
-            <br/>
         `
 
         let buttons = buildElement('div', '', 'buttons');
@@ -483,8 +479,8 @@ export default function () {
             if (!createTask()) {
                 return;
             }
-
             closePopper();
+            sortTasksByDate();
         })
         buttons.appendChild(createButton);
 
@@ -495,11 +491,14 @@ export default function () {
             editTask(+taskDisplay.dataset.taskId);
         })
         buttons.appendChild(editButton);
-
+        
         let submitEditButton = buildElement('button', 'Submit', 'submit', 'hidden');
         submitEditButton.type = 'button';
         submitEditButton.title = 'Submit';
-        submitEditButton.addEventListener('click', () => { submitTaskDetails(); })
+        submitEditButton.addEventListener('click', () => { 
+            submitTaskDetails();
+            sortTasksByDate();
+        })
         buttons.appendChild(submitEditButton);
 
         let cancelEditButton = buildElement('button', 'Cancel', 'cancel', 'hidden');
@@ -673,7 +672,6 @@ export default function () {
         if (!updated) { return; }
 
         updateTaskElement(key);
-        displayTaskDetails(key);
         closePopper();
     }
 
@@ -690,6 +688,7 @@ export default function () {
 
         let { title = '', description = '', dueDate = '', priority = '', completed = '' } = task;
 
+        taskElem.dataset.date = new Date(dueDate).getTime();
         taskElem.dataset.priority = priority;
         taskElem.dataset.completed = completed;
         taskElem.querySelector('.title').textContent = title;
@@ -746,7 +745,7 @@ export default function () {
             ['Delete', deleteTask],
         ]
 
-        let buttons = buildElement('div', '', 'taskMenuButtons');
+        let buttons = buildElement('div', '', 'taskMenuButtons', 'menuButtons');
 
         actions.forEach((action) => {
             let button = buildElement('button', action[0], action[0].toLowerCase());
@@ -845,6 +844,30 @@ export default function () {
         task.remove();
     }
 
+    function compareFunction(a, b) {
+        return a <= b ? -1 : 1;
+    }
+
+    function sortTasksByDate() {
+        console.clear();
+        let tasks = taskContainer.querySelectorAll('div.task');
+        tasks = Array.from(tasks);
+        tasks.sort((a, b)=> {
+            return a.dataset.date <= b.dataset.date ? -1 : 1;
+        });
+
+        clearTaskList();
+
+        tasks.forEach((task)=> {
+            taskList.appendChild(task);
+        })
+        taskList.appendChild(createTaskCreatorButton());
+    }
+
+    function sortProjectsByName() {
+
+    }
+
     return {
         createTaskElement,
         createProjectElement,
@@ -855,5 +878,6 @@ export default function () {
         insertLastTask,
         insertProject,
         selectProject,
+        sortTasksByDate,
     }
 }

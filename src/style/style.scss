@@ -278,31 +278,40 @@ header {
     justify-content: center;
     align-items: center;
 
-    &.hidden {
-        display: none;
-    }
-
     &>* {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.151);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.11);
         border-radius: var(--border-radius);
         border: 1px solid var(--grey-2);
         background: var(--grey-0);
-        position: fixed;
         padding: 5px;
         display: flex;
         flex-flow: column nowrap;
         gap: 5px;
         font-size: 1rem;
+        position: absolute;
+    }
+
+    &.hidden {
+        display: none;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .projectDetails,
+    .taskDetails {
+        position: fixed;
 
         input,
         select,
         textarea {
             font-family: var(--font-stack);
-            font-size: 1.2rem;
-            border: 1px solid var(--grey-9);
+            border: 1px solid var(--grey-5);
             background: none;
             border-radius: var(--border-radius);
             padding: 4px;
+            font-size: 1rem;
         }
 
         input:disabled,
@@ -314,22 +323,10 @@ header {
             border: 1px solid var(--grey-1);
         }
 
-        #taskDesc {
-            height: 200px;
+        label {
+            font-size: 1rem;
+            line-height: 1.5rem;
         }
-
-    }
-
-    .hidden {
-        display: none;
-    }
-
-    .projectDetails,
-    .taskDetails {
-        width: 70%;
-        max-width: 730px;
-        padding: 15px 10px;
-        border-radius: var(--border-radius);
 
         button {
             border: 1px solid #0058bf;
@@ -338,13 +335,24 @@ header {
             text-align: center;
         }
 
+        #taskDesc {
+            height: 120px;
+        }
+
         .buttons {
             display: flex;
-            flex-flow: row nowrap;
-            justify-content: space-between;
-            align-items: center;
+            flex-flow: column nowrap;
             gap: 5px;
         }
+    }
+
+    .taskDetails {
+        display: flex;
+        flex-flow: column nowrap;
+
+        &>div {}
+
+
     }
 }
 
@@ -399,7 +407,7 @@ header {
     display: flex;
     flex-flow: column nowrap;
     gap: 3px;
-    transition: 0.2s ease-out;
+    transition: all 0.1s ease-out;
     transform: translateX(0%);
     box-sizing: border-box;
     background-color: var(--grey-1);
@@ -413,7 +421,7 @@ header {
     }
 
     &.hidden {
-        transition: .2s ease-out;
+        transition: all 0.1s ease-out;
         transform: translateX(-100%);
         position: fixed;
     }
@@ -551,6 +559,7 @@ header {
     width: 100%;
 
     .completeTask {
+        margin-top: 4px;
         height: 40px;
         width: 40px;
         border-radius: 50%;
@@ -579,7 +588,25 @@ header {
         }
     }
 
+    &:hover {
+        .taskCreator {
+            opacity: 1;
+        }
+    }
+
     .task[data-completed="true"] {
+        text-decoration: line-through;
+        color: var(--grey-9);
+
+        &>div {
+
+            .title,
+            .description,
+            .dueDate {
+                color: var(--grey-7);
+            }
+        }
+
         .completeTask {
             border-color: var(--success);
         }
@@ -600,12 +627,6 @@ header {
                 content: "";
                 background-color: var(--success);
             }
-        }
-    }
-
-    &:hover {
-        .taskCreator {
-            opacity: 1;
         }
     }
 
@@ -685,9 +706,9 @@ Extra large screens, TV – 1201px, and more */
     .project,
     .task {
         .options {
-            height: 35px;
-            width: 35px;
-            padding: 5px;
+            height: 30px;
+            width: 30px;
+            padding: 4px;
         }
     }
 
@@ -698,6 +719,7 @@ Extra large screens, TV – 1201px, and more */
     .projects,
     .tasks {
         font-size: 1rem;
+        line-height: 1.4rem;
     }
 
     .projects {
@@ -754,29 +776,27 @@ Extra large screens, TV – 1201px, and more */
         }
     }
 
-    .task {
-        padding: 10px;
-    }
-
     .tasks {
         position: static;
 
         .completeTask {
-            height: 25px;
-            width: 25px;
+            height: 17px;
+            width: 17px;
             border: 1px solid var(--grey-3);
         }
 
         .completeTaskIcon {
             height: 2px;
-            left: 8px;
-            top: 1px;
-        }
+            left: 5px;
+            top: 0px;
+            width: 50%;
 
-        .completeTaskIcon::before {
-            height: 2px;
-            left: -3px;
-            top: -3px;
+            &::before {
+                width: 67%;
+                left: -2px;
+                top: -2px;
+                height: 2px;
+            }
         }
 
         .taskCreator {

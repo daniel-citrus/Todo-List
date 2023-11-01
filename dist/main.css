@@ -266,51 +266,56 @@ header .navSwitchIcon::after {
   justify-content: center;
   align-items: center;
 }
-.popperOverlay.hidden {
-  display: none;
-}
 .popperOverlay > * {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.151);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.11);
   border-radius: var(--border-radius);
   border: 1px solid var(--grey-2);
   background: var(--grey-0);
-  position: fixed;
   padding: 5px;
   display: flex;
   flex-flow: column nowrap;
   gap: 5px;
   font-size: 1rem;
+  position: absolute;
 }
-.popperOverlay > * input,
-.popperOverlay > * select,
-.popperOverlay > * textarea {
-  font-family: var(--font-stack);
-  font-size: 1.2rem;
-  border: 1px solid var(--grey-9);
-  background: none;
-  border-radius: var(--border-radius);
-  padding: 4px;
-}
-.popperOverlay > * input:disabled,
-.popperOverlay > * select:disabled,
-.popperOverlay > * textarea:disabled {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: 1px solid var(--grey-1);
-}
-.popperOverlay > * #taskDesc {
-  height: 200px;
+.popperOverlay.hidden {
+  display: none;
 }
 .popperOverlay .hidden {
   display: none;
 }
 .popperOverlay .projectDetails,
 .popperOverlay .taskDetails {
-  width: 70%;
-  max-width: 730px;
-  padding: 15px 10px;
+  position: fixed;
+}
+.popperOverlay .projectDetails input,
+.popperOverlay .projectDetails select,
+.popperOverlay .projectDetails textarea,
+.popperOverlay .taskDetails input,
+.popperOverlay .taskDetails select,
+.popperOverlay .taskDetails textarea {
+  font-family: var(--font-stack);
+  border: 1px solid var(--grey-5);
+  background: none;
   border-radius: var(--border-radius);
+  padding: 4px;
+  font-size: 1rem;
+}
+.popperOverlay .projectDetails input:disabled,
+.popperOverlay .projectDetails select:disabled,
+.popperOverlay .projectDetails textarea:disabled,
+.popperOverlay .taskDetails input:disabled,
+.popperOverlay .taskDetails select:disabled,
+.popperOverlay .taskDetails textarea:disabled {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid var(--grey-1);
+}
+.popperOverlay .projectDetails label,
+.popperOverlay .taskDetails label {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 .popperOverlay .projectDetails button,
 .popperOverlay .taskDetails button {
@@ -319,15 +324,20 @@ header .navSwitchIcon::after {
   flex: 1 0 auto;
   text-align: center;
 }
+.popperOverlay .projectDetails #taskDesc,
+.popperOverlay .taskDetails #taskDesc {
+  height: 120px;
+}
 .popperOverlay .projectDetails .buttons,
 .popperOverlay .taskDetails .buttons {
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
+  flex-flow: column nowrap;
   gap: 5px;
 }
-
+.popperOverlay .taskDetails {
+  display: flex;
+  flex-flow: column nowrap;
+}
 .projects,
 .tasks {
   font-size: 1.2rem;
@@ -375,7 +385,7 @@ header .navSwitchIcon::after {
   display: flex;
   flex-flow: column nowrap;
   gap: 3px;
-  transition: 0.2s ease-out;
+  transition: all 0.1s ease-out;
   transform: translateX(0%);
   box-sizing: border-box;
   background-color: var(--grey-1);
@@ -388,7 +398,7 @@ header .navSwitchIcon::after {
   background-color: var(--grey-1);
 }
 .projects.hidden {
-  transition: 0.2s ease-out;
+  transition: all 0.1s ease-out;
   transform: translateX(-100%);
   position: fixed;
 }
@@ -503,6 +513,7 @@ header .navSwitchIcon::after {
   width: 100%;
 }
 .tasks .completeTask {
+  margin-top: 4px;
   height: 40px;
   width: 40px;
   border-radius: 50%;
@@ -528,6 +539,18 @@ header .navSwitchIcon::after {
   left: -4px;
   top: -4px;
 }
+.tasks:hover .taskCreator {
+  opacity: 1;
+}
+.tasks .task[data-completed=true] {
+  text-decoration: line-through;
+  color: var(--grey-9);
+}
+.tasks .task[data-completed=true] > div .title,
+.tasks .task[data-completed=true] > div .description,
+.tasks .task[data-completed=true] > div .dueDate {
+  color: var(--grey-7);
+}
 .tasks .task[data-completed=true] .completeTask {
   border-color: var(--success);
 }
@@ -542,9 +565,6 @@ header .navSwitchIcon::after {
 .tasks .task[data-completed=true] .completeTaskIcon::before {
   content: "";
   background-color: var(--success);
-}
-.tasks:hover .taskCreator {
-  opacity: 1;
 }
 .tasks .taskCreator {
   transition: all 0.1s ease-out;
@@ -607,9 +627,9 @@ Extra large screens, TV – 1201px, and more */
   }
   .project .options,
   .task .options {
-    height: 35px;
-    width: 35px;
-    padding: 5px;
+    height: 30px;
+    width: 30px;
+    padding: 4px;
   }
   .task {
     align-items: start;
@@ -617,6 +637,7 @@ Extra large screens, TV – 1201px, and more */
   .projects,
   .tasks {
     font-size: 1rem;
+    line-height: 1.4rem;
   }
   .projects {
     position: static;
@@ -651,26 +672,25 @@ Extra large screens, TV – 1201px, and more */
     padding: 5px;
     background: var(--grey-1);
   }
-  .task {
-    padding: 10px;
-  }
   .tasks {
     position: static;
   }
   .tasks .completeTask {
-    height: 25px;
-    width: 25px;
+    height: 17px;
+    width: 17px;
     border: 1px solid var(--grey-3);
   }
   .tasks .completeTaskIcon {
     height: 2px;
-    left: 8px;
-    top: 1px;
+    left: 5px;
+    top: 0px;
+    width: 50%;
   }
   .tasks .completeTaskIcon::before {
+    width: 67%;
+    left: -2px;
+    top: -2px;
     height: 2px;
-    left: -3px;
-    top: -3px;
   }
   .tasks .taskCreator {
     background-color: var(--grey-1);
