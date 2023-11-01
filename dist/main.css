@@ -512,6 +512,9 @@ header .navSwitchIcon::after {
   height: 100%;
   width: 100%;
 }
+.tasks:hover .taskCreator {
+  opacity: 1;
+}
 .tasks .completeTask {
   margin-top: 4px;
   height: 40px;
@@ -539,8 +542,8 @@ header .navSwitchIcon::after {
   left: -4px;
   top: -4px;
 }
-.tasks:hover .taskCreator {
-  opacity: 1;
+.tasks .hidden {
+  display: none;
 }
 .tasks .task[data-completed=true] {
   text-decoration: line-through;
@@ -571,7 +574,7 @@ header .navSwitchIcon::after {
   text-align: center;
   background-color: var(--grey-1);
 }
-.tasks .taskList {
+.tasks > * {
   display: flex;
   flex-flow: column nowrap;
   gap: 10px;
@@ -694,7 +697,7 @@ Extra large screens, TV – 1201px, and more */
   }
   .tasks .taskCreator {
     background-color: var(--grey-1);
-    opacity: 0;
+    opacity: 0.2;
   }
 }
 @media screen and (min-width: 1025px) {

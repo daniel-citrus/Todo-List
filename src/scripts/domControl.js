@@ -11,7 +11,7 @@ export default function () {
         projectButtons,        // All buttons for creating projects
         popperOverlay,         // Mouse click catcher for pop up menus
         defaultButtons,        // Default buttons (eg. All Tasks, This Week, etc.)
-        taskButtons,           // All buttons for creating buttons
+        taskButtonHolder,           // All buttons for creating buttons
 
         projectDisplay,        // Modal containing form to create/edit project
         taskDisplay,           // Displays task details (also serves as a form)
@@ -34,6 +34,9 @@ export default function () {
         taskContainer = buildElement('div', '', 'tasks');
         taskList = buildElement('ul', '', 'taskList');
         taskContainer.appendChild(taskList);
+        taskButtonHolder = buildElement('div', '', 'buttonHolder');
+        taskButtonHolder.appendChild(createTaskCreatorButton());
+        taskContainer.appendChild(taskButtonHolder);
         contentContainer.appendChild(taskContainer);
 
         projectDisplay = createProjectForm();
@@ -162,6 +165,8 @@ export default function () {
                 buttonElem.classList.add('selected');
                 button[1]();
                 sortTasksByDate();
+                currentProject = null;
+                taskButtonHolder.classList.add('hidden');
             })
         })
 
@@ -196,6 +201,7 @@ export default function () {
             project.classList.add('selected');
             projectContainer.classList.add('hidden');
             brain.displayProjectTasks(id);
+            taskButtonHolder.classList.remove('hidden');
         })
 
         return project;
@@ -293,6 +299,7 @@ export default function () {
     }
 
     function deleteProject(projectKey) {
+        console.log(`Type ${typeof (projectKey)}, Value ${projectKey}`);
         brain.deleteProject(projectKey);
 
         let project = document.querySelector(`.projects .project[data-id="${projectKey}"]`);
@@ -304,12 +311,8 @@ export default function () {
 
         project.remove();
 
-        if (currentProject !== projectKey) { return true; }
-
-        let projectButton = document.querySelector(`.projects .defaultButtons button`);
-
-        if (projectButton) {
-            projectButton.click();
+        if (currentProject === projectKey || currentProject === null) {
+            defaultButtons.querySelector('button').click();
         }
 
         return true;
@@ -403,25 +406,6 @@ export default function () {
     }
 
     /**
-     * Insert task as the list item on the taskList before the task creator button
-     * @param {*} task 
-     */
-    function insertLastTask(task) {
-        let createTaskButton = taskList.querySelectorAll('button.taskCreator');
-        let length = createTaskCreatorButton.length;
-
-        createTaskButton = createTaskButton[length];
-
-        if (!createTaskButton) {
-            insertTask(task);
-            insertTask(createTaskCreatorButton());
-            return;
-        }
-
-        taskList.insertBefore(task, createTaskButton);
-    }
-
-    /**
      * Insert a project element into the project container
      **/
     function insertProject(projectNode) {
@@ -491,11 +475,11 @@ export default function () {
             editTask(+taskDisplay.dataset.taskId);
         })
         buttons.appendChild(editButton);
-        
+
         let submitEditButton = buildElement('button', 'Submit', 'submit', 'hidden');
         submitEditButton.type = 'button';
         submitEditButton.title = 'Submit';
-        submitEditButton.addEventListener('click', () => { 
+        submitEditButton.addEventListener('click', () => {
             submitTaskDetails();
             sortTasksByDate();
         })
@@ -844,24 +828,18 @@ export default function () {
         task.remove();
     }
 
-    function compareFunction(a, b) {
-        return a <= b ? -1 : 1;
-    }
-
     function sortTasksByDate() {
-        console.clear();
         let tasks = taskContainer.querySelectorAll('div.task');
         tasks = Array.from(tasks);
-        tasks.sort((a, b)=> {
+        tasks.sort((a, b) => {
             return a.dataset.date <= b.dataset.date ? -1 : 1;
         });
 
         clearTaskList();
 
-        tasks.forEach((task)=> {
+        tasks.forEach((task) => {
             taskList.appendChild(task);
         })
-        taskList.appendChild(createTaskCreatorButton());
     }
 
     function sortProjectsByName() {
@@ -875,7 +853,6 @@ export default function () {
         clearTaskList,
         getCurrentProject,
         insertTask,
-        insertLastTask,
         insertProject,
         selectProject,
         sortTasksByDate,

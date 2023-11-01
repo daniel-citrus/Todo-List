@@ -98,7 +98,7 @@ let brain = (() => {
         projects.addTask(projectKey, taskKey);
 
         if (domControl.getCurrentProject() === projectKey) {
-            domControl.insertLastTask(domControl.createTaskElement(taskKey, inputs));
+            domControl.insertTask(domControl.createTaskElement(taskKey, inputs));
         }
 
         saveData();
@@ -143,16 +143,7 @@ let brain = (() => {
     }
 
     function getTaskDetails(taskKey) {
-        if (tasks.taskExists(taskKey) === false) { return false; }
         return tasks.getTask(taskKey);
-    }
-
-    function sortTasksByDate() {
-
-    }
-
-    function moveTask(projectKey, taskKey) {
-
     }
 
     /**
