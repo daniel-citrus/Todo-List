@@ -299,7 +299,6 @@ export default function () {
     }
 
     function deleteProject(projectKey) {
-        console.log(`Type ${typeof (projectKey)}, Value ${projectKey}`);
         brain.deleteProject(projectKey);
 
         let project = document.querySelector(`.projects .project[data-id="${projectKey}"]`);

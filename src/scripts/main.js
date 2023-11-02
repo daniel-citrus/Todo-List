@@ -88,7 +88,7 @@ let brain = (() => {
         let projectKey = +domControl.getCurrentProject();
 
         if (projectKey == NaN || projectKey === false || projectKey === null) {
-            console.log(`Invalid Project ID`);
+            console.error(`Invalid Project ID`);
             return;
         }
 
@@ -188,11 +188,11 @@ let brain = (() => {
 
     function loadData() {
         if (projects.loadData() && tasks.loadData()) {
-            console.log(`LOADING SUCCESSFUL`);
+            console.log(`Loading Successful`);
         }
         else {
             deleteData();
-            console.log(`LOADING FAILED`);
+            console.log(`Load Failed; Starting Clean`);
         }
         
         saveData();

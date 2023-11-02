@@ -287,6 +287,7 @@ header .navSwitchIcon::after {
 .popperOverlay .projectDetails,
 .popperOverlay .taskDetails {
   position: fixed;
+  padding: 15px 10px;
 }
 .popperOverlay .projectDetails input,
 .popperOverlay .projectDetails select,
