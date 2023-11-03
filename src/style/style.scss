@@ -182,6 +182,7 @@ input {
     --primary-color-hover: #2566af;
     --success: rgb(114, 191, 114);
     --font-stack: poppins_regular, Verdana, sans-serif;
+    --form-input-padding: 4px;
 }
 
 @font-face {
@@ -454,7 +455,7 @@ header {
         border: 1px solid var(--grey-5);
         background: none;
         border-radius: var(--border-radius);
-        padding: 4px;
+        padding: var(--form-input-padding);
         font-size: 1rem;
         box-sizing: border-box;
         height: 35px;
@@ -466,7 +467,7 @@ header {
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-        border: 1px solid var(--grey-1);
+        border: 1px solid var(--grey--0);
     }
 
     label {
@@ -481,14 +482,6 @@ header {
         color: #0058bf;
         flex: 1 0 auto;
         text-align: center;
-    }
-
-    textarea {
-        resize: vertical;
-    }
-
-    #taskDesc {
-        height: 100%;
     }
 
     .buttons {
@@ -557,6 +550,34 @@ header {
     div {
         display: flex;
         flex-flow: column nowrap;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    #taskCompleted {
+        position: relative;
+        
+        &::before {
+            content: 'Incomplete';
+            background: var(--background);
+            border-radius: var(--border-radius);
+            transition: all 0.15s ease-out;
+            transform: translateX(0%);
+            height: calc(100% - calc(2 * var(--form-input-padding)));
+            width: 50%;
+            position: absolute;
+        }
+        
+        &:checked::before {
+            content: 'Complete';
+            transform: translateX( calc(100% - calc(2 * var(--form-input-padding))));
+        }
+    }
+
+    #taskDesc {
+        height: 100%;
     }
 }
 

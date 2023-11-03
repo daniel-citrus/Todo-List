@@ -182,6 +182,7 @@ input {
   --primary-color-hover: #2566af;
   --success: rgb(114, 191, 114);
   --font-stack: poppins_regular, Verdana, sans-serif;
+  --form-input-padding: 4px;
 }
 
 @font-face {
@@ -424,7 +425,7 @@ header .navSwitchIcon::after {
   border: 1px solid var(--grey-5);
   background: none;
   border-radius: var(--border-radius);
-  padding: 4px;
+  padding: var(--form-input-padding);
   font-size: 1rem;
   box-sizing: border-box;
   height: 35px;
@@ -438,7 +439,7 @@ header .navSwitchIcon::after {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  border: 1px solid var(--grey-1);
+  border: 1px solid var(--grey--0);
 }
 .projectDetails label,
 .taskDetails label {
@@ -452,14 +453,6 @@ header .navSwitchIcon::after {
   color: #0058bf;
   flex: 1 0 auto;
   text-align: center;
-}
-.projectDetails textarea,
-.taskDetails textarea {
-  resize: vertical;
-}
-.projectDetails #taskDesc,
-.taskDetails #taskDesc {
-  height: 100%;
 }
 .projectDetails .buttons,
 .taskDetails .buttons {
@@ -516,6 +509,29 @@ header .navSwitchIcon::after {
 .taskDetails div {
   display: flex;
   flex-flow: column nowrap;
+}
+.taskDetails textarea {
+  resize: vertical;
+}
+.taskDetails #taskCompleted {
+  position: relative;
+}
+.taskDetails #taskCompleted::before {
+  content: "Incomplete";
+  background: var(--background);
+  border-radius: var(--border-radius);
+  transition: all 0.15s ease-out;
+  transform: translateX(0%);
+  height: calc(100% - 2 * var(--form-input-padding));
+  width: 50%;
+  position: absolute;
+}
+.taskDetails #taskCompleted:checked::before {
+  content: "Complete";
+  transform: translateX(calc(100% - 2 * var(--form-input-padding)));
+}
+.taskDetails #taskDesc {
+  height: 100%;
 }
 
 .tasks {
