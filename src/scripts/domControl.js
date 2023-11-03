@@ -419,38 +419,38 @@ export default function () {
         display.innerHTML = `
             <label for="taskCompleted">
                 Completed:
+                <br />
+                <input type="checkbox" id="taskCompleted" title='Completed' name="taskCompleted" disabled autocomplete='off'>
             </label>
-            <br />
-            <input type="checkbox" id="taskCompleted" title='Completed' name="taskCompleted" disabled autocomplete='off'>
             <label for="taskDueDate">
                 Due Date
+                <br />
+                <input type="date" id="taskDueDate" title="Due date" name="taskDueDate" required disabled autocomplete='off'>
             </label>
-            <br />
-            <input type="date" id="taskDueDate" title="Due date" name="taskDueDate" required disabled autocomplete='off'>
         <br />
             <label for="taskName">
                 Task Name
+                <br />
+                <input type="text" id="taskName" title="Task name" name="taskName" required disabled autocomplete='off'>
             </label>
-            <br />
-            <input type="text" id="taskName" title="Task name" name="taskName" required disabled autocomplete='off'>
         <br />
             <label for="taskPriority">
                 Priority
+                <br />
+                <select id="taskPriority" title="Priority level" name="taskPriority" required>
+                    <option value="1">1 - High</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 - Low</option>
+                </select>
             </label>
-            <br />
-            <select id="taskPriority" title="Priority level" name="taskPriority" required>
-                <option value="1">1 - High</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5 - Low</option>
-            </select>
         <br />
             <label for="taskDesc">
                 Description
+                <br />
+                <textarea type="text" id="taskDesc" title="Task description" name="taskDesc" autocomplete='off' maxlength="1000"></textarea>
             </label>
-            <br />
-            <textarea type="text" id="taskDesc" title="Task description" name="taskDesc" autocomplete='off' maxlength="1000"></textarea>
         `
 
         let buttons = buildElement('div', '', 'buttons');

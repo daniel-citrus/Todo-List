@@ -157,6 +157,7 @@ input {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    margin: 0;
 }
 
 /* End CSS Reset */
@@ -313,6 +314,8 @@ header {
             border-radius: var(--border-radius);
             padding: 4px;
             font-size: 1rem;
+            box-sizing: border-box;
+            height: 35px;
         }
 
         input:disabled,
@@ -327,6 +330,8 @@ header {
         label {
             font-size: 1rem;
             line-height: 1.5rem;
+            display: grid;
+
         }
 
         button {
@@ -348,12 +353,31 @@ header {
     }
 
     .taskDetails {
-        display: flex;
-        flex-flow: column nowrap;
+        label {
+            &[for='taskCompleted'] {
+                grid-area: complete;
+            }
 
-        &>div {}
+            &[for='taskDueDate'] {
+                grid-area: dueDate;
+            }
 
+            &[for='taskName'] {
+                grid-area: title;
+            }
 
+            &[for='taskPriority'] {
+                grid-area: priority;
+            }
+
+            &[for='taskDesc'] {
+                grid-area: description;
+            }
+
+            .buttons {
+                grid-area: buttons;
+            }
+        }
     }
 }
 
@@ -687,6 +711,13 @@ iPads, Tablets – 481px — 768px
 Small screens, laptops – 769px — 1024px
 Desktops, large screens – 1025px — 1200px
 Extra large screens, TV – 1201px, and more */
+
+@media screen and (min-height: 550px) {
+    .taskDetails {
+        display: grid;
+        grid-template: auto / auto;
+    }
+}
 
 @media screen and (min-width: 481px) {}
 
