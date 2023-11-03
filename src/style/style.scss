@@ -299,86 +299,6 @@ header {
     .hidden {
         display: none;
     }
-
-    .projectDetails,
-    .taskDetails {
-        position: fixed;
-        padding: 15px 10px;
-
-        input,
-        select,
-        textarea {
-            font-family: var(--font-stack);
-            border: 1px solid var(--grey-5);
-            background: none;
-            border-radius: var(--border-radius);
-            padding: 4px;
-            font-size: 1rem;
-            box-sizing: border-box;
-            height: 35px;
-        }
-
-        input:disabled,
-        select:disabled,
-        textarea:disabled {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            border: 1px solid var(--grey-1);
-        }
-
-        label {
-            font-size: 1rem;
-            line-height: 1.5rem;
-            display: grid;
-
-        }
-
-        button {
-            border: 1px solid #0058bf;
-            color: #0058bf;
-            flex: 1 0 auto;
-            text-align: center;
-        }
-
-        #taskDesc {
-            height: 120px;
-        }
-
-        .buttons {
-            display: flex;
-            flex-flow: column nowrap;
-            gap: 5px;
-        }
-    }
-
-    .taskDetails {
-        label {
-            &[for='taskCompleted'] {
-                grid-area: complete;
-            }
-
-            &[for='taskDueDate'] {
-                grid-area: dueDate;
-            }
-
-            &[for='taskName'] {
-                grid-area: title;
-            }
-
-            &[for='taskPriority'] {
-                grid-area: priority;
-            }
-
-            &[for='taskDesc'] {
-                grid-area: description;
-            }
-
-            .buttons {
-                grid-area: buttons;
-            }
-        }
-    }
 }
 
 .projects,
@@ -522,6 +442,62 @@ header {
     }
 }
 
+.projectDetails,
+.taskDetails {
+    position: fixed;
+    padding: 15px 10px;
+
+    input,
+    select,
+    textarea {
+        font-family: var(--font-stack);
+        border: 1px solid var(--grey-5);
+        background: none;
+        border-radius: var(--border-radius);
+        padding: 4px;
+        font-size: 1rem;
+        box-sizing: border-box;
+        height: 35px;
+    }
+
+    input:disabled,
+    select:disabled,
+    textarea:disabled {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: 1px solid var(--grey-1);
+    }
+
+    label {
+        font-size: 1rem;
+        line-height: 1.5rem;
+        display: grid;
+
+    }
+
+    button {
+        border: 1px solid #0058bf;
+        color: #0058bf;
+        flex: 1 0 auto;
+        text-align: center;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    #taskDesc {
+        height: 100%;
+    }
+
+    .buttons {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 5px;
+    }
+}
+
 .task {
     display: grid;
     grid-template: auto / auto 1fr auto;
@@ -574,6 +550,13 @@ header {
         display: flex;
         flex-flow: column nowrap;
         overflow: hidden;
+    }
+}
+
+.taskDetails {
+    div {
+        display: flex;
+        flex-flow: column nowrap;
     }
 }
 
@@ -712,16 +695,50 @@ Small screens, laptops – 769px — 1024px
 Desktops, large screens – 1025px — 1200px
 Extra large screens, TV – 1201px, and more */
 
-@media screen and (min-height: 550px) {
-    .taskDetails {
+@media screen and (max-height: 550px) {
+    form.taskDetails {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
         display: grid;
-        grid-template: auto / auto;
+        grid-template:
+            'complete dueDate'
+            'title priority'
+            'description description'
+            'buttons buttons' / 1fr 1fr;
+
+        div {
+            &.complete {
+                grid-area: complete;
+            }
+
+            &.dueDate {
+                grid-area: dueDate;
+            }
+
+            &.title {
+                grid-area: title;
+            }
+
+            &.priority {
+                grid-area: priority;
+            }
+
+            &.description {
+                grid-area: description;
+            }
+
+        }
+
+        div.buttons {
+            grid-area: buttons;
+            display: flex;
+            flex-flow: row nowrap;
+        }
     }
 }
 
 @media screen and (min-width: 481px) {}
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 769px) and (min-height: 550px) {
     header {
         grid-template: auto / auto;
 

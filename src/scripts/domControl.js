@@ -417,40 +417,42 @@ export default function () {
         display.id = 'taskDisplay';
 
         display.innerHTML = `
+        <div class="complete">
             <label for="taskCompleted">
                 Completed:
-                <br />
-                <input type="checkbox" id="taskCompleted" title='Completed' name="taskCompleted" disabled autocomplete='off'>
             </label>
+            <input type="checkbox" id="taskCompleted" title='Completed' name="taskCompleted" disabled autocomplete='off'>
+        </div>
+        <div class="dueDate">
             <label for="taskDueDate">
                 Due Date
-                <br />
-                <input type="date" id="taskDueDate" title="Due date" name="taskDueDate" required disabled autocomplete='off'>
             </label>
-        <br />
+            <input type="date" id="taskDueDate" title="Due date" name="taskDueDate" required disabled autocomplete='off'>
+        </div>
+        <div class="title">
             <label for="taskName">
                 Task Name
-                <br />
-                <input type="text" id="taskName" title="Task name" name="taskName" required disabled autocomplete='off'>
             </label>
-        <br />
+            <input type="text" id="taskName" title="Task name" name="taskName" required disabled autocomplete='off'>
+        </div>
+        <div class="priority">
             <label for="taskPriority">
                 Priority
-                <br />
-                <select id="taskPriority" title="Priority level" name="taskPriority" required>
-                    <option value="1">1 - High</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5 - Low</option>
-                </select>
             </label>
-        <br />
+            <select id="taskPriority" title="Priority level" name="taskPriority" required>
+                <option value="1">1 - High</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5 - Low</option>
+            </select>
+        </div>
+        <div class="description">
             <label for="taskDesc">
                 Description
-                <br />
-                <textarea type="text" id="taskDesc" title="Task description" name="taskDesc" autocomplete='off' maxlength="1000"></textarea>
             </label>
+            <textarea type="text" id="taskDesc" title="Task description" name="taskDesc" autocomplete='off'maxlength="1000"></textarea>
+        </div>
         `
 
         let buttons = buildElement('div', '', 'buttons');
@@ -646,12 +648,30 @@ export default function () {
     function submitTaskDetails() {
         let key = +taskDisplay.dataset.taskId;
         let completed = document.getElementById('taskCompleted').checked;
-        let title = document.getElementById('taskName').value;
-        let dueDate = document.getElementById('taskDueDate').value;
-        let priority = document.getElementById('taskPriority').value;
-        let description = document.getElementById('taskDesc').value;
+        let title = document.getElementById('taskName');
+        let dueDate = document.getElementById('taskDueDate');
+        let priority = document.getElementById('taskPriority');
+        let description = document.getElementById('taskDesc');
 
-        let updated = brain.updateTask(key, title, description, dueDate, priority, completed);
+        if (!title.checkValidity()) {
+            title.reportValidity();
+            return false;
+        }
+
+        if (isNaN(new Date(dueDate.value))) {
+            dueDate.setCustomValidity('Please enter a valid date.');
+            dueDate.reportValidity();
+            return false;
+        }
+
+        let priorityValue = +priority.value;
+        if (isNaN(priorityValue) || priorityValue < 1 || priorityValue > 5) {
+            priority.setCustomValidity('Please enter a valid priority level (1 - 5).');
+            priority.reportValidity();
+            return false;
+        }
+
+        let updated = brain.updateTask(key, title.value, description.value, dueDate.value, priority.value, completed);
         if (!updated) { return; }
 
         updateTaskElement(key);

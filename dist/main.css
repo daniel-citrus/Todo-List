@@ -285,78 +285,6 @@ header .navSwitchIcon::after {
 .popperOverlay .hidden {
   display: none;
 }
-.popperOverlay .projectDetails,
-.popperOverlay .taskDetails {
-  position: fixed;
-  padding: 15px 10px;
-}
-.popperOverlay .projectDetails input,
-.popperOverlay .projectDetails select,
-.popperOverlay .projectDetails textarea,
-.popperOverlay .taskDetails input,
-.popperOverlay .taskDetails select,
-.popperOverlay .taskDetails textarea {
-  font-family: var(--font-stack);
-  border: 1px solid var(--grey-5);
-  background: none;
-  border-radius: var(--border-radius);
-  padding: 4px;
-  font-size: 1rem;
-  box-sizing: border-box;
-  height: 35px;
-}
-.popperOverlay .projectDetails input:disabled,
-.popperOverlay .projectDetails select:disabled,
-.popperOverlay .projectDetails textarea:disabled,
-.popperOverlay .taskDetails input:disabled,
-.popperOverlay .taskDetails select:disabled,
-.popperOverlay .taskDetails textarea:disabled {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: 1px solid var(--grey-1);
-}
-.popperOverlay .projectDetails label,
-.popperOverlay .taskDetails label {
-  font-size: 1rem;
-  line-height: 1.5rem;
-  display: grid;
-}
-.popperOverlay .projectDetails button,
-.popperOverlay .taskDetails button {
-  border: 1px solid #0058bf;
-  color: #0058bf;
-  flex: 1 0 auto;
-  text-align: center;
-}
-.popperOverlay .projectDetails #taskDesc,
-.popperOverlay .taskDetails #taskDesc {
-  height: 120px;
-}
-.popperOverlay .projectDetails .buttons,
-.popperOverlay .taskDetails .buttons {
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 5px;
-}
-.popperOverlay .taskDetails label[for=taskCompleted] {
-  grid-area: complete;
-}
-.popperOverlay .taskDetails label[for=taskDueDate] {
-  grid-area: dueDate;
-}
-.popperOverlay .taskDetails label[for=taskName] {
-  grid-area: title;
-}
-.popperOverlay .taskDetails label[for=taskPriority] {
-  grid-area: priority;
-}
-.popperOverlay .taskDetails label[for=taskDesc] {
-  grid-area: description;
-}
-.popperOverlay .taskDetails label .buttons {
-  grid-area: buttons;
-}
 
 .projects,
 .tasks {
@@ -481,6 +409,65 @@ header .navSwitchIcon::after {
   text-overflow: ellipsis;
 }
 
+.projectDetails,
+.taskDetails {
+  position: fixed;
+  padding: 15px 10px;
+}
+.projectDetails input,
+.projectDetails select,
+.projectDetails textarea,
+.taskDetails input,
+.taskDetails select,
+.taskDetails textarea {
+  font-family: var(--font-stack);
+  border: 1px solid var(--grey-5);
+  background: none;
+  border-radius: var(--border-radius);
+  padding: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  height: 35px;
+}
+.projectDetails input:disabled,
+.projectDetails select:disabled,
+.projectDetails textarea:disabled,
+.taskDetails input:disabled,
+.taskDetails select:disabled,
+.taskDetails textarea:disabled {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid var(--grey-1);
+}
+.projectDetails label,
+.taskDetails label {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  display: grid;
+}
+.projectDetails button,
+.taskDetails button {
+  border: 1px solid #0058bf;
+  color: #0058bf;
+  flex: 1 0 auto;
+  text-align: center;
+}
+.projectDetails textarea,
+.taskDetails textarea {
+  resize: vertical;
+}
+.projectDetails #taskDesc,
+.taskDetails #taskDesc {
+  height: 100%;
+}
+.projectDetails .buttons,
+.taskDetails .buttons {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 5px;
+}
+
 .task {
   display: grid;
   grid-template: auto/auto 1fr auto;
@@ -524,6 +511,11 @@ header .navSwitchIcon::after {
   display: flex;
   flex-flow: column nowrap;
   overflow: hidden;
+}
+
+.taskDetails div {
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .tasks {
@@ -634,13 +626,34 @@ iPads, Tablets – 481px — 768px
 Small screens, laptops – 769px — 1024px
 Desktops, large screens – 1025px — 1200px
 Extra large screens, TV – 1201px, and more */
-@media screen and (min-height: 550px) {
-  .taskDetails {
+@media screen and (max-height: 550px) {
+  form.taskDetails {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     display: grid;
-    grid-template: auto/auto;
+    grid-template: "complete dueDate" "title priority" "description description" "buttons buttons"/1fr 1fr;
+  }
+  form.taskDetails div.complete {
+    grid-area: complete;
+  }
+  form.taskDetails div.dueDate {
+    grid-area: dueDate;
+  }
+  form.taskDetails div.title {
+    grid-area: title;
+  }
+  form.taskDetails div.priority {
+    grid-area: priority;
+  }
+  form.taskDetails div.description {
+    grid-area: description;
+  }
+  form.taskDetails div.buttons {
+    grid-area: buttons;
+    display: flex;
+    flex-flow: row nowrap;
   }
 }
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 769px) and (min-height: 550px) {
   header {
     grid-template: auto/auto;
   }
