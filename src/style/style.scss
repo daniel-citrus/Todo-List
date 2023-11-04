@@ -179,6 +179,7 @@ input {
     --border: 1px solid var(--grey-0);
     --border-radius: 5px;
     --primary-color: #3289ef;
+    --primary-color-faded: #88a7ca;
     --primary-color-hover: #2566af;
     --success: rgb(114, 191, 114);
     --font-stack: poppins_regular, Verdana, sans-serif;
@@ -447,6 +448,7 @@ header {
 .taskDetails {
     position: fixed;
     padding: 15px 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 
     input,
     select,
@@ -558,10 +560,11 @@ header {
 
     #taskCompleted {
         position: relative;
-        
+
         &::before {
             content: 'Incomplete';
-            background: var(--background);
+            text-align: center;
+            background-color: var(--primary-color);
             border-radius: var(--border-radius);
             transition: all 0.15s ease-out;
             transform: translateX(0%);
@@ -569,11 +572,23 @@ header {
             width: 50%;
             position: absolute;
         }
-        
+
+        &:disabled::before,
+        &:disabled:hover::before {
+            background-color: var(--primary-color-faded);
+            color: black;
+        }
+
         &:checked::before {
             content: 'Complete';
-            transform: translateX( calc(100% - calc(2 * var(--form-input-padding))));
+            transform: translateX(calc(100% - calc(2 * var(--form-input-padding))));
         }
+
+        &:hover::before {
+            background-color: var(--primary-color-hover);
+            color: white;
+        }
+
     }
 
     #taskDesc {
@@ -718,7 +733,6 @@ Extra large screens, TV – 1201px, and more */
 
 @media screen and (max-height: 550px) {
     form.taskDetails {
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
         display: grid;
         grid-template:
             'complete dueDate'
