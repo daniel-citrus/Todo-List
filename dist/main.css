@@ -182,6 +182,9 @@ input {
   --primary-color-faded: #88a7ca;
   --primary-color-hover: #2566af;
   --success: rgb(114, 191, 114);
+  --failure: rgb(191, 114, 114);
+  --success-faded: rgb(157, 187, 157);
+  --failure-faded: rgb(187, 157, 157);
   --font-stack: poppins_regular, Verdana, sans-serif;
   --form-input-padding: 4px;
 }
@@ -432,16 +435,30 @@ header .navSwitchIcon::after {
   box-sizing: border-box;
   height: 35px;
 }
+.projectDetails input:hover,
+.projectDetails select:hover,
+.projectDetails textarea:hover,
+.taskDetails input:hover,
+.taskDetails select:hover,
+.taskDetails textarea:hover {
+  border-color: var(--grey-7);
+}
 .projectDetails input:disabled,
+.projectDetails input:disabled:hover,
 .projectDetails select:disabled,
+.projectDetails select:disabled:hover,
 .projectDetails textarea:disabled,
+.projectDetails textarea:disabled:hover,
 .taskDetails input:disabled,
+.taskDetails input:disabled:hover,
 .taskDetails select:disabled,
-.taskDetails textarea:disabled {
+.taskDetails select:disabled:hover,
+.taskDetails textarea:disabled,
+.taskDetails textarea:disabled:hover {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  border: 1px solid var(--grey--0);
+  border: 1px solid var(--grey-1);
 }
 .projectDetails label,
 .taskDetails label {
@@ -459,7 +476,7 @@ header .navSwitchIcon::after {
 .projectDetails .buttons,
 .taskDetails .buttons {
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
   gap: 5px;
 }
 
@@ -508,6 +525,11 @@ header .navSwitchIcon::after {
   overflow: hidden;
 }
 
+.taskDetails {
+  min-width: 320px;
+  max-width: 700px;
+  box-sizing: border-box;
+}
 .taskDetails div {
   display: flex;
   flex-flow: column nowrap;
@@ -521,7 +543,7 @@ header .navSwitchIcon::after {
 .taskDetails #taskCompleted::before {
   content: "Incomplete";
   text-align: center;
-  background-color: var(--primary-color);
+  background-color: var(--failure);
   border-radius: var(--border-radius);
   transition: all 0.15s ease-out;
   transform: translateX(0%);
@@ -530,17 +552,18 @@ header .navSwitchIcon::after {
   position: absolute;
 }
 .taskDetails #taskCompleted:disabled::before, .taskDetails #taskCompleted:disabled:hover::before {
-  background-color: var(--primary-color-faded);
+  background-color: var(--failure-faded);
   color: black;
 }
 .taskDetails #taskCompleted:checked::before {
   content: "Complete";
+  background-color: var(--success);
   transform: translateX(calc(100% - 2 * var(--form-input-padding)));
 }
-.taskDetails #taskCompleted:hover::before {
-  background-color: var(--primary-color-hover);
-  color: white;
+.taskDetails #taskCompleted:checked:disabled::before {
+  background-color: var(--success-faded);
 }
+.taskDetails .description,
 .taskDetails #taskDesc {
   height: 100%;
 }
@@ -656,7 +679,7 @@ Extra large screens, TV – 1201px, and more */
 @media screen and (max-height: 550px) {
   form.taskDetails {
     display: grid;
-    grid-template: "complete dueDate" "title priority" "description description" "buttons buttons"/1fr 1fr;
+    grid-template: "complete complete" "title title" "dueDate priority" "description description" "buttons buttons"/1fr 1fr;
   }
   form.taskDetails div.complete {
     grid-area: complete;
@@ -675,8 +698,6 @@ Extra large screens, TV – 1201px, and more */
   }
   form.taskDetails div.buttons {
     grid-area: buttons;
-    display: flex;
-    flex-flow: row nowrap;
   }
 }
 @media screen and (min-width: 769px) and (min-height: 550px) {
@@ -714,17 +735,20 @@ Extra large screens, TV – 1201px, and more */
     position: static;
     transform: none;
   }
-  .projects:hover .projectsLabel button {
+  .projects:hover .projectsLabel button, .projects:focus-within .projectsLabel button {
     opacity: 1;
   }
-  .projects:hover .projectsLabel button:hover {
+  .projects:hover .projectsLabel button:hover, .projects:focus-within .projectsLabel button:hover {
     background: var(--grey-0);
   }
   .projects .options {
     opacity: 0;
     background-color: var(--grey-1);
   }
-  .projects .project:hover .options {
+  .projects .project:hover .options, .projects .project:focus .options, .projects .project:focus-visible .options {
+    opacity: 1;
+  }
+  .projects .project .options:hover, .projects .project .options:focus, .projects .project .options:focus-visible {
     opacity: 1;
   }
   .projects .project.selected button.options, .projects .project.selected:hover button.options {

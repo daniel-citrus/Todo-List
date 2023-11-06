@@ -423,17 +423,17 @@ export default function () {
             </label>
             <input type="checkbox" id="taskCompleted" title='Completed' name="taskCompleted" disabled autocomplete='off'>
         </div>
-        <div class="dueDate">
-            <label for="taskDueDate">
-                Due Date
-            </label>
-            <input type="date" id="taskDueDate" title="Due date" name="taskDueDate" required disabled autocomplete='off'>
-        </div>
         <div class="title">
             <label for="taskName">
                 Task Name
             </label>
             <input type="text" id="taskName" title="Task name" name="taskName" required disabled autocomplete='off'>
+        </div>
+        <div class="dueDate">
+            <label for="taskDueDate">
+                Due Date
+            </label>
+            <input type="date" id="taskDueDate" title="Due date" name="taskDueDate" required disabled autocomplete='off'>
         </div>
         <div class="priority">
             <label for="taskPriority">
