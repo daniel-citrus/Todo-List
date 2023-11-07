@@ -33,7 +33,7 @@ export default function () {
         contentContainer.appendChild(projectContainer);
 
         taskContainer = buildElement('div', '', 'tasks');
-        projectTitle = buildElement('h2', 'Travel Kit', 'projectTitle');
+        projectTitle = buildElement('h2', '', 'projectTitle');
         taskContainer.appendChild(projectTitle);
         taskList = buildElement('ul', '', 'taskList');
         taskContainer.appendChild(taskList);
@@ -70,7 +70,7 @@ export default function () {
 
         header.appendChild(createMobileNavSwitch());
 
-        let logo = buildElement('div', 'Todo', 'logo');
+        let logo = buildElement('div', 'Todo List', 'logo');
         header.appendChild(logo);
 
         return header;
@@ -187,6 +187,7 @@ export default function () {
                 sortTasksByDate();
                 currentProject = null;
                 taskButtonHolder.classList.add('hidden');
+                projectTitle.textContent = button[0];
             })
         })
 
@@ -215,6 +216,7 @@ export default function () {
         let projectName = buildElement('div', name, 'name');
         project.appendChild(projectName);
         project.appendChild(projectOptionButton(id));
+
         project.addEventListener('click', () => {
             clearSelectedProject();
             currentProject = id;
@@ -222,6 +224,7 @@ export default function () {
             projectContainer.classList.add('hidden');
             brain.displayProjectTasks(id);
             taskButtonHolder.classList.remove('hidden');
+            projectTitle.textContent = name;
         })
 
         return project;
