@@ -19,54 +19,21 @@ let brain = (() => {
     })();
 
     let task1 = {
-        title: 'Pull Ups',
-        description: 'Quality reps',
-        dueDate: new Date(2023, 8, 4),
-        priority: 2,
+        title: '10 Chicken Thighs',
+        description: 'Skinned and Boneless',
+        dueDate: new Date(),
+        priority: 1,
         completed: true,
     };
 
     let task2 = {
-        title: 'Dips',
-        description: 'Heavy weight',
-        dueDate: new Date(2023, 8, 3),
-        priority: 3,
-    }
-
-    let task3 = {
-        title: 'Eat',
-        description: 'Healthy meals',
-        dueDate: new Date(2023, 8, 2),
-        priority: 1
-    }
-
-    let task4 = {
-        title: 'Sleep',
-        description: `Good sleep improves your brain performance, mood, and health.`,
-        dueDate: new Date(2023, 8, 2),
-        priority: 1
-    }
-
-    let task5 = {
-        title: 'Study',
-        description: 'Regular session',
-        dueDate: new Date(2023, 8, 6),
+        title: '10 Chicken Thighs',
+        description: 'Skinned and Boneless',
+        dueDate: new Date(),
         priority: 1,
-    }
+        completed: true,
+    };
 
-    let task6 = {
-        title: 'Walk',
-        description: 'Regular walk',
-        dueDate: new Date(2024, 2, 6),
-        priority: 1,
-    }
-
-    let task7 = {
-        title: 'Run',
-        description: 'Regular walk',
-        dueDate: new Date(2023, 8, 20),
-        priority: 2,
-    }
 
     function createProject(name) {
         let projectID = projects.addProject(name);

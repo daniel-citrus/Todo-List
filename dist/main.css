@@ -727,6 +727,7 @@ Extra large screens, TV – 1201px, and more */
   .content {
     display: grid;
     grid-template: auto/minmax(100px, 1fr) 2fr;
+    box-sizing: border-box;
   }
   .project .options,
   .task .options {
@@ -793,7 +794,7 @@ Extra large screens, TV – 1201px, and more */
   .tasks .completeTask {
     height: 17px;
     width: 17px;
-    border: 1px solid var(--grey-3);
+    border: 1px solid var(--grey-5);
   }
   .tasks .completeTaskIcon {
     height: 2px;
