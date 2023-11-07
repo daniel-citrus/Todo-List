@@ -618,7 +618,8 @@ header {
     height: 100%;
     width: 100%;
 
-    &:hover {
+    &:hover,
+    &:focus-within {
         .taskCreator {
             opacity: 1;
         }

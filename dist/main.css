@@ -574,7 +574,7 @@ header .navSwitchIcon::after {
   height: 100%;
   width: 100%;
 }
-.tasks:hover .taskCreator {
+.tasks:hover .taskCreator, .tasks:focus-within .taskCreator {
   opacity: 1;
 }
 .tasks .completeTask {

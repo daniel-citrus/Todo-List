@@ -56,6 +56,12 @@ export default function () {
         projectContainer.classList.remove('hidden');
     })
 
+    addEventListener('keydown', (e)=> {
+        if (e.key === 'Escape') {
+            closePopper();
+        }
+    })
+
     function createHeader() {
         let header = buildElement('header', '');
 
@@ -128,6 +134,17 @@ export default function () {
         }
 
         popperOverlay.classList.remove('hidden');
+
+        let focusElement = elem.querySelector('input');
+        if (focusElement) {
+            focusElement.focus();
+            return;
+        }
+        
+        focusElement = elem.querySelector('button');
+        if (focusElement) {
+            focusElement.focus();
+        }
     }
 
     function closePopper() {
