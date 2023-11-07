@@ -7,6 +7,7 @@ export default function () {
         contentContainer,      // Contains project and task containers
         projectContainer,      // Displays projects
         taskContainer,         // Displays all task related items
+        projectTitle,
         taskList,              // Holds list of tasks
         projectButtons,        // All buttons for creating projects
         popperOverlay,         // Mouse click catcher for pop up menus
@@ -32,6 +33,8 @@ export default function () {
         contentContainer.appendChild(projectContainer);
 
         taskContainer = buildElement('div', '', 'tasks');
+        projectTitle = buildElement('h2', 'Travel Kit', 'projectTitle');
+        taskContainer.appendChild(projectTitle);
         taskList = buildElement('ul', '', 'taskList');
         taskContainer.appendChild(taskList);
         taskButtonHolder = buildElement('div', '', 'buttonHolder');
@@ -876,10 +879,6 @@ export default function () {
         tasks.forEach((task) => {
             taskList.appendChild(task);
         })
-    }
-
-    function sortProjectsByName() {
-
     }
 
     return {

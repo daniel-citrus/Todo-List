@@ -199,6 +199,14 @@ body {
   font-family: var(--font-stack);
 }
 
+h1 {
+  font-size: 4rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
 header {
   display: grid;
   grid-template: auto/auto 1fr;
@@ -210,7 +218,7 @@ header {
   background: var(--primary-color);
 }
 header .logo {
-  font-size: 2.3rem;
+  font-size: 4rem;
 }
 header button.mobileNavSwitch {
   justify-self: start;
@@ -486,8 +494,8 @@ header .navSwitchIcon::after {
   gap: 10px;
   border-radius: var(--border-radius);
   cursor: pointer;
+  padding: 10px;
   align-items: center;
-  padding: 5px 10px;
 }
 .task:hover {
   background: var(--grey-2);
@@ -569,6 +577,11 @@ header .navSwitchIcon::after {
 }
 
 .tasks {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 5px;
+  padding: 5px 10px;
+  box-sizing: border-box;
   position: absolute;
   overflow-y: auto;
   height: 100%;
@@ -607,6 +620,10 @@ header .navSwitchIcon::after {
 .tasks .hidden {
   display: none;
 }
+.tasks .projectTitle {
+  line-height: 2.5rem;
+  padding: 10px;
+}
 .tasks .task[data-completed=true] {
   text-decoration: line-through;
   color: var(--grey-9);
@@ -639,8 +656,6 @@ header .navSwitchIcon::after {
 .tasks > * {
   display: flex;
   flex-flow: column nowrap;
-  gap: 10px;
-  padding: 10px;
 }
 
 .threedots {
@@ -703,6 +718,8 @@ Extra large screens, TV – 1201px, and more */
 @media screen and (min-width: 769px) and (min-height: 550px) {
   header {
     grid-template: auto/auto;
+    justify-content: start;
+    padding-left: 15px;
   }
   header .mobileNavSwitch {
     display: none;
@@ -710,9 +727,6 @@ Extra large screens, TV – 1201px, and more */
   .content {
     display: grid;
     grid-template: auto/minmax(100px, 1fr) 2fr;
-  }
-  .main {
-    grid-template: 50px calc(100% - 50px)/auto;
   }
   .project .options,
   .task .options {
@@ -724,12 +738,16 @@ Extra large screens, TV – 1201px, and more */
     align-items: start;
   }
   .projects,
-  .tasks {
+  .taskList {
     font-size: 1rem;
     line-height: 1.4rem;
   }
   .projects {
     position: static;
+  }
+  .projects > button,
+  .projects .defaultButtons > button {
+    height: 25px;
   }
   .projects.hidden {
     position: static;
@@ -766,6 +784,11 @@ Extra large screens, TV – 1201px, and more */
   }
   .tasks {
     position: static;
+  }
+  .tasks > * {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 900px;
   }
   .tasks .completeTask {
     height: 17px;

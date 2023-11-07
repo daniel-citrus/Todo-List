@@ -200,6 +200,14 @@ body {
     font-family: var(--font-stack);
 }
 
+h1 {
+    font-size: 4rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
 header {
     display: grid;
     grid-template: auto / auto 1fr;
@@ -211,7 +219,7 @@ header {
     background: var(--primary-color);
 
     .logo {
-        font-size: 2.3rem;
+        font-size: 4rem;
     }
 
     button.mobileNavSwitch {
@@ -319,7 +327,6 @@ header {
     transition: all 0.1s ease-out;
 
     &:hover {
-
         .threedots {
             transition: all 0.1s ease-out;
             border-color: black;
@@ -511,8 +518,8 @@ header {
     gap: 10px;
     border-radius: var(--border-radius);
     cursor: pointer;
+    padding: 10px;
     align-items: center;
-    padding: 5px 10px;
 
     &:hover {
         background: var(--grey-2);
@@ -613,6 +620,11 @@ header {
 }
 
 .tasks {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 5px;
+    padding: 5px 10px;
+    box-sizing: border-box;
     position: absolute;
     overflow-y: auto;
     height: 100%;
@@ -657,6 +669,11 @@ header {
 
     .hidden {
         display: none;
+    }
+
+    .projectTitle {
+        line-height: 2.5rem;
+        padding: 10px;
     }
 
     .task[data-completed="true"] {
@@ -704,8 +721,6 @@ header {
     &>* {
         display: flex;
         flex-flow: column nowrap;
-        gap: 10px;
-        padding: 10px;
     }
 }
 
@@ -792,6 +807,8 @@ Extra large screens, TV – 1201px, and more */
 @media screen and (min-width: 769px) and (min-height: 550px) {
     header {
         grid-template: auto / auto;
+        justify-content: start;
+        padding-left: 15px;
 
         .mobileNavSwitch {
             display: none;
@@ -801,10 +818,6 @@ Extra large screens, TV – 1201px, and more */
     .content {
         display: grid;
         grid-template: auto / minmax(100px, 1fr) 2fr;
-    }
-
-    .main {
-        grid-template: 50px calc(100% - 50px)/auto;
     }
 
     .project,
@@ -821,13 +834,18 @@ Extra large screens, TV – 1201px, and more */
     }
 
     .projects,
-    .tasks {
+    .taskList {
         font-size: 1rem;
         line-height: 1.4rem;
     }
 
     .projects {
         position: static;
+
+        &>button,
+        .defaultButtons>button {
+            height: 25px;
+        }
 
         &.hidden {
             position: static;
@@ -896,6 +914,12 @@ Extra large screens, TV – 1201px, and more */
 
     .tasks {
         position: static;
+
+        &>* {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 900px;
+        }
 
         .completeTask {
             height: 17px;
