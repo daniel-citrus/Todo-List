@@ -208,20 +208,17 @@ h2 {
 }
 
 header {
-  display: grid;
-  grid-template: auto/auto 1fr;
-  justify-items: center;
+  display: flex;
+  flex-flow: row nowrap;
   align-items: center;
   padding: 8px;
-  position: sticky;
-  top: 0;
+  gap: 5px;
   background: var(--primary-color);
 }
 header .logo {
   font-size: 4rem;
 }
 header button.mobileNavSwitch {
-  justify-self: start;
   height: 35px;
   width: 40px;
   padding: 5px 8px;
@@ -256,12 +253,7 @@ header .navSwitchIcon::after {
   top: 6px;
 }
 
-.content {
-  position: relative;
-}
-
 .main {
-  height: 100%;
   display: grid;
   grid-template: auto 1fr/auto;
 }
@@ -536,7 +528,6 @@ header .navSwitchIcon::after {
 .taskDetails {
   min-width: 320px;
   max-width: 700px;
-  box-sizing: border-box;
 }
 .taskDetails div {
   display: flex;
@@ -724,11 +715,6 @@ Extra large screens, TV – 1201px, and more */
   header .mobileNavSwitch {
     display: none;
   }
-  .content {
-    display: grid;
-    grid-template: auto/minmax(100px, 1fr) 2fr;
-    box-sizing: border-box;
-  }
   .project .options,
   .task .options {
     height: 30px;
@@ -742,9 +728,6 @@ Extra large screens, TV – 1201px, and more */
   .taskList {
     font-size: 1rem;
     line-height: 1.4rem;
-  }
-  .projects {
-    position: static;
   }
   .projects > button,
   .projects .defaultButtons > button {
@@ -783,9 +766,6 @@ Extra large screens, TV – 1201px, and more */
     padding: 5px;
     background: var(--grey-1);
   }
-  .tasks {
-    position: static;
-  }
   .tasks > * {
     margin: 0 auto;
     width: 100%;
@@ -811,11 +791,5 @@ Extra large screens, TV – 1201px, and more */
   .tasks .taskCreator {
     background-color: var(--grey-1);
     opacity: 0.2;
-  }
-}
-@media screen and (min-width: 1025px) {
-  .content {
-    display: grid;
-    grid-template: auto/minmax(300px, 1fr) 5fr;
   }
 }

@@ -209,13 +209,11 @@ h2 {
 }
 
 header {
-    display: grid;
-    grid-template: auto / auto 1fr;
-    justify-items: center;
+    display: flex;
+    flex-flow: row nowrap;
     align-items: center;
     padding: 8px;
-    position: sticky;
-    top: 0;
+    gap: 5px;
     background: var(--primary-color);
 
     .logo {
@@ -223,7 +221,6 @@ header {
     }
 
     button.mobileNavSwitch {
-        justify-self: start;
         height: 35px;
         width: 40px;
         padding: 5px 8px;
@@ -266,12 +263,7 @@ header {
     }
 }
 
-.content {
-    position: relative;
-}
-
 .main {
-    height: 100%;
     display: grid;
     grid-template: auto 1fr/auto;
 
@@ -570,7 +562,6 @@ header {
 .taskDetails {
     min-width: 320px;
     max-width: 700px;
-    box-sizing: border-box;
 
     div {
         display: flex;
@@ -815,12 +806,6 @@ Extra large screens, TV – 1201px, and more */
         }
     }
 
-    .content {
-        display: grid;
-        grid-template: auto / minmax(100px, 1fr) 2fr;
-        box-sizing: border-box;
-    }
-
     .project,
     .task {
         .options {
@@ -841,7 +826,6 @@ Extra large screens, TV – 1201px, and more */
     }
 
     .projects {
-        position: static;
 
         &>button,
         .defaultButtons>button {
@@ -914,7 +898,6 @@ Extra large screens, TV – 1201px, and more */
     }
 
     .tasks {
-        position: static;
 
         &>* {
             margin: 0 auto;
@@ -951,8 +934,4 @@ Extra large screens, TV – 1201px, and more */
 }
 
 @media screen and (min-width: 1025px) {
-    .content {
-        display: grid;
-        grid-template: auto/minmax(300px, 1fr) 5fr;
-    }
 }
