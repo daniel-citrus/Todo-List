@@ -59,7 +59,7 @@ export default function () {
         projectContainer.classList.remove('hidden');
     })
 
-    addEventListener('keydown', (e)=> {
+    addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closePopper();
         }
@@ -143,7 +143,7 @@ export default function () {
             focusElement.focus();
             return;
         }
-        
+
         focusElement = elem.querySelector('button');
         if (focusElement) {
             focusElement.focus();
@@ -600,6 +600,9 @@ export default function () {
 
         if (brain.updateProject(+key, projectName.value)) {
             projectContainer.querySelector(`.project[data-id="${key}"] .name`).textContent = projectName.value;
+            if (currentProject == key) {
+                projectTitle.textContent = projectName.value;
+            }
         }
     }
 

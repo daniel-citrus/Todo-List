@@ -73,11 +73,11 @@ export default function ProjectList() {
 
     function updateProjectName(key, name) {
         let projectIndex = getProjectIndex(key);
-
+        
         if (projectIndex === false) {
             return false;
         }
-
+        
         projects[projectIndex].name = name;
         return true;
     }
