@@ -218,6 +218,7 @@ header {
 
     .logo {
         font-size: 4rem;
+        white-space: nowrap;
     }
 
     button.mobileNavSwitch {
@@ -225,6 +226,7 @@ header {
         width: 40px;
         padding: 5px 8px;
         background: var(--primary-color);
+        flex: 0 0 auto;
 
         &:hover {
             background: var(--primary-color-hover);
@@ -669,6 +671,7 @@ header {
     .projectTitle {
         line-height: 2.5rem;
         padding: 10px;
+        white-space: nowrap;
     }
 
     .task[data-completed="true"] {
@@ -905,10 +908,11 @@ Extra large screens, TV – 1201px, and more */
     .tasks {
         position: static;
         height: 100%;
-        
+
         &>* {
             margin: 0 auto;
-            width: 900px;
+            max-width: 900px;
+            width: 100%;
         }
 
         .completeTask {

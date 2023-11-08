@@ -15,7 +15,16 @@ let brain = (() => {
         domControl = DomControl();
         loadData();
         displayAllProjects();
-    })( );
+
+        /* for (let i = 0; i < 200; i++) {
+            createProject(`Project #${i}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`);
+        }
+
+        for (let i = 0; i < 200; i++) {
+            let done = (Math.floor(Math.random() * 2)) ? true : false;
+            createTask(`Task #${i}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`, 'test', new Date(), 1, done);
+        } */
+    })();
 
     function createProject(name) {
         let projectID = projects.addProject(name);
@@ -34,7 +43,7 @@ let brain = (() => {
      * @param {boolean} completed 
      */
     function createTask(title, description, dueDate, priority, completed) {
-        let projectKey = +domControl.getCurrentProject();
+        let projectKey = /* +domControl.getCurrentProject() */ 0;
 
         if (projectKey == NaN || projectKey === false || projectKey === null) {
             console.error(`Invalid Project ID`);
