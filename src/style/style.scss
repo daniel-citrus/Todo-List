@@ -264,9 +264,6 @@ header {
 }
 
 .main {
-    display: grid;
-    grid-template: auto 1fr/auto;
-
     button:hover {
         background: var(--grey-2);
         transition: all 0.1s ease-out;
@@ -348,13 +345,15 @@ header {
 
 .projects {
     position: absolute;
-    padding: 10px;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    overflow-y: auto;
+    height: calc(100% - 80px);
     display: flex;
     flex-flow: column nowrap;
+    justify-content: flex-start;
+    width: 100%;
+    overflow-y: auto;
+
+    padding: 10px;
+    z-index: 1;
     gap: 3px;
     transition: all 0.1s ease-out;
     transform: translateX(0%);
@@ -708,11 +707,6 @@ header {
         text-align: center;
         background-color: var(--grey-1);
     }
-
-    &>* {
-        display: flex;
-        flex-flow: column nowrap;
-    }
 }
 
 .threedots {
@@ -933,5 +927,4 @@ Extra large screens, TV – 1201px, and more */
     }
 }
 
-@media screen and (min-width: 1025px) {
-}
+@media screen and (min-width: 1025px) {}
