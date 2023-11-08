@@ -187,6 +187,7 @@ input {
     --failure-faded: rgb(187, 157, 157);
     --font-stack: poppins_regular, Verdana, sans-serif;
     --form-input-padding: 4px;
+    --header-height: 80px;
 }
 
 @font-face {
@@ -344,7 +345,7 @@ header {
 
 .projects {
     position: absolute;
-    height: calc(100% - 80px); // 80px from header
+    height: calc(100% - var(--header-height));
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
@@ -616,7 +617,7 @@ header {
     box-sizing: border-box;
     position: absolute;
     overflow-y: auto;
-    height: calc(100% - 80px); // 80px from header
+    height: calc(100% - var(--header-height));
     width: 100%;
 
     &>* {
@@ -802,6 +803,12 @@ Extra large screens, TV – 1201px, and more */
         }
     }
 
+    .content {
+        display: grid;
+        grid-template: auto / 300px 1fr;
+        height: calc(100vh - var(--header-height));
+    }
+
     .project,
     .task {
         .options {
@@ -822,6 +829,8 @@ Extra large screens, TV – 1201px, and more */
     }
 
     .projects {
+        position: static;
+        height: 100%;
 
         &>button,
         .defaultButtons>button {
@@ -894,7 +903,11 @@ Extra large screens, TV – 1201px, and more */
     }
 
     .tasks {
+        position: static;
+        height: 100%;
+        
         &>* {
+            margin: 0 auto;
             width: 900px;
         }
 

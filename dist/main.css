@@ -187,6 +187,7 @@ input {
   --failure-faded: rgb(187, 157, 157);
   --font-stack: poppins_regular, Verdana, sans-serif;
   --form-input-padding: 4px;
+  --header-height: 80px;
 }
 
 @font-face {
@@ -325,7 +326,7 @@ header .navSwitchIcon::after {
 
 .projects {
   position: absolute;
-  height: calc(100% - 80px);
+  height: calc(100% - var(--header-height));
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
@@ -571,7 +572,7 @@ header .navSwitchIcon::after {
   box-sizing: border-box;
   position: absolute;
   overflow-y: auto;
-  height: calc(100% - 80px);
+  height: calc(100% - var(--header-height));
   width: 100%;
 }
 .tasks > * {
@@ -709,6 +710,11 @@ Extra large screens, TV – 1201px, and more */
   header .mobileNavSwitch {
     display: none;
   }
+  .content {
+    display: grid;
+    grid-template: auto/300px 1fr;
+    height: calc(100vh - var(--header-height));
+  }
   .project .options,
   .task .options {
     height: 30px;
@@ -722,6 +728,10 @@ Extra large screens, TV – 1201px, and more */
   .taskList {
     font-size: 1rem;
     line-height: 1.4rem;
+  }
+  .projects {
+    position: static;
+    height: 100%;
   }
   .projects > button,
   .projects .defaultButtons > button {
@@ -760,7 +770,12 @@ Extra large screens, TV – 1201px, and more */
     padding: 5px;
     background: var(--grey-1);
   }
+  .tasks {
+    position: static;
+    height: 100%;
+  }
   .tasks > * {
+    margin: 0 auto;
     width: 900px;
   }
   .tasks .completeTask {
