@@ -33,7 +33,7 @@ export default function () {
         contentContainer.appendChild(projectContainer);
 
         taskContainer = buildElement('div', '', 'tasks');
-        projectTitle = buildElement('h2', '', 'projectTitle');
+        projectTitle = buildElement('div', '', 'projectTitle');
         taskContainer.appendChild(projectTitle);
         taskList = buildElement('ul', '', 'taskList');
         taskContainer.appendChild(taskList);

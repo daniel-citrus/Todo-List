@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/daniel-citrus/Task-List">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="src/style/media/double-check%2064x64.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Task List</h3>
@@ -11,7 +11,7 @@
     project_description
     <br />
     <br />
-    <a href="https://github.com/daniel-citrus/Task-List">Live Demo</a>
+    <a href="https://listofthingstodo.netlify.app/">Live Demo</a>
     <br />
   </p>
 </div>
@@ -43,9 +43,13 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Todo List][./src/style/media/double-check.svg]](https://listofthingstodo.netlify.app/)
 
-Task List implements 
+Todo List stores projects and each project can contain their own tasks. Each task will contain a Title, Due Date, Priority Level, Description, and Completion Status.
+
+Tasks objects are stored in a universal task array, their ID numbers represent their index in that array. Each task object also stores their respective Project Key number. Project objects are stored in a universal project array. Project objects contain a project ID number that also represents their index in the project array. All project objects contain a task array that stores the task ID numbers of all tasks that belong to that array.
+
+This application is mobile and computer responsive. For mobile resolutions, the application utilizes a navigation burger to toggle the navigation list. For larger non-mobile resolutions, the content is displayed in a 2 column layout.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

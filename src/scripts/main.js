@@ -16,14 +16,14 @@ let brain = (() => {
         loadData();
         displayAllProjects();
 
-        /* for (let i = 0; i < 200; i++) {
+        for (let i = 0; i < 200; i++) {
             createProject(`Project #${i}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`);
         }
 
         for (let i = 0; i < 200; i++) {
             let done = (Math.floor(Math.random() * 2)) ? true : false;
             createTask(`Task #${i}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`, 'test', new Date(), 1, done);
-        } */
+        }
     })();
 
     function createProject(name) {
@@ -214,6 +214,10 @@ let brain = (() => {
         domControl.sortTasksByDate();
 
         return true;
+    }
+
+    function insertDemo() {
+        
     }
 
     return {
