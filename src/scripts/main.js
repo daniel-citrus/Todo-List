@@ -14,8 +14,17 @@ let brain = (() => {
         projects = ProjectList();
         domControl = DomControl();
 
-        loadData();
-        displayAllProjects();
+        /* loadData();
+        displayAllProjects(); */
+        /* createProject(`Project #0`) */
+        
+        for (let i = 0; i < 100; i++) {
+            createProject(`Project #${i}`)
+           /*  let done = (Math.floor(Math.random() * 2)) ? true : false;
+
+            createTask(`Task #${i}`, `Test Description #${i}`, new Date(), 1, done) */
+        }
+
     })();
 
     let task1 = {
@@ -25,15 +34,6 @@ let brain = (() => {
         priority: 1,
         completed: true,
     };
-
-    let task2 = {
-        title: '10 Chicken Thighs',
-        description: 'Skinned and Boneless',
-        dueDate: new Date(),
-        priority: 1,
-        completed: true,
-    };
-
 
     function createProject(name) {
         let projectID = projects.addProject(name);
@@ -52,7 +52,7 @@ let brain = (() => {
      * @param {boolean} completed 
      */
     function createTask(title, description, dueDate, priority, completed) {
-        let projectKey = +domControl.getCurrentProject();
+        let projectKey = /* +domControl.getCurrentProject() */0;
 
         if (projectKey == NaN || projectKey === false || projectKey === null) {
             console.error(`Invalid Project ID`);
@@ -161,7 +161,7 @@ let brain = (() => {
             deleteData();
             console.log(`Load Failed; Starting Clean`);
         }
-        
+
         saveData();
     }
 
@@ -209,7 +209,7 @@ let brain = (() => {
     function displayProjectTasks(projectID) {
         domControl.clearTaskList();
         let tasks = getProjectTasks(projectID);
-        
+
         tasks.forEach((taskID) => {
             let task = getTaskDetails(taskID);
             if (!task) {
