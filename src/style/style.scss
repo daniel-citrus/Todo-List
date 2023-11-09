@@ -181,6 +181,11 @@ input {
     --primary-color: #3289ef;
     --primary-color-faded: #88a7ca;
     --primary-color-hover: #2566af;
+    --priority-1: #D05056;
+    --priority-2: #F4A259;
+    --priority-3: #FFDB1F;
+    --priority-4: #B7DD68;
+    --priority-5: #55BE56;
     --success: rgb(114, 191, 114);
     --failure: rgb(191, 114, 114);
     --success-faded: rgb(157, 187, 157);
@@ -675,6 +680,43 @@ header {
     .projectTitle {
         line-height: 2.5rem;
         white-space: nowrap;
+        font-size: 2rem;
+    }
+
+    .task[data-priority="1"] {
+        .completeTask {
+            border-color: var(--priority-1);
+        }
+    }
+
+    .task[data-priority="2"] {
+        .completeTask {
+            border-color: var(--priority-2);
+        }
+    }
+
+    .task[data-priority="3"] {
+        .completeTask {
+            border-color: var(--priority-3);
+        }
+    }
+
+    .task[data-priority="4"] {
+        .completeTask {
+            border-color: var(--priority-4);
+        }
+    }
+
+    .task[data-priority="5"] {
+        .completeTask {
+            border-color: var(--priority-5);
+        }
+    }
+
+    .taskCreator {
+        transition: all 0.1s ease-out;
+        text-align: center;
+        background-color: var(--grey-1);
     }
 
     .task[data-completed="true"] {
@@ -691,7 +733,7 @@ header {
         }
 
         .completeTask {
-            border-color: var(--success);
+            border-color: var(--grey-4);
         }
 
         .completeTask:hover {
@@ -699,24 +741,18 @@ header {
             .completeTaskIcon,
             .completeTaskIcon::before {
                 content: '';
-                background: var(--success);
+                background: var(--grey-4);
             }
         }
 
         .completeTaskIcon {
-            background-color: var(--success);
+            background-color: var(--grey-4);
 
             &::before {
                 content: "";
-                background-color: var(--success);
+                background-color: var(--grey-4);
             }
         }
-    }
-
-    .taskCreator {
-        transition: all 0.1s ease-out;
-        text-align: center;
-        background-color: var(--grey-1);
     }
 }
 
@@ -919,9 +955,9 @@ Extra large screens, TV – 1201px, and more */
         }
 
         .completeTask {
-            height: 17px;
-            width: 17px;
-            border: 1px solid var(--grey-5);
+            height: 18px;
+            width: 18px;
+            border: 2px solid var(--grey-5);
         }
 
         .completeTaskIcon {
@@ -938,10 +974,13 @@ Extra large screens, TV – 1201px, and more */
             }
         }
 
+        .projectTitle {
+            font-size: 1.4rem;
+        }
+
         .taskCreator {
             background-color: var(--grey-1);
             opacity: 0.2;
-
         }
     }
 }

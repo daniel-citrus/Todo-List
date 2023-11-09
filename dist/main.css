@@ -181,6 +181,11 @@ input {
   --primary-color: #3289ef;
   --primary-color-faded: #88a7ca;
   --primary-color-hover: #2566af;
+  --priority-1: #D05056;
+  --priority-2: #F4A259;
+  --priority-3: #FFDB1F;
+  --priority-4: #B7DD68;
+  --priority-5: #55BE56;
   --success: rgb(114, 191, 114);
   --failure: rgb(191, 114, 114);
   --success-faded: rgb(157, 187, 157);
@@ -620,6 +625,27 @@ header .navSwitchIcon::after {
 .tasks .projectTitle {
   line-height: 2.5rem;
   white-space: nowrap;
+  font-size: 2rem;
+}
+.tasks .task[data-priority="1"] .completeTask {
+  border-color: var(--priority-1);
+}
+.tasks .task[data-priority="2"] .completeTask {
+  border-color: var(--priority-2);
+}
+.tasks .task[data-priority="3"] .completeTask {
+  border-color: var(--priority-3);
+}
+.tasks .task[data-priority="4"] .completeTask {
+  border-color: var(--priority-4);
+}
+.tasks .task[data-priority="5"] .completeTask {
+  border-color: var(--priority-5);
+}
+.tasks .taskCreator {
+  transition: all 0.1s ease-out;
+  text-align: center;
+  background-color: var(--grey-1);
 }
 .tasks .task[data-completed=true] {
   text-decoration: line-through;
@@ -631,24 +657,19 @@ header .navSwitchIcon::after {
   color: var(--grey-7);
 }
 .tasks .task[data-completed=true] .completeTask {
-  border-color: var(--success);
+  border-color: var(--grey-4);
 }
 .tasks .task[data-completed=true] .completeTask:hover .completeTaskIcon,
 .tasks .task[data-completed=true] .completeTask:hover .completeTaskIcon::before {
   content: "";
-  background: var(--success);
+  background: var(--grey-4);
 }
 .tasks .task[data-completed=true] .completeTaskIcon {
-  background-color: var(--success);
+  background-color: var(--grey-4);
 }
 .tasks .task[data-completed=true] .completeTaskIcon::before {
   content: "";
-  background-color: var(--success);
-}
-.tasks .taskCreator {
-  transition: all 0.1s ease-out;
-  text-align: center;
-  background-color: var(--grey-1);
+  background-color: var(--grey-4);
 }
 
 .threedots {
@@ -785,9 +806,9 @@ Extra large screens, TV – 1201px, and more */
     width: 100%;
   }
   .tasks .completeTask {
-    height: 17px;
-    width: 17px;
-    border: 1px solid var(--grey-5);
+    height: 18px;
+    width: 18px;
+    border: 2px solid var(--grey-5);
   }
   .tasks .completeTaskIcon {
     height: 2px;
@@ -800,6 +821,9 @@ Extra large screens, TV – 1201px, and more */
     left: -2px;
     top: -2px;
     height: 2px;
+  }
+  .tasks .projectTitle {
+    font-size: 1.4rem;
   }
   .tasks .taskCreator {
     background-color: var(--grey-1);
