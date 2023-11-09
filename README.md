@@ -6,10 +6,8 @@
     <img src="src/style/media/double-check%2064x64.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Task List</h3>
+<h3 align="center">Todo List</h3>
   <p align="center">
-    project_description
-    <br />
     <br />
     <a href="https://listofthingstodo.netlify.app/">Live Demo</a>
     <br />
@@ -43,7 +41,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Todo List][./src/style/media/double-check.svg]](https://listofthingstodo.netlify.app/)
+[![Todo List][product-screenshot]](https://listofthingstodo.netlify.app/)
 
 Todo List stores projects and each project can contain their own tasks. Each task will contain a Title, Due Date, Priority Level, Description, and Completion Status.
 
@@ -79,7 +77,7 @@ To setup this project locally you must have Node Package Manager ([npm](https://
 1. Clone the repo
 
    ```sh
-   git clone https://github.com/daniel-citrus/Task-List.git
+   git clone https://github.com/daniel-citrus/Todo-List.git
    ```
 
 2. Install NPM packages
@@ -124,7 +122,7 @@ To setup this project locally you must have Node Package Manager ([npm](https://
     * [x] Delete task
 
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/daniel-citrus/Todo-List/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -157,3 +155,4 @@ Project Link: [https://github.com/daniel-citrus/Task-List](https://github.com/da
 [webpack-url]: https://webpack.js.org/
 [javascript-shield]: https://img.shields.io/badge/Javascript-%232e302c?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E
 [javascript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+<!-- [product-screenshot]:  -->

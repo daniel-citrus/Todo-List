@@ -55,8 +55,7 @@ export default function () {
     })();
 
     addEventListener('DOMContentLoaded', () => {
-        defaultButtons.querySelector('button.allTasks').click();
-        projectContainer.classList.remove('hidden');
+        pressAllTasksButton();
     })
 
     addEventListener('keydown', (e) => {
@@ -64,6 +63,11 @@ export default function () {
             closePopper();
         }
     })
+
+    function pressAllTasksButton() {
+        defaultButtons.querySelector('button.allTasks').click();
+        projectContainer.classList.remove('hidden');
+    }
 
     function createHeader() {
         let header = buildElement('header', '');
@@ -895,6 +899,7 @@ export default function () {
         getCurrentProject,
         insertTask,
         insertProject,
+        pressAllTasksButton,
         selectProject,
         sortTasksByDate,
     }

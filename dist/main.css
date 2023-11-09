@@ -619,7 +619,6 @@ header .navSwitchIcon::after {
 }
 .tasks .projectTitle {
   line-height: 2.5rem;
-  padding: 10px;
   white-space: nowrap;
 }
 .tasks .task[data-completed=true] {

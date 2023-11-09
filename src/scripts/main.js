@@ -13,17 +13,9 @@ let brain = (() => {
         tasks = TaskList();
         projects = ProjectList();
         domControl = DomControl();
+        localStorage.clear();
         loadData();
         displayAllProjects();
-
-        for (let i = 0; i < 200; i++) {
-            createProject(`Project #${i}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`);
-        }
-
-        for (let i = 0; i < 200; i++) {
-            let done = (Math.floor(Math.random() * 2)) ? true : false;
-            createTask(`Task #${i}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`, 'test', new Date(), 1, done);
-        }
     })();
 
     function createProject(name) {
@@ -43,7 +35,7 @@ let brain = (() => {
      * @param {boolean} completed 
      */
     function createTask(title, description, dueDate, priority, completed) {
-        let projectKey = /* +domControl.getCurrentProject() */ 0;
+        let projectKey = +domControl.getCurrentProject();
 
         if (projectKey == NaN || projectKey === false || projectKey === null) {
             console.error(`Invalid Project ID`);
@@ -150,6 +142,7 @@ let brain = (() => {
         }
         else {
             deleteData();
+            insertDemo();
             console.log(`Load Failed; Starting Clean`);
         }
 
@@ -217,7 +210,127 @@ let brain = (() => {
     }
 
     function insertDemo() {
-        
+        let myProjects = [
+            {
+                title: 'Groceries',
+                tasks: [
+                    {
+                        title: 'Fruits',
+                        description: 'Pick your favorite fruits',
+                    },
+                    {
+                        title: 'Vegetables',
+                        description: 'Fibrous and starchy veggies',
+                    },
+                    {
+                        title: 'Chicken',
+                        description: 'Bone-in and skinned chicken thighs',
+                    },
+                    {
+                        title: 'Beef',
+                        description: 'Ribeye Steak',
+                    },
+                    {
+                        title: 'Fish',
+                        description: 'Fresh salmon',
+                    },
+                    {
+                        title: 'Milk',
+                        description: 'Lactose free whole milk',
+                    },
+                ]
+            },
+            {
+                title: 'Prepare for Travel',
+                tasks: [
+                    {
+                        title: 'Clothes',
+                        description: '6 days worth of regular and exercise clothing',
+                    },
+                    {
+                        title: 'Shoes',
+                        description: 'Workout shoes and casual shoes',
+                    },
+                    {
+                        title: 'Purchase tickets',
+                        description: 'Non-stop flights only and check for credit card deals',
+                    },
+                    {
+                        title: 'Car rental',
+                        description: 'Compare prices on Turo, Autoslash, and credit card portals'
+                    },
+                    {
+                        title: 'Friends',
+                        description: 'Schedule friend meetups',
+                    },
+                    {
+                        title: 'Activities',
+                        description: 'Book any additional activities',
+                    }
+                ],
+            },
+            {
+                title: 'Shopping',
+                tasks: [
+                    {
+                        title: 'Boots',
+                        description: 'Waterproof brown boots'
+                    },
+                    {
+                        title: 'Monitor',
+                        description: 'High resolution monitor for work',
+                    },
+                    {
+                        title: 'Windshield wiper fluid',
+                    }
+                ],
+            }
+        ]
+
+        function randomInteger(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+        function randomBoolean() {
+            return !randomInteger(2);
+        }
+
+        function randomPriority() {
+            return randomInteger(5) + 1;
+        }
+
+        function randomDate() {
+            let date = new Date();
+            let days = randomInteger(366);
+
+            if (randomBoolean()) {
+                date.setDate(date.getDate() + days);
+            }
+            else {
+                date.setDate(date.getDate() - days);
+            }
+
+            return date;
+        }
+
+        myProjects.forEach((project) => {
+            let projectID = projects.addProject(project.title);
+
+            project.tasks.forEach((task) => {
+                let inputs = {
+                    projectKey: projectID,
+                    title: task.title,
+                    description: task.description,
+                    dueDate: randomDate(),
+                    priority: randomPriority(),
+                    completed: randomBoolean(),
+                };
+                
+                projects.addTask(projectID, tasks.addTask(inputs));
+            })
+            
+            projects.showProjects()
+        })
     }
 
     return {
