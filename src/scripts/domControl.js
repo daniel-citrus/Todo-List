@@ -3,7 +3,6 @@ let moment = require('moment');
 
 export default function () {
     let mainContainer,
-        header,
         contentContainer,      // Contains project and task containers
         projectContainer,      // Displays projects
         taskContainer,         // Displays all task related items
@@ -21,17 +20,17 @@ export default function () {
     /* Initializer */
     (() => {
         mainContainer = document.querySelector('.main');
-        header = createHeader();
         mainContainer.appendChild(createHeader());
-
+        
         contentContainer = buildElement('div', '', 'content');
         mainContainer.appendChild(contentContainer);
-
+        mainContainer.appendChild(createFooter());
+        
         projectContainer = buildElement('div', '', 'projects');
         defaultButtons = createDefaultButtons();
         projectContainer.appendChild(defaultButtons);
         contentContainer.appendChild(projectContainer);
-
+        
         taskContainer = buildElement('div', '', 'tasks');
         projectTitle = buildElement('div', '', 'projectTitle');
         taskContainer.appendChild(projectTitle);
@@ -41,7 +40,7 @@ export default function () {
         taskButtonHolder.appendChild(createTaskCreatorButton());
         taskContainer.appendChild(taskButtonHolder);
         contentContainer.appendChild(taskContainer);
-
+        
         projectDisplay = createProjectForm();
         taskDisplay = createTaskDisplay();
 
@@ -78,6 +77,18 @@ export default function () {
         header.appendChild(logo);
 
         return header;
+    }
+
+    function createFooter() {
+        let link = buildElement('a', 'daniel-citrus', '');
+        link.href = `https://github.com/daniel-citrus/`;
+        link.target = '_blank';
+        link.title = 'Github: daniel-citrus';
+        let year = new Date().getFullYear();
+        let footer = buildElement('footer', `Copyright © ${year}. `, '');
+        
+        footer.appendChild(link);
+        return footer;
     }
 
     function createProjectCreatorButton() {

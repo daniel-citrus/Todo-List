@@ -193,6 +193,7 @@ input {
     --font-stack: poppins_regular, Verdana, sans-serif;
     --form-input-padding: 4px;
     --header-height: 80px;
+    --footer-height: 40px;
 }
 
 @font-face {
@@ -268,6 +269,20 @@ header {
             top: 6px;
         }
     }
+}
+
+footer {
+    height: var(--footer-height);
+    background: var(--primary-color);
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.content {
+    height: calc(100vh - var(--header-height) - var(--footer-height));
 }
 
 .main {
@@ -352,7 +367,7 @@ header {
 
 .projects {
     position: absolute;
-    height: calc(100% - var(--header-height));
+    height: calc(100% - var(--header-height) - var(--footer-height));
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
@@ -624,7 +639,7 @@ header {
     box-sizing: border-box;
     position: absolute;
     overflow-y: auto;
-    height: calc(100% - var(--header-height));
+    height: calc(100% - var(--header-height) - var(--footer-height));
     width: 100%;
 
     &>* {
@@ -848,7 +863,7 @@ Extra large screens, TV – 1201px, and more */
     .content {
         display: grid;
         grid-template: auto / 300px 1fr;
-        height: calc(100vh - var(--header-height));
+        height: calc(100vh - var(--header-height) - var(--footer-height));
     }
 
     .project,
