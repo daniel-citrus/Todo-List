@@ -785,7 +785,6 @@ export default function () {
         let actions = [
             ['View', displayTaskDetails],
             ['Edit', editTask],
-            /* ['Move', moveTask], */
             ['Delete', deleteTask],
         ]
 

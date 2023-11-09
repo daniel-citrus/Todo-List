@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/daniel-citrus/Task-List">
-    <img src="src/style/media/double-check%2064x64.png" alt="Logo" width="80" height="80">
+    <img src="src/style/media/double-check%20wbg.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Todo List</h3>
@@ -11,6 +11,7 @@
     <br />
     <a href="https://listofthingstodo.netlify.app/">Live Demo</a>
     <br />
+    <a href="https://github.com/daniel-citrus/Task-List">View on Github</a>
   </p>
 </div>
 
@@ -34,18 +35,17 @@
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Todo List][product-screenshot]](https://listofthingstodo.netlify.app/)
+![Todo List][product-screenshot1]
 
-Todo List stores projects and each project can contain their own tasks. Each task will contain a Title, Due Date, Priority Level, Description, and Completion Status.
+![Todo List][product-screenshot2]
 
-Tasks objects are stored in a universal task array, their ID numbers represent their index in that array. Each task object also stores their respective Project Key number. Project objects are stored in a universal project array. Project objects contain a project ID number that also represents their index in the project array. All project objects contain a task array that stores the task ID numbers of all tasks that belong to that array.
+Create projects and tasks. Each project contain their own tasks. Each task will hold a Title, Due Date, Priority Level, Description, and Completion Status.
 
 This application is mobile and computer responsive. For mobile resolutions, the application utilizes a navigation burger to toggle the navigation list. For larger non-mobile resolutions, the content is displayed in a 2 column layout.
 
@@ -137,9 +137,6 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 ## Contact
 
 [![LinkedIn][linkedin-shield]][linkedin-url]
-<br />
-Project Link: [https://github.com/daniel-citrus/Task-List](https://github.com/daniel-citrus/Task-List)
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
@@ -155,4 +152,5 @@ Project Link: [https://github.com/daniel-citrus/Task-List](https://github.com/da
 [webpack-url]: https://webpack.js.org/
 [javascript-shield]: https://img.shields.io/badge/Javascript-%232e302c?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E
 [javascript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
-<!-- [product-screenshot]:  -->
+[product-screenshot1]: /src/style/media/main.png
+[product-screenshot2]: /src/style/media/teskdetails.png
