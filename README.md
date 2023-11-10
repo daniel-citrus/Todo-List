@@ -8,10 +8,7 @@
 
 <h3 align="center">Todo List</h3>
   <p align="center">
-    <br />
     <a href="https://listofthingstodo.netlify.app/">Live Demo</a>
-    <br />
-    <a href="https://github.com/daniel-citrus/Task-List">View on Github</a>
   </p>
 </div>
 
