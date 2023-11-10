@@ -178,9 +178,9 @@ input {
     --grey-11: #525252;
     --border: 1px solid var(--grey-0);
     --border-radius: 5px;
-    --primary-color: #3289ef;
-    --primary-color-faded: #88a7ca;
-    --primary-color-hover: #2566af;
+    --primary-color: #f7bf50;
+    --primary-color-faded: #916d01;
+    --primary-color-hover: #dba73f;
     --priority-1: #D05056;
     --priority-2: #F4A259;
     --priority-3: #FFDB1F;
@@ -218,13 +218,17 @@ header {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    padding: 8px;
+    padding: 5px;
     gap: 8px;
     background: var(--primary-color);
+    font-size: 4rem;
+    white-space: nowrap;
+    height: var(--header-height);
+    box-sizing: border-box;
 
-    .logo {
-        font-size: 4rem;
-        white-space: nowrap;
+    .logoImage {
+        height: 47px;
+        width: auto;
     }
 
     button.mobileNavSwitch {
@@ -274,11 +278,21 @@ header {
 footer {
     height: var(--footer-height);
     background: var(--primary-color);
-    font-size: 1.2rem;
+    font-size: 1.14rem;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 5px;
+
+    .logoImage {
+        transition: all .3s ease-in;
+        transform: rotate(0deg);
+
+        &:hover {
+            transition: all .3s ease-in;
+            transform: rotate(360deg);
+        }
+    }
 }
 
 .content {
@@ -569,7 +583,7 @@ footer {
     }
 
     .dueDate {
-        color: var(--primary-color);
+        color: var(--primary-color-faded);
         font-size: 0.9rem;
     }
 
@@ -853,7 +867,7 @@ Extra large screens, TV – 1201px, and more */
 
 @media screen and (min-width: 769px) and (min-height: 550px) {
     header {
-        padding-left: 5px;
+        padding-left: 15px;
 
         .mobileNavSwitch {
             display: none;

@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/daniel-citrus/Task-List">
-    <img src="src/style/media/double-check%20wbg.png" alt="Logo" width="80" height="80">
+    <img src="src/style/media/todologo.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Todo List</h3>
@@ -152,5 +152,5 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [webpack-url]: https://webpack.js.org/
 [javascript-shield]: https://img.shields.io/badge/Javascript-%232e302c?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E
 [javascript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
-[product-screenshot1]: /src/style/media/main.png
-[product-screenshot2]: /src/style/media/teskdetails.png
+[product-screenshot1]: /src/style/media/sc.png
+[product-screenshot2]: /src/style/media/taskdetails.png

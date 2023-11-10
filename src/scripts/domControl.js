@@ -1,4 +1,6 @@
 import { brain } from './barrel';
+import doubleCheck from '../style/media/double-check.png';
+import github from '../style/media/github-mark.png';
 let moment = require('moment');
 
 export default function () {
@@ -8,7 +10,6 @@ export default function () {
         taskContainer,         // Displays all task related items
         projectTitle,
         taskList,              // Holds list of tasks
-        projectButtons,        // All buttons for creating projects
         popperOverlay,         // Mouse click catcher for pop up menus
         defaultButtons,        // Default buttons (eg. All Tasks, This Week, etc.)
         taskButtonHolder,           // All buttons for creating buttons
@@ -70,22 +71,33 @@ export default function () {
 
     function createHeader() {
         let header = buildElement('header', '');
-
         header.appendChild(createMobileNavSwitch());
 
-        let logo = buildElement('div', 'Todo List', 'logo');
+        let logo = new Image();
+        logo.src = doubleCheck;
+        logo.classList.add('logoImage');
         header.appendChild(logo);
+
+        let logoText = buildElement('div', 'Todo List', 'logoText');
+        header.appendChild(logoText);
 
         return header;
     }
 
     function createFooter() {
-        let link = buildElement('a', 'daniel-citrus', '');
-        link.href = `https://github.com/daniel-citrus/`;
+        let link = buildElement('a', '', '');
+        link.href = `https://github.com/daniel-citrus/Todo-List`;
         link.target = '_blank';
         link.title = 'Github: daniel-citrus';
+
+        let githubLogo = new Image();
+        githubLogo.src = github;
+        githubLogo.alt = 'Github';
+        githubLogo.classList.add('logoImage');
+    
+        link.appendChild(githubLogo);
         let year = new Date().getFullYear();
-        let footer = buildElement('footer', `Copyright © ${year}. `, '');
+        let footer = buildElement('footer', `Copyright © ${year}. daniel-citrus`, '');
         
         footer.appendChild(link);
         return footer;
