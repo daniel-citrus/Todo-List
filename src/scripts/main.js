@@ -13,7 +13,6 @@ let brain = (() => {
         tasks = TaskList();
         projects = ProjectList();
         domControl = DomControl();
-        localStorage.clear();
         loadData();
         displayAllProjects();
     })();
