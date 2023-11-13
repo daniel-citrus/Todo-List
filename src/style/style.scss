@@ -221,14 +221,14 @@ header {
     padding: 5px;
     gap: 8px;
     background: var(--primary-color);
-    font-size: 4rem;
+    font-size: 3rem;
     white-space: nowrap;
     box-sizing: border-box;
     height:var(--header-height);
     z-index: 1;
 
     .logoImage {
-        height: 47px;
+        height: 40px;
         width: auto;
     }
 
